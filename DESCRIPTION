@@ -1,0 +1,18 @@
+Package: CopyNumberPlots
+Type: Package
+Title: Plotting functions for copy number data using karyoploteR
+Version: 0.1.0
+Author: Bernat Gel (bgel@igtp.cat)
+Maintainer: Bernat Gel <bgel@igtp.cat>
+Description: Uses karyoploteR to plot copy number data. Specially useful
+    for SNP-array data
+Depends:
+    R (>= 3.4),
+    karyoploteR
+Imports:
+    regioneR
+License:  Artistic-2.0
+Encoding: UTF-8
+VignetteBuilder: knitr
+LazyData: true
+RoxygenNote: 6.0.1
