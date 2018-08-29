@@ -2,9 +2,12 @@
 
 export(getCopyNumberColors)
 export(loadSNPData)
+export(loadSNPDataFromVCF)
 export(plotBAF)
-export(plotCopyNuymberCalls)
+export(plotCopyNumberCalls)
 export(plotLRR)
+import(VariantAnnotation)
 import(karyoploteR)
+importFrom(IRanges,subsetByOverlaps)
 importFrom(regioneR,toGRanges)
 importFrom(utils,read.table)

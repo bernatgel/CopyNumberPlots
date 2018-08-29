@@ -1,7 +1,7 @@
 Package: CopyNumberPlots
 Type: Package
 Title: Plotting functions for copy number data using karyoploteR
-Version: 0.1.0
+Version: 0.1.1
 Author: Bernat Gel (bgel@igtp.cat)
 Maintainer: Bernat Gel <bgel@igtp.cat>
 Description: Uses karyoploteR to plot copy number data. Specially useful
@@ -10,7 +10,8 @@ Depends:
     R (>= 3.4),
     karyoploteR
 Imports:
-    regioneR
+    regioneR,
+    IRanges
 License:  Artistic-2.0
 Encoding: UTF-8
 VignetteBuilder: knitr
