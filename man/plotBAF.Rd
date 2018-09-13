@@ -48,6 +48,18 @@ Creates a plot with the LRR and BAF values along the genome
 }
 \examples{
 
+pos <- sort(floor(runif(1000, 1, 10000)))
+baf.data <- toGRanges("chr1", pos, pos)
+baf.data$baf <- rnorm(1000, mean = 0.5, sd = 0.05)
+baf.data$baf[1:400] <- baf.data$baf[1:400] + c(0.2, -0.2)
 
+kp <- plotKaryotype(zoom=toGRanges("chr1", 1, 10000))
+plotBAF(kp, baf.data)
+
+
+names(mcols(baf.data)) <- "values"
+kp <- plotKaryotype(zoom=toGRanges("chr1", 1, 10000))
+plotBAF(kp, baf.data, baf.column="values", r0=0, r1=0.5, points.col="red", label="Values")
+plotBAF(kp, baf.data, baf.column=1, r0=0.5, r1=1, points.col="orange", label="First", label.cex=0.8, points.cex=1.4)
 
 }

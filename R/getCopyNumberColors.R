@@ -45,7 +45,7 @@ getCopyNumberColors <- function(colors=NULL) {
     if(colors=="green_orange_red") {
       return(green_orange_red)
     } else {
-      if(color=="red_blue") {
+      if(colors=="red_blue") {
         return(red_blue)
       }
     }

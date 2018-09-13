@@ -23,5 +23,20 @@ Plots the segments
 \examples{
 
 
+gg <- filterChromosomes(getGenome("hg19"))
+
+scnas <- createRandomRegions(40, 10e6, 10e6)
+scnas$cn <- floor(runif(40, 0, 4))
+normal.regs <- subtractRegions(gg, scnas)
+normal.regs$cn <- 2
+scnas <- sort(c(scnas, normal.regs))
+scnas$loh <- ifelse(scnas$cn<2, TRUE, FALSE)
+
+kp <- plotKaryotype("hg19")
+plotCopyNumberCalls(kp, scnas)
+
+kp <- plotKaryotype("hg19")
+plotCopyNumberCalls(kp, scnas, cn.colors="red_blue")
+
 
 }

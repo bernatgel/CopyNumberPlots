@@ -7,6 +7,8 @@
 plotCopyNumberSummary()
 }
 \arguments{
+\item{karyoplot}{the karyoplot object}
+
 \item{cn.calls}{(list) a LIST of cn.calls objects!}
 }
 \value{
@@ -16,7 +18,7 @@ functions
 }
 \description{
 Plot a summary of copy number status over a number of samples using a
-"histogram-like" representation.
+histogram-like representation.
 }
 \details{
 2 types of plots. Convergent or divergent barplots

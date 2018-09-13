@@ -48,6 +48,18 @@ Creates a plot with the LRR values along the genome
 }
 \examples{
 
+pos <- floor(runif(1000, 1, 10000))
+lrr.data <- toGRanges("chr1", pos, pos)
+lrr.data$lrr <- rnorm(1000, mean = 0, sd = 0.3)
+
+kp <- plotKaryotype(zoom=toGRanges("chr1", 1, 10000))
+plotLRR(kp, lrr.data)
+
+
+names(mcols(lrr.data)) <- "values"
+kp <- plotKaryotype(zoom=toGRanges("chr1", 1, 10000))
+plotLRR(kp, lrr.data, lrr.column="values", r0=0, r1=0.5, points.col="red", label="Values")
+plotLRR(kp, lrr.data, lrr.column=1, r0=0.5, r1=1, points.col="orange", label="First", label.cex=0.8, points.cex=1.4)
 
 
 }
