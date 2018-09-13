@@ -64,8 +64,6 @@ plotCopyNumberCalls <- function(karyoplot, cn.calls, cn.colors=NULL, loh.color="
     return(invisible(karyoplot))
   }
 
-  message(labels)
-
   if(is.null(lab2.cex)) lab2.cex <- lab.cex
 
   segment.colors <- getCopyNumberColors(cn.colors)
