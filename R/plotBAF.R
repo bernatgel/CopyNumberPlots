@@ -6,7 +6,7 @@
 #' @details
 #' Creates a plot with the LRR and BAF values along the genome
 #'
-#' @usage plotSNPData(snps, main="Raw Data", chromosomes="canonical", zoom=NULL, lrr.min=-4, lrr.max=2, total.height=1, bottom=0, margin=0.05, points.cex=0.3, labels.cex=1.5, main.cex=2, axis.cex=1.2, chr.cex=1.5)
+#' @usage plotSNPData(snps, main="Raw Data", chromosomes="canonical", zoom=NULL, lrr.min=-4, lrr.max=2, total.height=1, bottom=0, margin=0.05, points.cex=0.3, labels.cex=1.5, main.cex=2, axis.cex=1.2, chr.cex=1.5, ...)
 #'
 #' @param snps The SNP array data
 #' @param main (defaults to "Raw Data")
@@ -50,7 +50,7 @@
 #'
 
 
-plotBAF <- function(karyoplot, snps, baf.column="baf", label="BAF", r0=0, r1=1, points.cex=0.3, points.col="#333333", points.pch=16, label.cex=1.5, label.srt=90, label.margin=0.03, axis.cex=1.2) {
+plotBAF <- function(karyoplot, snps, baf.column="baf", label="BAF", r0=0, r1=1, points.cex=0.3, points.col="#333333", points.pch=16, label.cex=1.5, label.srt=90, label.margin=0.03, axis.cex=1.2, ...) {
 
   snps <- regioneR::toGRanges(snps)
 
