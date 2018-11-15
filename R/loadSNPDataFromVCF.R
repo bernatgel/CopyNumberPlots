@@ -30,6 +30,8 @@
 #'
 #' @export loadSNPDataFromVCF
 #' @import VariantAnnotation
+#' @import Rsamtools TabixFile
+#' @import SummarizedExperiment rowRanges
 
 #Read a VCF file and extract coverage (LRR) and frequency (BAF) information from it
 loadSNPDataFromVCF <- function(vcf.file, genome="hg19", randomize.baf=TRUE, verbose=TRUE) {
@@ -39,7 +41,7 @@ loadSNPDataFromVCF <- function(vcf.file, genome="hg19", randomize.baf=TRUE, verb
   if(!("AD" %in% row.names(geno(vcf.header)))) stop("The VCF file does not have the AD field in genotype. BAF/LRR computation from FREQ and DP still not implemented.")
 
   #TODO: Should we accept a GRanges to scan only specific regions of the file? (for zooming, etc...)
-  vars <- readVcf(file=TabixFile(vcf.file), genome = "hg19", param = ScanVcfParam(info=NA, geno = "AD"))
+  vars <- readVcf(file=Rsamtools::TabixFile(vcf.file), genome = "hg19", param = ScanVcfParam(info=NA, geno = "AD"))
 
   #TODO: Remove the indels?
 
@@ -56,7 +58,7 @@ loadSNPDataFromVCF <- function(vcf.file, genome="hg19", randomize.baf=TRUE, verb
     lrr <- log(lrr/mean(lrr))
 
   #Build the GRanges
-  vars <- rowRanges(vars)
+  vars <- SummarizedExperiment::rowRanges(vars)
   mcols(vars) <- data.frame(baf=baf, lrr=lrr)
 
   if(randomize.baf==TRUE) {
