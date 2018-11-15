@@ -1,4 +1,4 @@
-#' plotSNPData
+#' plotBAF
 #'
 #' @description
 #' Plots the raw SNP array data using karyoploteR

@@ -48,7 +48,30 @@
 
 
 
-plotCopyNumberCallsAsLines <- function(karyoplot, cn.calls, style="line", cn.column="cn", label="", lab.cex=1, axis=TRUE, axis.cex=1, numticks=NULL, col="black", ymin=NULL, ymax=NULL, ...) {
+plotCopyNumberCallsAsLines <- function(karyoplot, cn.calls, style="line", cn.column="cn", label="", lab.cex=1, axis=TRUE, axis.cex=1, numticks=NULL, col="black", ymin=NULL, ymax=NULL, r0=0, r1=1, ...) {
+
+
+  #If cn.calls is a list, call this same function with each single element to actually produce the plot. Use autotrack to set the appropiate r0 and r1 values.
+  if(methods::is(cn.calls, "list")) {
+    for(i in seq_len(length(cn.calls))) {
+      if(methods::is(labels, "list")) labels <- as.character(unlist(labels))
+      if(length(labels)==length(cn.calls)) { #If there are as many labels as samples, assume each label should be used for one track
+        lab <- labels[i]
+      } else {
+        lab <- labels[1]
+      }
+      rr <- karyoploteR::autotrack(current.track=i, total.tracks=length(cn.calls), r0=r0, r1=r1)
+      plotCopyNumberCallsAsLines(karyoplot, cn.calls[[i]], r0=rr$r0, r1=rr$r1,
+                          labels = lab, lab.cex = lab.cex, style=style,
+                          cn.column=cn.column, axis=axis, axis.cex=axis.cex, numticks=numticks,
+                          col=col, ymin=ymin, ymax=ymax, ...)
+    }
+    return(invisible(karyoplot))
+  }
+
+
+
+
 
   style <- match.arg(style, choices = c("line", "segments"))
 

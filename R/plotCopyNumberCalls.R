@@ -47,16 +47,17 @@
 
 plotCopyNumberCalls <- function(karyoplot, cn.calls, cn.colors=NULL, loh.color="#1E90FF", labels="", lab.cex=1, lab2.cex=NULL, loh.height=0.3, r0=0, r1=1, ...) {
 
-
+  #If cn.calls is a list, call this same function with each single element to actually produce the plot. Use autotrack to set the appropiate r0 and r1 values.
   if(methods::is(cn.calls, "list")) {
     for(i in seq_len(length(cn.calls))) {
-      if(is.list(labels) && length(labels)==length(cn.calls)) { #If labels are a list, assume each label should be used for one track
-        lab <- labels[[i]]
+      if(methods::is(labels, "list")) labels <- as.character(unlist(labels)) #If labels are a list, make them a vector
+      if(length(labels)==length(cn.calls)) { #If there are as many labels as samples, assume each label should be used for one track
+        lab <- labels[i]
       } else {
-        lab <- labels
+        lab <- labels[1]
       }
-      rr <- karyoploteR::processAutotrack(r0=r0, r1=r1, autotrack = list(i, length(cn.calls)))
-      plotCopyNumberCalls(karyoplot, cn.calls[[i]], r0=rr["r0"], r1=rr["r1"],
+      rr <- karyoploteR::autotrack(current.track=i, total.tracks=length(cn.calls), r0=r0, r1=r1)
+      plotCopyNumberCalls(karyoplot, cn.calls[[i]], r0=rr$r0, r1=rr$r1,
                           cn.colors = cn.colors, loh.color = loh.color,
                           labels = lab, lab.cex = lab.cex, lab2.cex = lab2.cex,
                           loh.height = loh.height, ...)
