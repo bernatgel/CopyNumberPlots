@@ -4,11 +4,41 @@
 #' Plot the segments representing the copy number calls by any algorithm
 #'
 #' @details
-#' Plots the segments
+#' Plots the copy number calls as colored rectangles in the karyoplot. Each
+#' copy number status has its own color (including 2n, normal genome) and
+#' these colors may be specified by cn.colors. If LOH data is available
+#' it will be plotted below the copy number data, with a colored rectangle
+#' for every LOH region. The input is simply a GRanges object with an
+#' additional column containing the copy number status (as integers) and
+#' optionally another column containing the LOH status of each region.
 #'
-#' @usage plotCopyNumberCalls()
+#' If there's only one label, it will be used to label both Copy Number and
+#' LOH. If there are at least two labels, the first one is used to label the
+#' Copy Number and the second one to labvel the LOH.
+#'
+#' If the function is called with a list of GRanges it plots every GRanges
+#' independently as different tracks one below the other. Track positioning is
+#' based on `autotrack` and the margin between track is controlled by
+#' `track.margin`.
+#'
+#'
+#' @usage plotCopyNumberCalls(karyoplot, cn.calls, cn.column="cn", cn.colors=NULL,
+#'  loh.column="loh", loh.color="#1E90FF", loh.height=0.3, labels="", lab.cex=1,
+#'   lab2.cex=NULL, track.margin=0.01, r0=0, r1=1, ...)
 #'
 #' @param karyoplot
+#' @param cn.calls
+#' @param cn.column (defaults to "cn")
+#' @param cn.colors (defaults to NULL)
+#' @param loh.column (defaults to "loh")
+#' @param loh.color (defaults to "#1E90FF")
+#' @param loh.height (defaults to 0.3)
+#' @param labels (defaults to "")
+#' @param lab.cex (defaults to 1)
+#' @param lab2.cex (defaults to NULL)
+#' @param r0 (defaults to 0)
+#' @param r1 (defaults to 1)
+#' @param ...
 #'
 #'
 #' @return
@@ -45,7 +75,10 @@
 
 
 
-plotCopyNumberCalls <- function(karyoplot, cn.calls, cn.colors=NULL, loh.color="#1E90FF", labels="", lab.cex=1, lab2.cex=NULL, loh.height=0.3, r0=0, r1=1, ...) {
+plotCopyNumberCalls <- function(karyoplot, cn.calls, cn.column="cn", cn.colors=NULL,
+                                loh.column="loh", loh.color="#1E90FF", loh.height=0.3,
+                                labels="", lab.cex=1, lab2.cex=NULL,
+                                track.margin=0.01, r0=0, r1=1, ...) {
 
   #If cn.calls is a list, call this same function with each single element to actually produce the plot. Use autotrack to set the appropiate r0 and r1 values.
   if(methods::is(cn.calls, "list")) {
@@ -56,7 +89,7 @@ plotCopyNumberCalls <- function(karyoplot, cn.calls, cn.colors=NULL, loh.color="
       } else {
         lab <- labels[1]
       }
-      rr <- karyoploteR::autotrack(current.track=i, total.tracks=length(cn.calls), r0=r0, r1=r1)
+      rr <- karyoploteR::autotrack(current.track=i, total.tracks=length(cn.calls), margin = track.margin, r0=r0, r1=r1)
       plotCopyNumberCalls(karyoplot, cn.calls[[i]], r0=rr$r0, r1=rr$r1,
                           cn.colors = cn.colors, loh.color = loh.color,
                           labels = lab, lab.cex = lab.cex, lab2.cex = lab2.cex,
