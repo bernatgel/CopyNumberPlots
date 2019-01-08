@@ -4,12 +4,38 @@
 \alias{plotCopyNumberSummary}
 \title{plotCopyNumberSummary}
 \usage{
-plotCopyNumberSummary()
+plotCopyNumberSummary(karyoplot, cn.calls, direction="in",  gain.color=NULL, normal.color=NULL, loss.color=NULL, add.grid=FALSE, grid.color="white", label="", lab.cex=1, lab.srt=0, pos=2, r0=0, r1=1, ...)
 }
 \arguments{
 \item{karyoplot}{the karyoplot object}
 
 \item{cn.calls}{(list) a LIST of cn.calls objects!}
+
+\item{direction}{(defaults to "in")}
+
+\item{gain.color}{(defaults to NULL)}
+
+\item{normal.color}{(defaults to NULL)}
+
+\item{loss.color}{(defaults to NULL)}
+
+\item{add.grid}{(defaults to FALSE)}
+
+\item{grid.color}{(defaults to "white")}
+
+\item{label}{(defaults to "")}
+
+\item{lab.cex}{(defaults to 1)}
+
+\item{lab.srt}{(defaults to 0)}
+
+\item{pos}{(defaults to 2)}
+
+\item{r0}{(defaults to 0)}
+
+\item{r1}{(defaults to 1)}
+
+\item{...}{additional params}
 }
 \value{
 Invisibly returns the karyoplot object representing the plot. With it

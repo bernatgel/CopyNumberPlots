@@ -7,13 +7,13 @@
 loadSNPDataFromVCF(vcf.file, genome="hg19", randomize.baf=TRUE, verbose=TRUE)
 }
 \arguments{
+\item{vcf.file}{The name of the file with the data}
+
 \item{genome}{The name of the genome (default to "hg19")}
 
 \item{randomize.baf}{Flip the baf of about half the snps (the ones in odd positions in the genome) to achieve a mirror-like effect as in SNP arrays (defaults to TRUE)}
 
 \item{verbose}{Wether information messages should be generated. (default to TRUE)}
-
-\item{snps.file}{The name of the file with the data}
 }
 \value{
 A GRanges object with a range per SNP

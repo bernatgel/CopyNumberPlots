@@ -7,11 +7,23 @@
 #' @details
 #' 2 types of plots. Convergent or divergent barplots
 #'
-#' @usage plotCopyNumberSummary()
+#' @usage plotCopyNumberSummary(karyoplot, cn.calls, direction="in",  gain.color=NULL, normal.color=NULL, loss.color=NULL, add.grid=FALSE, grid.color="white", label="", lab.cex=1, lab.srt=0, pos=2, r0=0, r1=1, ...)
 #'
 #' @param karyoplot the karyoplot object
 #' @param cn.calls (list) a LIST of cn.calls objects!
-#'
+#' @param direction (defaults to "in")
+#' @param gain.color (defaults to NULL)
+#' @param normal.color (defaults to NULL)
+#' @param loss.color (defaults to NULL)
+#' @param add.grid (defaults to FALSE)
+#' @param grid.color (defaults to "white")
+#' @param label (defaults to "")
+#' @param lab.cex (defaults to 1)
+#' @param lab.srt (defaults to 0)
+#' @param pos (defaults to 2)
+#' @param r0 (defaults to 0)
+#' @param r1 (defaults to 1)
+#' @param ... additional params
 #'
 #' @return
 #' Invisibly returns the karyoplot object representing the plot. With it
@@ -47,7 +59,7 @@
 #'
 #' @export plotCopyNumberSummary
 #'
-#'
+#' @importFrom GenomicRanges GRangesList
 
 
 plotCopyNumberSummary <- function(karyoplot, cn.calls, direction="in",  gain.color=NULL, normal.color=NULL, loss.color=NULL, add.grid=FALSE, grid.color="white", label="", lab.cex=1, lab.srt=0, pos=2, r0=0, r1=1, ...) {
@@ -64,26 +76,26 @@ plotCopyNumberSummary <- function(karyoplot, cn.calls, direction="in",  gain.col
   }
 
 
-  all.cn <-  unlist(GRangesList(cn.calls))
+  all.cn <-  unlist(GenomicRanges::GRangesList(cn.calls))
   if(direction=="in") {
-    kpDataBackground(karyoplot, r0=r0, r1=r1, col=normal.color)
-    kpPlotCoverage(karyoplot, all.cn[all.cn$cn>2], col=gain.color,  r0=r1, r1=r0, ymax=length(cn.calls), ...)
-    kpPlotCoverage(karyoplot, all.cn[all.cn$cn<2], col=loss.color, r0=r0, r1=r1, ymax=length(cn.calls), ...)
+    karyoploteR::kpDataBackground(karyoplot, r0=r0, r1=r1, col=normal.color)
+    karyoploteR::kpPlotCoverage(karyoplot, all.cn[all.cn$cn>2], col=gain.color,  r0=r1, r1=r0, ymax=length(cn.calls), ...)
+    karyoploteR::kpPlotCoverage(karyoplot, all.cn[all.cn$cn<2], col=loss.color, r0=r0, r1=r1, ymax=length(cn.calls), ...)
     if(add.grid==TRUE) {
-      kpAbline(karyoplot, h=0:length(cn.calls), col=grid.color, r0=r0, r1=r1, ymax=length(cn.calls), ...)
+      karyoploteR::kpAbline(karyoplot, h=0:length(cn.calls), col=grid.color, r0=r0, r1=r1, ymax=length(cn.calls), ...)
     }
   } else {
     mid <- r0+(r1-r0)/2
-    kpPlotCoverage(karyoplot, all.cn[all.cn$cn>2], col=gain.color,  r0=mid, r1=r1, ymax=length(cn.calls), ...)
-    kpPlotCoverage(karyoplot, all.cn[all.cn$cn<2], col=loss.color, r0=mid, r1=r0, ymax=length(cn.calls), ...)
+    karyoploteR::kpPlotCoverage(karyoplot, all.cn[all.cn$cn>2], col=gain.color,  r0=mid, r1=r1, ymax=length(cn.calls), ...)
+    karyoploteR::kpPlotCoverage(karyoplot, all.cn[all.cn$cn<2], col=loss.color, r0=mid, r1=r0, ymax=length(cn.calls), ...)
     if(add.grid==TRUE) {
-      kpAbline(karyoplot, h=0:length(cn.calls), col=grid.color, r0=mid, r1=r1, ymax=length(cn.calls), ...)
-      kpAbline(karyoplot, h=0:length(cn.calls), col=grid.color, r0=mid, r1=r0, ymax=length(cn.calls), ...)
+      karyoploteR::kpAbline(karyoplot, h=0:length(cn.calls), col=grid.color, r0=mid, r1=r1, ymax=length(cn.calls), ...)
+      karyoploteR::kpAbline(karyoplot, h=0:length(cn.calls), col=grid.color, r0=mid, r1=r0, ymax=length(cn.calls), ...)
     }
   }
 
   if(nchar(label)>0) {
-    kpAddLabels(karyoplot, labels = label, r0=r0, r1=r1, cex=lab.cex, srt=lab.srt, pos=pos, ...)
+    karyoploteR::kpAddLabels(karyoplot, labels = label, r0=r0, r1=r1, cex=lab.cex, srt=lab.srt, pos=pos, ...)
   }
 
   invisible(karyoplot)

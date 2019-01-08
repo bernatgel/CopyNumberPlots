@@ -4,14 +4,10 @@
 \alias{plotBAF}
 \title{plotBAF}
 \usage{
-plotBAF(karyoplot, snps, baf.column = "baf", label = "BAF",
-  points.cex = 0.3, points.col = "#333333", points.pch = 16,
-  label.cex = 1.5, label.srt = 90, label.margin = 0.03, add.axis = TRUE,
-  axis.cex = 1.2, r0 = 0, r1 = 1, data.panel = 1, autotrack = NULL,
-  ...)
+plotBAF(karyoplot, snps, baf.column="baf", label="BAF", points.cex=0.3, points.col="#333333", points.pch=16, label.cex=1.5, label.srt=90, label.margin=0.03, add.axis=TRUE, axis.cex=1.2, r0=0, r1=1, data.panel=1, ...)
 }
 \arguments{
-\item{karyoplot}{(a KaryoPlot object) The object returned by the \code{\link{karyoploteR::plotKaryotype}} function and representing the current active plot.}
+\item{karyoplot}{(a KaryoPlot object) The object returned by the \code{\link[karyoploteR]{plotKaryotype}} function and representing the current active plot.}
 
 \item{snps}{(a GRanges) A GRanges object with the positions of the SNPs and a column with the BAF values. Other columns are ignored.}
 
@@ -41,8 +37,6 @@ plotBAF(karyoplot, snps, baf.column = "baf", label = "BAF",
 
 \item{data.panel}{(numeric) (karyoploteR parameter) The identifier of the data panel where the data is to be plotted. The available data panels depend on the plot type selected in the call to \code{\link{plotKaryotype}}. (defaults to 1)}
 
-\item{autotrack}{(list of numerics) (karyoploteR parameter) a list numerics with 2 or 3 elements. The first element is the tracks to use with the current plot, the second element is the total number of tracks and the third element is the margin to leave over each track. If the first element, the current track, has more than one element, the plot will span from track min(autotrack[[1]]) to track max(autotrack[[1]]). The margin is specified as the part of a track, by default 0.05, 5 percent of the track height. If NULL, no autotracks will be used. (defaults to NULL)}
-
 \item{...}{The ellipsis operator can be used to specify any additional graphical parameters. Any additional parameter will be passed to the internal calls to karyoploteR functions.}
 }
 \value{
@@ -60,8 +54,8 @@ the minor allele) in the sample and usually come from SNP-array. However,
 it's possible to get similar values from NGS variant calling data.
 The function plots the data points, an optional axis and an optional label identifying the data.
 The function expects a GRanges object with the position of the SNPs with a column
-(usually named 'baf') with the BAF values or any object valid to \code{\link{regioneR::toGRanges}}. This object can be created with
-\code\link{loadSNPData}.
+(usually named 'baf') with the BAF values or any object valid to \code{\link[regioneR]{toGRanges}}. This object can be created with
+\code{\link{loadSNPData}}.
 }
 \examples{
 

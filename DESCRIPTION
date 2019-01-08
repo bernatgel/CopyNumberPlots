@@ -11,9 +11,19 @@ Depends:
     karyoploteR
 Imports:
     regioneR,
-    IRanges
+    IRanges,
+    Rsamtools,
+    SummarizedExperiment,
+    VariantAnnotation,
+    methods,
+    stats,
+    GenomeInfoDb,
+    GenomicRanges
+Suggests:
+    BiocStyle,
+    knitr
 License: Artistic-2.0
 Encoding: UTF-8
 VignetteBuilder: knitr
 LazyData: true
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1

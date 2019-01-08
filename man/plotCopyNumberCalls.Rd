@@ -4,10 +4,38 @@
 \alias{plotCopyNumberCalls}
 \title{plotCopyNumberCalls}
 \usage{
-plotCopyNumberCalls()
+plotCopyNumberCalls(karyoplot, cn.calls, cn.column="cn", cn.colors=NULL,
+ loh.column="loh", loh.color="#1E90FF", loh.height=0.3, labels="", lab.cex=1,
+  lab2.cex=NULL, track.margin=0.01, r0=0, r1=1, ...)
 }
 \arguments{
-\item{karyoplot}{}
+\item{karyoplot}{A karyoplote object}
+
+\item{cn.calls}{The CN calls to plot}
+
+\item{cn.column}{(defaults to "cn")}
+
+\item{cn.colors}{(defaults to NULL)}
+
+\item{loh.column}{(defaults to "loh")}
+
+\item{loh.color}{(defaults to "#1E90FF")}
+
+\item{loh.height}{(defaults to 0.3)}
+
+\item{labels}{(defaults to "")}
+
+\item{lab.cex}{(defaults to 1)}
+
+\item{lab2.cex}{(defaults to NULL)}
+
+\item{track.margin}{(deafults to 0.01)}
+
+\item{r0}{(defaults to 0)}
+
+\item{r1}{(defaults to 1)}
+
+\item{...}{Additional params}
 }
 \value{
 Invisibly returns the karyoplot object representing the plot. With it
@@ -18,7 +46,22 @@ functions
 Plot the segments representing the copy number calls by any algorithm
 }
 \details{
-Plots the segments
+Plots the copy number calls as colored rectangles in the karyoplot. Each
+copy number status has its own color (including 2n, normal genome) and
+these colors may be specified by cn.colors. If LOH data is available
+it will be plotted below the copy number data, with a colored rectangle
+for every LOH region. The input is simply a GRanges object with an
+additional column containing the copy number status (as integers) and
+optionally another column containing the LOH status of each region.
+
+If there's only one label, it will be used to label both Copy Number and
+LOH. If there are at least two labels, the first one is used to label the
+Copy Number and the second one to labvel the LOH.
+
+If the function is called with a list of GRanges it plots every GRanges
+independently as different tracks one below the other. Track positioning is
+based on `autotrack` and the margin between track is controlled by
+`track.margin`.
 }
 \examples{
 

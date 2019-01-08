@@ -33,8 +33,9 @@
 #'
 #'
 #' @export loadSNPData
-#' @importFrom regioneR toGRanges
+#' @importFrom regioneR toGRanges filterChromosomes
 #' @importFrom utils read.table
+#' @importFrom GenomeInfoDb seqlevelsStyle
 #'
 
 #Read the SNPs raw data file, identify the relevant columns
@@ -81,7 +82,7 @@ loadSNPData <- function(snps.file, genome="hg19", chr.col=NULL, pos.col=NULL, ba
     names(snps) <- c("chr", "start", "end", "baf", "lrr")
   }
   snps <- regioneR::toGRanges(snps)
-  seqlevelsStyle(snps) <- "UCSC"
+  GenomeInfoDb::seqlevelsStyle(snps) <- "UCSC"
 
   if(verbose==TRUE) message("Removing SNPs with NA values...")
   baf.is.na <- is.na(snps$baf)
@@ -91,10 +92,12 @@ loadSNPData <- function(snps.file, genome="hg19", chr.col=NULL, pos.col=NULL, ba
 
   if(verbose==TRUE) message("Removing SNPs out of the canonical chromosomes...")
   length.before <- length(snps)
-  snps <- filterChromosomes(snps, organism = genome, chr.type = "canonical")
+  snps <- regioneR::filterChromosomes(snps, organism = genome, chr.type = "canonical")
   if(verbose==TRUE) message("Removed ", length.before - length(snps), " SNPs in non-canonical chromosomes")
 
   snps <- sort(snps)
+
+  #TODO: Set it to the original seqlevelsStyle?
 
   return(snps)
 }

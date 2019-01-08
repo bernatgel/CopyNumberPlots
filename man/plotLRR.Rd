@@ -4,36 +4,54 @@
 \alias{plotLRR}
 \title{plotLRR}
 \usage{
-plotSNPData(snps, main="Raw Data", chromosomes="canonical", zoom=NULL, lrr.min=-4, lrr.max=2, total.height=1, bottom=0, margin=0.05, points.cex=0.3, labels.cex=1.5, main.cex=2, axis.cex=1.2, chr.cex=1.5)
+plotLRR(karyoplot, snps, lrr.column="lrr", label="LRR", ymin=-4, ymax=2, out.of.range = "points", out.of.range.col="red", density.height=0.05, density.window=1e5,
+               line.at.0 = TRUE, line.at.0.col="blue", r0=0, r1=1, points.cex=0.3, points.col="#333333",
+               points.pch=16, label.cex=1.5, label.srt=90, label.margin=0.03, axis.cex=1.2, ...)
 }
 \arguments{
-\item{snps}{The SNP array data}
+\item{karyoplot}{the karyoplot}
+
+\item{snps}{the data}
+
+\item{lrr.column}{(defaults to "lrr")}
+
+\item{label}{(defaults to "LRR")}
+
+\item{ymin}{(defaults to -4)}
+
+\item{ymax}{(defaults to 2)}
+
+\item{out.of.range}{(defaults to  "points")}
+
+\item{out.of.range.col}{(defaults to "red")}
+
+\item{density.height}{(defaults to 0.05)}
+
+\item{density.window}{(defaults to 1e5)}
+
+\item{line.at.0}{(defaults to  TRUE)}
+
+\item{line.at.0.col}{(defaults to "blue")}
+
+\item{r0}{(defaults to 0)}
+
+\item{r1}{(defaults to 1)}
 
 \item{points.cex}{(defaults to 0.3)}
 
+\item{points.col}{(defaults to "#333333")}
+
+\item{points.pch}{(defaults to 16)}
+
+\item{label.cex}{(defaults to 1.5)}
+
+\item{label.srt}{(defaults to 90)}
+
+\item{label.margin}{(defaults to 0.03)}
+
 \item{axis.cex}{(defaults to 1.2)}
 
-\item{main}{(defaults to "Raw Data")}
-
-\item{chromosomes}{(defaults to "canonical")}
-
-\item{zoom}{(defaults to NULL)}
-
-\item{lrr.min}{(defaults to -4)}
-
-\item{lrr.max}{(defaults to 2)}
-
-\item{total.height}{(defaults to 1)}
-
-\item{bottom}{(defaults to 0)}
-
-\item{margin}{(defaults to 0.05)}
-
-\item{labels.cex}{(defaults to 1.5)}
-
-\item{main.cex}{(defaults to 2)}
-
-\item{chr.cex}{(defaults to 1.5)}
+\item{...}{Additional params}
 }
 \value{
 Invisibly returns the karyoplot object representing the plot. With it

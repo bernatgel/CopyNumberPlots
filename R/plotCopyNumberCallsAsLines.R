@@ -6,9 +6,23 @@
 #' @details
 #' Plots the segments
 #'
-#' @usage plotCopyNumberCalls()
+#' @usage plotCopyNumberCallsAsLines(karyoplot, cn.calls, style="line", cn.column="cn", label="", lab.cex=1, axis=TRUE, axis.cex=1, numticks=NULL, col="black", ymin=NULL, ymax=NULL, r0=0, r1=1, ...)
 #'
-#' @param karyoplot
+#' @param karyoplot The karyoplot
+#' @param cn.calls  The data
+#' @param style (defaults to "line")
+#' @param cn.column (defaults to "cn")
+#' @param label (defaults to "")
+#' @param lab.cex (defaults to 1)
+#' @param axis (defaults to TRUE)
+#' @param axis.cex (defaults to 1)
+#' @param numticks (defaults to NULL)
+#' @param col (defaults to "black")
+#' @param ymin (defaults to NULL)
+#' @param ymax (defaults to NULL)
+#' @param r0 (defaults to 0)
+#' @param r1 (defaults to 1)
+#' @param ... additional params
 #'
 #'
 #' @return
@@ -46,8 +60,6 @@
 
 
 
-
-
 plotCopyNumberCallsAsLines <- function(karyoplot, cn.calls, style="line", cn.column="cn", label="", lab.cex=1, axis=TRUE, axis.cex=1, numticks=NULL, col="black", ymin=NULL, ymax=NULL, r0=0, r1=1, ...) {
 
 
@@ -75,29 +87,29 @@ plotCopyNumberCallsAsLines <- function(karyoplot, cn.calls, style="line", cn.col
 
   style <- match.arg(style, choices = c("line", "segments"))
 
-  if(is.null(ymin)) ymin <- min(mcols(cn.calls)[,cn.column])
-  if(is.null(ymax)) ymax <- max(mcols(cn.calls)[,cn.column])
+  if(is.null(ymin)) ymin <- min(GenomicRanges::mcols(cn.calls)[,cn.column])
+  if(is.null(ymax)) ymax <- max(GenomicRanges::mcols(cn.calls)[,cn.column])
 
   if(style=="line") {
     starts <- cn.calls
-    end(starts) <- start(starts)
+    GenomicRanges::end(starts) <- GenomicRanges::start(starts)
     ends <- cn.calls
-    start(ends) <- end(ends)
+    GenomicRanges::start(ends) <- GenomicRanges::end(ends)
     cn.calls <- sort(c(starts, ends))
 
     cn.calls <- sort(cn.calls)
 
-    kpLines(karyoplot, data=cn.calls, y=mcols(cn.calls)[,cn.column], ymin=ymin, ymax=ymax, col=col, ...)
+    karyoploteR::kpLines(karyoplot, data=cn.calls, y=GenomicRanges::mcols(cn.calls)[,cn.column], ymin=ymin, ymax=ymax, col=col, ...)
   } else { #Plot as segments (without the vertical lines between them)
-    kpSegments(karyoplot, data=cn.calls, y0=mcols(cn.calls)[,cn.column], y1=mcols(cn.calls)[,cn.column], ymin=ymin, ymax=ymax, col=col,...)
+    karyoploteR::kpSegments(karyoplot, data=cn.calls, y0=GenomicRanges::mcols(cn.calls)[,cn.column], y1=GenomicRanges::mcols(cn.calls)[,cn.column], ymin=ymin, ymax=ymax, col=col,...)
   }
 
   if(axis==TRUE) {
     if(is.null(numticks)) numticks <- ymax-ymin+1
-    kpAxis(karyoplot, ymin=ymin, ymax=ymax, cex=axis.cex, numticks=numticks, ...)
+    karyoploteR::kpAxis(karyoplot, ymin=ymin, ymax=ymax, cex=axis.cex, numticks=numticks, ...)
   }
   if(!is.null(label) & nchar(label)>0) {
-    kpAddLabels(karyoplot, labels = label, cex=lab.cex, ...)
+    karyoploteR::kpAddLabels(karyoplot, labels = label, cex=lab.cex, ...)
   }
 
   invisible(karyoplot)

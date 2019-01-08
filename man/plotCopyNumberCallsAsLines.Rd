@@ -4,10 +4,38 @@
 \alias{plotCopyNumberCallsAsLines}
 \title{plotCopyNumberCallsAsLines}
 \usage{
-plotCopyNumberCalls()
+plotCopyNumberCallsAsLines(karyoplot, cn.calls, style="line", cn.column="cn", label="", lab.cex=1, axis=TRUE, axis.cex=1, numticks=NULL, col="black", ymin=NULL, ymax=NULL, r0=0, r1=1, ...)
 }
 \arguments{
-\item{karyoplot}{}
+\item{karyoplot}{The karyoplot}
+
+\item{cn.calls}{The data}
+
+\item{style}{(defaults to "line")}
+
+\item{cn.column}{(defaults to "cn")}
+
+\item{label}{(defaults to "")}
+
+\item{lab.cex}{(defaults to 1)}
+
+\item{axis}{(defaults to TRUE)}
+
+\item{axis.cex}{(defaults to 1)}
+
+\item{numticks}{(defaults to NULL)}
+
+\item{col}{(defaults to "black")}
+
+\item{ymin}{(defaults to NULL)}
+
+\item{ymax}{(defaults to NULL)}
+
+\item{r0}{(defaults to 0)}
+
+\item{r1}{(defaults to 1)}
+
+\item{...}{additional params}
 }
 \value{
 Invisibly returns the karyoplot object representing the plot. With it

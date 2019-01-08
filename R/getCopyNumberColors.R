@@ -23,11 +23,11 @@
 #'
 #' @examples
 #'
-#' getCopyNumberColors()
+#' #getCopyNumberColors()
 #'
-#' getCopyNumberColors("red_blue")
+#' #getCopyNumberColors("red_blue")
 #'
-#' getCopyNumberColors(c("red", "#FFAAAA", "gray", "#AAAAFF", "#5555FF", "#0000FF"))
+#' #getCopyNumberColors(c("red", "#FFAAAA", "gray", "#AAAAFF", "#5555FF", "#0000FF"))
 #'
 #' @export getCopyNumberColors
 #'
@@ -38,8 +38,8 @@ getCopyNumberColors <- function(colors=NULL) {
   if(is.null(colors)) colors <- "green_orange_red"
 
   #Define the different palettes
-  green_orange_red <- setNames(c("darkgreen", "lightgreen", "gray","#FFD700", "#FFA500", "#EE7600", "#FF4500", "#CD0000", "#8B0000", "#0D0D0D"), as.character(0:8))
-  red_blue <- setNames(c("#EE0000", "#FFC1C1", "#E0E0E0", "#B2DFEE", "#87CEFA", "#1E90FF", "#0000FF"), c(0:6))
+  green_orange_red <- stats::setNames(c("darkgreen", "lightgreen", "gray","#FFD700", "#FFA500", "#EE7600", "#FF4500", "#CD0000", "#8B0000", "#0D0D0D"), as.character(0:8))
+  red_blue <- stats::setNames(c("#EE0000", "#FFC1C1", "#E0E0E0", "#B2DFEE", "#87CEFA", "#1E90FF", "#0000FF"), c(0:6))
 
   if(is.character(colors) && length(colors)==1) {
     if(colors=="green_orange_red") {
@@ -51,8 +51,8 @@ getCopyNumberColors <- function(colors=NULL) {
     }
   } else {
     #assume colors is a valid
-    if(all(is.color(colors))) {
-      return(setNames(colors, seq_len(length(colors))))
+    if(all(karyoploteR::is.color(colors))) {
+      return(stats::setNames(colors, seq_len(length(colors))))
     }
   }
 
@@ -61,13 +61,15 @@ getCopyNumberColors <- function(colors=NULL) {
   return(green_orange_red)
 }
 
-#From the "network" package
-is.color<-function(x){
-  xic<-rep(FALSE,length(x))         #Assume not a color by default
-  xc<-sapply(x,is.character)        #Must be a character string
-  #For characters, must be a named color or a #RRGGBB/#RRGGBBAA sequence
-  xic[xc]<-(x[xc]%in%colors()) | ((nchar(x[xc])%in%c(7,9))&(substr(x[xc],1,1)=="#"))
-  xic[is.na(x)]<-NA                 #Missing counts as missing
-  #Return the result
-  xic
-}
+
+# Deprecated. Now using the is-color function in karyoploteR
+# #From the "network" package
+# is.color<-function(x){
+#   xic<-rep(FALSE,length(x))         #Assume not a color by default
+#   xc<-sapply(x,is.character)        #Must be a character string
+#   #For characters, must be a named color or a #RRGGBB/#RRGGBBAA sequence
+#   xic[xc]<-(x[xc]%in%colors()) | ((nchar(x[xc])%in%c(7,9))&(substr(x[xc],1,1)=="#"))
+#   xic[is.na(x)]<-NA                 #Missing counts as missing
+#   #Return the result
+#   xic
+# }

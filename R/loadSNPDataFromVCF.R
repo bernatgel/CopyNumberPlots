@@ -16,7 +16,7 @@
 #'
 #' @usage loadSNPDataFromVCF(vcf.file, genome="hg19", randomize.baf=TRUE, verbose=TRUE)
 #'
-#' @param snps.file The name of the file with the data
+#' @param vcf.file The name of the file with the data
 #' @param genome The name of the genome (default to "hg19")
 #' @param randomize.baf Flip the baf of about half the snps (the ones in odd positions in the genome) to achieve a mirror-like effect as in SNP arrays (defaults to TRUE)
 #' @param verbose Wether information messages should be generated. (default to TRUE)
@@ -29,25 +29,26 @@
 #'
 #'
 #' @export loadSNPDataFromVCF
-#' @import VariantAnnotation
-#' @import Rsamtools TabixFile
-#' @import SummarizedExperiment rowRanges
+#' @importFrom VariantAnnotation readVcf ScanVcfParam scanVcfHeader geno
+#' @importFrom Rsamtools TabixFile
+#' @importFrom SummarizedExperiment rowRanges
+#' @importFrom GenomicRanges start
 
 #Read a VCF file and extract coverage (LRR) and frequency (BAF) information from it
 loadSNPDataFromVCF <- function(vcf.file, genome="hg19", randomize.baf=TRUE, verbose=TRUE) {
   if(verbose==TRUE) message("Scanning file ", vcf.file, "...")
 
-  vcf.header <- scanVcfHeader(vcf.file)
-  if(!("AD" %in% row.names(geno(vcf.header)))) stop("The VCF file does not have the AD field in genotype. BAF/LRR computation from FREQ and DP still not implemented.")
+  vcf.header <- VariantAnnotation::scanVcfHeader(vcf.file)
+  if(!("AD" %in% row.names(VariantAnnotation::geno(vcf.header)))) stop("The VCF file does not have the AD field in genotype. BAF/LRR computation from FREQ and DP still not implemented.")
 
   #TODO: Should we accept a GRanges to scan only specific regions of the file? (for zooming, etc...)
-  vars <- readVcf(file=Rsamtools::TabixFile(vcf.file), genome = "hg19", param = ScanVcfParam(info=NA, geno = "AD"))
+  vars <- VariantAnnotation::readVcf(file=Rsamtools::TabixFile(vcf.file), genome = "hg19", param = VariantAnnotation::ScanVcfParam(info=NA, geno = "AD"))
 
-  #TODO: Remove the indels?
+  #TODO: Remove the indels? Or at least make sure the frequency is correct
 
   #BAF
     #Compute the freq
-    ad <- geno(vars)$AD
+    ad <- VariantAnnotation::geno(vars)$AD
     ad.ref <- unlist(lapply(ad, "[", 1))
     ad.alt <- unlist(lapply(ad, "[", 2))
 
@@ -59,11 +60,12 @@ loadSNPDataFromVCF <- function(vcf.file, genome="hg19", randomize.baf=TRUE, verb
 
   #Build the GRanges
   vars <- SummarizedExperiment::rowRanges(vars)
-  mcols(vars) <- data.frame(baf=baf, lrr=lrr)
+  GenomicRanges::mcols(vars) <- data.frame(baf=baf, lrr=lrr)
 
   if(randomize.baf==TRUE) {
-    #flip the frequency of half the SNPs to achieve the same mirroring option we see in SNP-arrays
-    odd.pos <- start(vars) %% 2 == 1
+    #flip the frequency of every other SNP to achieve the same mirroring effect
+    #we see in SNP-arrays
+    odd.pos <- GenomicRanges::start(vars) %% 2 == 1
     vars[odd.pos]$baf <- 1 - vars[odd.pos]$baf
   }
 
