@@ -52,7 +52,7 @@ getCopyNumberColors <- function(colors=NULL) {
   } else {
     #assume colors is a valid
     if(all(karyoploteR::is.color(colors))) {
-      return(stats::setNames(colors, seq_len(length(colors))))
+      return(stats::setNames(colors, seq_len(length(colors))-1))
     }
   }
 
@@ -61,15 +61,3 @@ getCopyNumberColors <- function(colors=NULL) {
   return(green_orange_red)
 }
 
-
-# Deprecated. Now using the is-color function in karyoploteR
-# #From the "network" package
-# is.color<-function(x){
-#   xic<-rep(FALSE,length(x))         #Assume not a color by default
-#   xc<-sapply(x,is.character)        #Must be a character string
-#   #For characters, must be a named color or a #RRGGBB/#RRGGBBAA sequence
-#   xic[xc]<-(x[xc]%in%colors()) | ((nchar(x[xc])%in%c(7,9))&(substr(x[xc],1,1)=="#"))
-#   xic[is.na(x)]<-NA                 #Missing counts as missing
-#   #Return the result
-#   xic
-# }
