@@ -22,14 +22,17 @@
 #' `track.margin`.
 #'
 #'
-#' @usage plotCopyNumberCalls(karyoplot, cn.calls, cn.column="cn", cn.colors=NULL,
-#'  loh.column="loh", loh.color="#1E90FF", loh.height=0.3, labels="", lab.cex=1,
-#'   lab2.cex=NULL, track.margin=0.01, r0=0, r1=1, ...)
+#' @usage plotCopyNumberCalls(karyoplot, cn.calls, cn.values=NULL, cn.column="cn", cn.colors=NULL,
+#'                            loh.values=NULL, loh.column="loh", loh.color="#1E90FF", loh.height=0.3,
+#'                            labels="", lab.cex=1, lab2.cex=NULL,
+#'                            track.margin=0.01, r0=0, r1=1, ...)
 #'
 #' @param karyoplot A karyoplote object
 #' @param cn.calls The CN calls to plot
+#' @param cn.values The CN values. If NULL, they will be extracted from the cn.calls (defaults to NULL)
 #' @param cn.column (defaults to "cn")
 #' @param cn.colors (defaults to NULL)
+#' @param loh.values The CN values. If NULL, they will be extracted from the cn.calls (defaults to NULL)
 #' @param loh.column (defaults to "loh")
 #' @param loh.color (defaults to "#1E90FF")
 #' @param loh.height (defaults to 0.3)
@@ -76,8 +79,8 @@
 
 
 
-plotCopyNumberCalls <- function(karyoplot, cn.calls, cn.column="cn", cn.colors=NULL,
-                                loh.column="loh", loh.color="#1E90FF", loh.height=0.3,
+plotCopyNumberCalls <- function(karyoplot, cn.calls, cn.values=NULL, cn.column="cn", cn.colors=NULL,
+                                loh.values=NULL, loh.column="loh", loh.color="#1E90FF", loh.height=0.3,
                                 labels="", lab.cex=1, lab2.cex=NULL,
                                 track.margin=0.01, r0=0, r1=1, ...) {
 
@@ -92,6 +95,8 @@ plotCopyNumberCalls <- function(karyoplot, cn.calls, cn.column="cn", cn.colors=N
       }
       rr <- karyoploteR::autotrack(current.track=i, total.tracks=length(cn.calls), margin = track.margin, r0=r0, r1=r1)
       plotCopyNumberCalls(karyoplot, cn.calls[[i]], r0=rr$r0, r1=rr$r1,
+                          cn.values=cn.values, loh.values=loh.values,
+                          cn.column=cn.column, loh.column = loh.column,
                           cn.colors = cn.colors, loh.color = loh.color,
                           labels = lab, lab.cex = lab.cex, lab2.cex = lab2.cex,
                           loh.height = loh.height, ...)
@@ -108,7 +113,19 @@ plotCopyNumberCalls <- function(karyoplot, cn.calls, cn.column="cn", cn.colors=N
   plot.region <- karyoplot$plot.region
   segments <- IRanges::subsetByOverlaps(cn.calls, plot.region)
 
-  seg.cols <- segment.colors[as.character(cn.calls$cn)]
+
+  if(is.null(cn.values)) {
+    if(length(mcols(cn.calls))==0) stop("No cn.values given and cn.calls has no associated copy number data")
+    #If no name for the copy number column was specified, use the first one
+    if(is.null(cn.column)) {
+      cn.values <- names(mcols(cn.calls))[1]
+    } else {
+      if(!(cn.column %in% names(mcols(cn.calls)))) stop("The cn.calls object does not have a column ", cn.column, ". No copy number data is available")
+      cn.values <- mcols(cn.calls)[, cn.column]
+    }
+  }
+
+  seg.cols <- segment.colors[as.character(cn.values)]
 
 
   karyoploteR::kpRect(karyoplot, data=cn.calls, y0=loh.height, y1=1, col=seg.cols, r0=r0, r1=r1, border=NA, ...)
