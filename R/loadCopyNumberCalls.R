@@ -28,7 +28,7 @@
 #' @param verbose Wether information messages should be generated. (default to TRUE)
 #'
 #' @return
-#' A GRanges object with a range per SNP
+#' A GRanges object with a range per copy number segment
 #'
 #' @examples
 #'
@@ -37,62 +37,7 @@
 #' @export loadCopyNumberCalls
 
 
-#Function used in loadSNPData. Make it an internal function shared by both functions
-
-getColumn <- function(col, pattern, df, msg.col.name, needed=TRUE) {
-  col.num <- integer(0)
-  if(is.null(col)) {
-    col.num <- which(grepl(names(df), pattern = pattern))[1]
-  } else {
-    if(is.numeric(col)) {
-      col.num <- col
-    } else {
-      if(is.character(col))  {
-        col.num <- which(names(df)==col)
-      }
-    }
-  }
-  if(is.na(col.num) || length(col.num)==0) {
-    if(needed==TRUE) {
-      stop("The column ", msg.col.name, " was not found in the data")
-    } else {
-      col.num <- NULL
-    }
-  }
-  return(col.num)
-}
-
-#return the column representing the chromosomes
-getChrColumn <- function(chr.col, df, needed=TRUE) {
-  return(getColumn(chr.col, "Chr|chr", df, "Chromosome", needed=needed))
-}
-
-getPosColumn <- function(pos.col, df, needed=TRUE) {
-  return(getColumn(pos.col, "Position|Pos|pos|loc|maploc", df, "Position",needed=needed))
-}
-
-getStartColumn <- function(start.col, df, needed=TRUE) {
-  return(getColumn(pos.col, "Start|start|First|first|Begin|begin", df, "Start",needed=needed))
-}
-
-getEndColumn <- function(end.col, df, needed=TRUE) {
-  return(getColumn(end.col, "End|end|Last|last", df, "End", needed=needed))
-}
-
-getCopyNumberColumn <- function(cn.col, df, needed=TRUE) {
-  return(getColumn(cn.col, "CN|cn|Copy|copy", df, "Copy Number", needed=needed))
-}
-
-getLOHColumn <- function(loh.col, df, needed=TRUE) {
-  return(getColumn(cn.col, "LOH|Loh|loh|Loss|loss", df, "LOH", needed=needed))
-}
-
-getSegmentValueColumn <- function(segment.value.col, df, needed=TRUE) {
-  return(getColumn(cn.col, "Value|value|mean|median|ratio", df, "Segment Value", needed=needed))
-}
-
-
-
+#IDEA: create a function to make every part of the genome not covered by  the segments, a 2n segment. Do NOT call it from here automagically.
 
 loadCopyNumberCalls <- function(cnv.data, chr.col=NULL, start.col=NULL, end.col=NULL, cn.col=NULL, loh.col=NULL, segment.value.col=NULL, genome=NULL, verbose=TRUE) {
   #If its a file, try to load it
@@ -125,20 +70,14 @@ loadCopyNumberCalls <- function(cnv.data, chr.col=NULL, start.col=NULL, end.col=
   #If we are here, we have a GRanges with our data
     #identify the columns we want
     #Copy Number
-      cn.col <- getCopyNumberColumn(cn.col, mcols(segs), needed=FALSE)
+      cn.col <- getCopyNumberColumn(mcols(segs), cn.col,needed=FALSE)
       if(!is.null(cn.col)) names(mcols(segs))[cn.col] <- "cn"
     #LOH
-      loh.col <- getLOHColumn(loh.col, mcols(segs), needed=FALSE)
+      loh.col <- getLOHColumn(mcols(segs), loh.col, needed=FALSE)
       if(!is.null(loh.col)) names(mcols(segs))[loh.col] <- "loh"
     #Segment Value
-      segment.value.col <- getSegmentValueColumn(segment.value.col, mcols(segs), needed = FALSE)
+      segment.value.col <- getSegmentValueColumn(mcols(segs), segment.value.col, needed = FALSE)
       if(!is.null(segment.value.col)) names(mcols(segs))[segment.value.col] <- "segment.value"
 
   return(segs)
 }
-
-Fer una funcio per a fer 2n el que no tingui segments. Afegir com a pas extra aqui? Hauria de deixar totes les columnes no conegudes com a NA
-
-Les funcions específiques de paquet podrien dependre d aquesta amb paràmetres prefixats per a reduïr codi i augmentar funcionalitat
-
-loadCopyNumberCalls(cnv.data)

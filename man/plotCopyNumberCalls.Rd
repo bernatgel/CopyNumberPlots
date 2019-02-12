@@ -4,18 +4,23 @@
 \alias{plotCopyNumberCalls}
 \title{plotCopyNumberCalls}
 \usage{
-plotCopyNumberCalls(karyoplot, cn.calls, cn.column="cn", cn.colors=NULL,
- loh.column="loh", loh.color="#1E90FF", loh.height=0.3, labels="", lab.cex=1,
-  lab2.cex=NULL, track.margin=0.01, r0=0, r1=1, ...)
+plotCopyNumberCalls(karyoplot, cn.calls, cn.values=NULL, cn.column="cn", cn.colors=NULL,
+                           loh.values=NULL, loh.column="loh", loh.color="#1E90FF", loh.height=0.3,
+                           labels="", lab.cex=1, lab2.cex=NULL,
+                           track.margin=0.01, r0=0, r1=1, ...)
 }
 \arguments{
 \item{karyoplot}{A karyoplote object}
 
 \item{cn.calls}{The CN calls to plot}
 
+\item{cn.values}{The CN values. If NULL, they will be extracted from the cn.calls (defaults to NULL)}
+
 \item{cn.column}{(defaults to "cn")}
 
 \item{cn.colors}{(defaults to NULL)}
+
+\item{loh.values}{The CN values. If NULL, they will be extracted from the cn.calls (defaults to NULL)}
 
 \item{loh.column}{(defaults to "loh")}
 
