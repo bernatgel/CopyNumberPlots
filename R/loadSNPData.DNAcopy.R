@@ -1,4 +1,5 @@
 
+#' importFrom stats setNames
 
 loadSNPData.DNAcopy <- function(snp.data) {
   if(methods::is(snp.data, "DNAcopy")) { #The results object from DNAcopy includes the input object. Extract it
@@ -8,7 +9,7 @@ loadSNPData.DNAcopy <- function(snp.data) {
     samples <- names(snp.data)
     samples <- samples[!(samples %in% c("chrom", "maploc"))]
 
-    sample.data <- setNames(data.frame(snp.data[[samples]], stringsAsFactors = FALSE), samples)
+    sample.data <- stats::setNames(data.frame(snp.data[[samples]], stringsAsFactors = FALSE), samples)
 
     snps <-  toGRanges(cbind(chr=snp.data$chrom, start=snp.data$maploc, end=snp.data$maploc, sample.data, stringsAsFactors=FALSE))
 

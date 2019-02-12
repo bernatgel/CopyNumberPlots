@@ -26,13 +26,16 @@
 #'
 #' @examples
 #'
+#' df <- data.frame("chromosome"="chr1", "Start"=0, "end.position"=100,
+#'  "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
+#'  "strange.name"="strange.value")
+#'
 #' getColumn(df, pattern="Chr|chr",  msg.col.name="Chromosome", needed=TRUE)
 #' getColumn(df, col="chromosome",  msg.col.name="Chromosome", needed=TRUE)
 #'
 #' @export getColumn
 
 
-#Function used in loadSNPData. Make it an internal function shared by both functions
 
 getColumn <- function(df, col=NULL, pattern="",  msg.col.name="", needed=TRUE) {
   col.num <- integer(0)
@@ -82,7 +85,9 @@ getColumn <- function(df, col=NULL, pattern="",  msg.col.name="", needed=TRUE) {
 #' The number of the column matching the specification or NULL if no column was found.
 #'
 #' @examples
-#'
+#' df <- data.frame("chromosome"="chr1", "Start"=0, "end.position"=100,
+#'  "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
+#'  "strange.name"="strange.value")
 #' getChrColumn(df)
 #' getChrColumn(df, "strange.name")
 #'
@@ -111,6 +116,9 @@ getChrColumn <- function(df, col=NULL, needed=TRUE) {
 #'
 #' @examples
 #'
+#' df <- data.frame("chromosome"="chr1", "Start"=0, "end.position"=100,
+#'  "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
+#'  "strange.name"="strange.value")
 #' getPosColumn(df)
 #' getPosColumn(df, "strange.name")
 #'
@@ -138,7 +146,9 @@ getPosColumn <- function(df, col=NULL, needed=TRUE) {
 #' The number of the column matching the specification or NULL if no column was found.
 #'
 #' @examples
-#'
+#' df <- data.frame("chromosome"="chr1", "Start"=0, "end.position"=100,
+#'  "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
+#'  "strange.name"="strange.value")
 #' getStartColumn(df)
 #' getStartColumn(df, "strange.name")
 #'
@@ -167,6 +177,9 @@ getStartColumn <- function(df, col=NULL, needed=TRUE) {
 #'
 #' @examples
 #'
+#' df <- data.frame("chromosome"="chr1", "Start"=0, "end.position"=100,
+#'  "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
+#'  "strange.name"="strange.value")
 #' getEndColumn(df)
 #' getEndColumn(df, "strange.name")
 #'
@@ -196,6 +209,9 @@ getEndColumn <- function(df, col=NULL, needed=TRUE) {
 #'
 #' @examples
 #'
+#' df <- data.frame("chromosome"="chr1", "Start"=0, "end.position"=100,
+#'  "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
+#'  "strange.name"="strange.value")
 #' getCopyNumberColumn(df)
 #' getCopyNumberColumn(df, "strange.name")
 #'
@@ -224,6 +240,9 @@ getCopyNumberColumn <- function(df, col=NULL, needed=TRUE) {
 #'
 #' @examples
 #'
+#' df <- data.frame("chromosome"="chr1", "Start"=0, "end.position"=100,
+#'  "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
+#'  "strange.name"="strange.value")
 #' getLOHColumn(df)
 #' getLOHColumn(df, "strange.name")
 #'
@@ -251,7 +270,10 @@ getLOHColumn <- function(df, col=NULL, needed=TRUE) {
 #' The number of the column matching the specification or NULL if no column was found.
 #'
 #' @examples
-#'
+#' 
+#' df <- data.frame("chromosome"="chr1", "Start"=0, "end.position"=100,
+#'  "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
+#'  "strange.name"="strange.value")
 #' getSegmentValueColumn(df)
 #' getSegmentValueColumn(df, "strange.name")
 #'

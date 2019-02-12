@@ -16,11 +16,12 @@
 #' The returned GRanges will have the chromosome names following the UCSC style
 #' irrespective of the original format.
 #'
-#' @usage loadCopyNumberCalls(cnv.data, chr.col=NULL, pos.col=NULL, cn.col=NULL, loh.col=NULL, segment.value.col=NULL, genome=NULL, verbose=TRUE)
+#' @usage loadCopyNumberCalls(cnv.data, chr.col=NULL, start.col=NULL, end.col=NULL, cn.col=NULL, loh.col=NULL, segment.value.col=NULL, genome=NULL, verbose=TRUE)
 #'
-#' @param snps.file The name of the file with the data
+#' @param cnv.data The name of the file with the data
 #' @param chr.col The name or number of the column with chromosome information. If NULL, it is automatically identified. (default to NULL)
-#' @param pos.col The name or number of the column with position information. If NULL, it is automatically identified. (default to NULL)
+#' @param start.col The name or number of the column with start position information. If NULL, it is automatically identified. (default to NULL)
+#' @param end.col The name or number of the column with end position information. If NULL, it is automatically identified. (default to NULL)
 #' @param cn.col The name or number of the column with BAF information. If NULL, it is automatically identified. (default to NULL)
 #' @param loh.col The name or number of the column with LRR information. If NULL, it is automatically identified. (default to NULL)
 #' @param segment.value.col The name or number of the column with SNP identifier information. If NULL, it is automatically identified. (default to NULL)
@@ -35,6 +36,8 @@
 #'
 #'
 #' @export loadCopyNumberCalls
+#'
+#' @importFrom GenomicRanges mcols
 
 
 #IDEA: create a function to make every part of the genome not covered by  the segments, a 2n segment. Do NOT call it from here automagically.
@@ -70,14 +73,14 @@ loadCopyNumberCalls <- function(cnv.data, chr.col=NULL, start.col=NULL, end.col=
   #If we are here, we have a GRanges with our data
     #identify the columns we want
     #Copy Number
-      cn.col <- getCopyNumberColumn(mcols(segs), cn.col,needed=FALSE)
-      if(!is.null(cn.col)) names(mcols(segs))[cn.col] <- "cn"
+      cn.col <- getCopyNumberColumn(GenomicRanges::mcols(segs), cn.col,needed=FALSE)
+      if(!is.null(cn.col)) names(GenomicRanges::mcols(segs))[cn.col] <- "cn"
     #LOH
-      loh.col <- getLOHColumn(mcols(segs), loh.col, needed=FALSE)
-      if(!is.null(loh.col)) names(mcols(segs))[loh.col] <- "loh"
+      loh.col <- getLOHColumn(GenomicRanges::mcols(segs), loh.col, needed=FALSE)
+      if(!is.null(loh.col)) names(GenomicRanges::mcols(segs))[loh.col] <- "loh"
     #Segment Value
-      segment.value.col <- getSegmentValueColumn(mcols(segs), segment.value.col, needed = FALSE)
-      if(!is.null(segment.value.col)) names(mcols(segs))[segment.value.col] <- "segment.value"
+      segment.value.col <- getSegmentValueColumn(GenomicRanges::mcols(segs), segment.value.col, needed = FALSE)
+      if(!is.null(segment.value.col)) names(GenomicRanges::mcols(segs))[segment.value.col] <- "segment.value"
 
   return(segs)
 }

@@ -4,10 +4,16 @@
 \alias{loadCopyNumberCalls}
 \title{loadCopyNumberCalls}
 \usage{
-loadCopyNumberCalls(cnv.data, chr.col=NULL, pos.col=NULL, cn.col=NULL, loh.col=NULL, segment.value.col=NULL, genome=NULL, verbose=TRUE)
+loadCopyNumberCalls(cnv.data, chr.col=NULL, start.col=NULL, end.col=NULL, cn.col=NULL, loh.col=NULL, segment.value.col=NULL, genome=NULL, verbose=TRUE)
 }
 \arguments{
+\item{cnv.data}{The name of the file with the data}
+
 \item{chr.col}{The name or number of the column with chromosome information. If NULL, it is automatically identified. (default to NULL)}
+
+\item{start.col}{The name or number of the column with start position information. If NULL, it is automatically identified. (default to NULL)}
+
+\item{end.col}{The name or number of the column with end position information. If NULL, it is automatically identified. (default to NULL)}
 
 \item{cn.col}{The name or number of the column with BAF information. If NULL, it is automatically identified. (default to NULL)}
 
@@ -18,10 +24,6 @@ loadCopyNumberCalls(cnv.data, chr.col=NULL, pos.col=NULL, cn.col=NULL, loh.col=N
 \item{genome}{The name of the genome (default to NULL)}
 
 \item{verbose}{Wether information messages should be generated. (default to TRUE)}
-
-\item{snps.file}{The name of the file with the data}
-
-\item{pos.col}{The name or number of the column with position information. If NULL, it is automatically identified. (default to NULL)}
 }
 \value{
 A GRanges object with a range per copy number segment

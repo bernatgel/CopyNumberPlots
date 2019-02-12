@@ -32,6 +32,10 @@ if a column with that exact name exists and return its position.
 }
 \examples{
 
+df <- data.frame("chromosome"="chr1", "Start"=0, "end.position"=100,
+ "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
+ "strange.name"="strange.value")
+
 getColumn(df, pattern="Chr|chr",  msg.col.name="Chromosome", needed=TRUE)
 getColumn(df, col="chromosome",  msg.col.name="Chromosome", needed=TRUE)
 

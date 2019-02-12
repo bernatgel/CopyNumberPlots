@@ -24,7 +24,9 @@ Identify the column of a data.frame that contains the chromosome
 information and return its position
 }
 \examples{
-
+df <- data.frame("chromosome"="chr1", "Start"=0, "end.position"=100,
+ "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
+ "strange.name"="strange.value")
 getChrColumn(df)
 getChrColumn(df, "strange.name")
 
