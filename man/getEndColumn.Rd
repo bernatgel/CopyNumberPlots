@@ -25,9 +25,9 @@ information and return its position
 }
 \examples{
 
-df <- data.frame("chromosome"="chr1", "Start"=0, "end.position"=100,
- "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
- "strange.name"="strange.value")
+df <- data.frame("id"= "rs1234","chromosome"="chr1", "Start"=0, "end.position"=100,
+"copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
+"BAF"=0.2, "Log Ratio"=1.5, "strange.name"="strange.value")
 getEndColumn(df)
 getEndColumn(df, "strange.name")
 

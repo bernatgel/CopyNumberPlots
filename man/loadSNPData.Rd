@@ -41,7 +41,15 @@ The returned GRanges will have the chromosome names following the UCSC style
 irrespective of the original format.
 }
 \examples{
+snp.file <- "test.snp.file.csv"
 
+snp.df <- data.frame("id"= "rs1234","chromosome"="chr1", "Start"=0, "end.position"=100,
+                    "copy.number.level"=3, "LOH"=0,"median.value.per.segment"=1.2, 
+                    "BAF"=0.2, "Log Ratio"=1.5, "strange.name"="strange.value")
+
+write.table(x = snp.df, file = snp.file, col.names = TRUE, row.names = FALSE, sep = "\\t")
+
+loadSNPData(snps.file = snp.file)
 
 
 }
