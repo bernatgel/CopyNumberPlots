@@ -41,7 +41,7 @@ getColumn <- function(df, col=NULL, pattern="",  msg.col.name="", needed=TRUE) {
   col.num <- integer(0)
   if(is.null(col)) {
     if(length(pattern)>0) {
-      col.num <- which(grepl(names(df), pattern = pattern))[1]
+      col.num <- which(grepl(names(df), pattern = pattern, ignore.case = TRUE))[1]
     } else {
       stop("Either col or pattern must be provided")
     }
@@ -93,7 +93,7 @@ getColumn <- function(df, col=NULL, pattern="",  msg.col.name="", needed=TRUE) {
 #'
 #' @export getChrColumn
 getChrColumn <- function(df, col=NULL, needed=TRUE) {
-  return(getColumn(df, col=col, pattern="Chr|chr", msg.col.name="Chromosome", needed=needed))
+  return(getColumn(df, col=col, pattern="chr", msg.col.name="Chromosome", needed=needed))
 }
 
 #' getPosColumn
@@ -124,7 +124,7 @@ getChrColumn <- function(df, col=NULL, needed=TRUE) {
 #'
 #' @export getPosColumn
 getPosColumn <- function(df, col=NULL, needed=TRUE) {
-  return(getColumn(df, col=col, pattern="Position|Pos|pos|loc|maploc", msg.col.name = "Position", needed=needed))
+  return(getColumn(df, col=col, pattern="Position|pos|loc|maploc", msg.col.name = "Position", needed=needed))
 }
 
 #' getStartColumn
@@ -154,7 +154,7 @@ getPosColumn <- function(df, col=NULL, needed=TRUE) {
 #'
 #' @export getStartColumn
 getStartColumn <- function(df, col=NULL, needed=TRUE) {
-  return(getColumn(df, col=col, pattern="Start|start|First|first|Begin|begin", msg.col.name = "Start", needed=needed))
+  return(getColumn(df, col=col, pattern="start|first|begin", msg.col.name = "Start", needed=needed))
 }
 
 #' getEndColumn
@@ -185,7 +185,7 @@ getStartColumn <- function(df, col=NULL, needed=TRUE) {
 #'
 #' @export getEndColumn
 getEndColumn <- function(df, col=NULL, needed=TRUE) {
-  return(getColumn(df, col=col, pattern="End|end|Last|last", msg.col.name = "End", needed=needed))
+  return(getColumn(df, col=col, pattern="end|last", msg.col.name = "End", needed=needed))
 }
 
 
@@ -217,7 +217,7 @@ getEndColumn <- function(df, col=NULL, needed=TRUE) {
 #'
 #' @export getCopyNumberColumn
 getCopyNumberColumn <- function(df, col=NULL, needed=TRUE) {
-  return(getColumn(df, col=col, pattern="CN|cn|Copy|copy", msg.col.name = "Copy Number", needed=needed))
+  return(getColumn(df, col=col, pattern="cn|copy", msg.col.name = "Copy Number", needed=needed))
 }
 
 #' getLOHColumn
@@ -248,7 +248,7 @@ getCopyNumberColumn <- function(df, col=NULL, needed=TRUE) {
 #'
 #' @export getLOHColumn
 getLOHColumn <- function(df, col=NULL, needed=TRUE) {
-  return(getColumn(df, col=col, pattern="LOH|Loh|loh|Loss|loss", msg.col.name = "LOH", needed=needed))
+  return(getColumn(df, col=col, pattern="loh|loss", msg.col.name = "LOH", needed=needed))
 }
 
 #' getSegmentValueColumn
@@ -279,7 +279,7 @@ getLOHColumn <- function(df, col=NULL, needed=TRUE) {
 #'
 #' @export getSegmentValueColumn
 getSegmentValueColumn <- function(df, col=NULL, needed=TRUE) {
-  return(getColumn(df, col=col, pattern="Value|value|mean|median|ratio", msg.col.name = "Segment Value", needed=needed))
+  return(getColumn(df, col=col, pattern="value|mean|median|ratio", msg.col.name = "Segment Value", needed=needed))
 }
 
 #' getBAFColumn
@@ -311,7 +311,7 @@ getSegmentValueColumn <- function(df, col=NULL, needed=TRUE) {
 #' @export getBAFColumn
 
 getBAFColumn <- function(df, col = NULL, needed = TRUE){
-  return(getColumn(df, col = col, pattern = "BAF|B.Allele|Freq|freq", msg.col.name = "B-Allele Frequency", needed = needed))
+  return(getColumn(df, col = col, pattern = "BAF|B.Allele|freq", msg.col.name = "B-Allele Frequency", needed = needed))
 } 
 
 #' getLRRColumn
@@ -343,7 +343,7 @@ getBAFColumn <- function(df, col = NULL, needed = TRUE){
 #' @export getLRRColumn
 
 getLRRColumn <- function(df, col = NULL, needed = TRUE){
-  return(getColumn(df, col = col, pattern = "LRR|Log.R.Ratio|Log|lrr", msg.col.name = "Log Ratio", needed = needed))
+  return(getColumn(df, col = col, pattern = "LRR|Log.R.Ratio|Log", msg.col.name = "Log Ratio", needed = needed))
 } 
 
 #' getIDColumn
@@ -375,7 +375,7 @@ getLRRColumn <- function(df, col = NULL, needed = TRUE){
 #' @export getIDColumn
 
 getIDColumn <- function(df, col = NULL, needed = TRUE){
-  return(getColumn(df, col = col, pattern = "Name|name|Id|ID|id|snp", msg.col.name = "Identifier", needed = needed))
+  return(getColumn(df, col = col, pattern = "name|id|snp", msg.col.name = "Identifier", needed = needed))
 } 
 
 
