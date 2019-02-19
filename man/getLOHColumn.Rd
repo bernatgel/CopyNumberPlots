@@ -17,17 +17,17 @@ getLOHColumn(df, col=NULL, needed=TRUE)
 The number of the column matching the specification or NULL if no column was found.
 }
 \description{
-Identify the column in a data.frame with the end position information
+Identify the column in a data.frame with LOH information
 }
 \details{
-Identify the column of a data.frame that contains the position 
+Identify the column of a data.frame that contains the LOH 
 information and return its position
 }
 \examples{
 
-df <- data.frame("chromosome"="chr1", "Start"=0, "end.position"=100,
- "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
- "strange.name"="strange.value")
+df <- data.frame("id"= "rs1234","chromosome"="chr1", "Start"=0, "end.position"=100,
+"copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
+"BAF"=0.2, "Log Ratio"=1.5, "strange.name"="strange.value")
 getLOHColumn(df)
 getLOHColumn(df, "strange.name")
 

@@ -29,7 +29,15 @@
 #' A GRanges object with a range per SNP
 #'
 #' @examples
+#'snp.file <- "test.snp.file.csv"
 #'
+#'snp.df <- data.frame("id"= "rs1234","chromosome"="chr1", "Start"=0, "end.position"=100,
+#'                     "copy.number.level"=3, "LOH"=0,"median.value.per.segment"=1.2, 
+#'                     "BAF"=0.2, "Log Ratio"=1.5, "strange.name"="strange.value")
+#'
+#'write.table(x = snp.df, file = snp.file, col.names = TRUE, row.names = FALSE, sep = "\t")
+#'
+#'loadSNPData(snps.file = snp.file)
 #'
 #'
 #' @export loadSNPData
@@ -39,44 +47,20 @@
 #'
 
 #Read the SNPs raw data file, identify the relevant columns
-loadSNPData <- function(snps.file, genome="hg19", chr.col=NULL, pos.col=NULL, baf.col=NULL, lrr.col=NULL, snp.col=NULL, verbose=TRUE) {
+loadSNPData <- function(snps.file, genome = "hg19", chr.col = NULL, pos.col = NULL, baf.col = NULL, lrr.col = NULL, snp.col = NULL, verbose = TRUE) {
   if(verbose==TRUE) message("Reading file ", snps.file, "...")
-  snps <- read.table(snps.file, sep="\t", header=TRUE, stringsAsFactors = FALSE)
+  snps <- read.table(snps.file, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
 
   #Get the columns
-  if(verbose==TRUE) message("Indentifying data columns...")
-  getColumn <- function(col, pattern, df, msg.col.name, needed=TRUE) {
-    col.num <- integer(0)
-    if(is.null(col)) {
-      col.num <- which(grepl(names(df), pattern = pattern))[1]
-    } else {
-      if(is.numeric(col)) {
-        col.num <- col
-      } else {
-        if(is.character(col))  {
-          col.num <- which(names(df)==col)
-        }
-      }
-    }
-    if(is.na(col.num) || length(col.num)==0) {
-      if(needed==TRUE) {
-        stop("The column ", msg.col.name, " was not found in the data file")
-      } else {
-        col.num <- integer(0)
-      }
-    }
-    return(col.num)
-  }
-
-  chr.col <- getColumn(chr.col, "Chr|chr", snps, "Chromosome" )
-  pos.col <- getColumn(pos.col, "Position|Pos|pos", snps, "Position" )
-  baf.col <- getColumn(baf.col, "BAF|B.Allele|Freq|freq", snps, "B-Allele Frequency" )
-  lrr.col <- getColumn(lrr.col, "LRR|Log.R.Ratio|Log", snps, "Log Ratio")
-  snp.col <- getColumn(snp.col, "Name|Id|SNP.Name|SNP.id", snps, "SNP Identifier", needed=FALSE)
-
+  chr.col <- getChrColumn(df = snps, col = chr.col, needed = TRUE)
+  pos.col <- getPosColumn(df = snps, col = pos.col, needed = TRUE)
+  baf.col <- getBAFColumn(df = snps, col = baf.col, needed = TRUE)
+  lrr.col <- getLRRColumn(df = snps, col = lrr.col, needed = TRUE)
+  id.col <- getIDColumn(df = snps, col = snp.col, needed = TRUE)
+  
   if(length(snp.col)>0) {
-    snps <- snps[,c(chr.col, pos.col, pos.col, baf.col, lrr.col, snp.col)]
-    names(snps) <- c("chr", "start", "end", "baf", "lrr", "snp.name")
+    snps <- snps[,c(chr.col, pos.col, pos.col, baf.col, lrr.col, id.col)]
+    names(snps) <- c("chr", "start", "end", "baf", "lrr", "id.name")
   } else {
     snps <- snps[,c(chr.col, pos.col, pos.col, baf.col, lrr.col)]
     names(snps) <- c("chr", "start", "end", "baf", "lrr")

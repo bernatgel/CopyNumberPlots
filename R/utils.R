@@ -26,9 +26,9 @@
 #'
 #' @examples
 #'
-#' df <- data.frame("chromosome"="chr1", "Start"=0, "end.position"=100,
-#'  "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
-#'  "strange.name"="strange.value")
+#' df <- data.frame("id"= "rs1234","chromosome"="chr1", "Start"=0, "end.position"=100,
+#' "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
+#' "BAF"=0.2, "Log Ratio"=1.5, "strange.name"="strange.value")
 #'
 #' getColumn(df, pattern="Chr|chr",  msg.col.name="Chromosome", needed=TRUE)
 #' getColumn(df, col="chromosome",  msg.col.name="Chromosome", needed=TRUE)
@@ -41,7 +41,7 @@ getColumn <- function(df, col=NULL, pattern="",  msg.col.name="", needed=TRUE) {
   col.num <- integer(0)
   if(is.null(col)) {
     if(length(pattern)>0) {
-      col.num <- which(grepl(names(df), pattern = pattern))[1]
+      col.num <- which(grepl(names(df), pattern = pattern, ignore.case = TRUE))[1]
     } else {
       stop("Either col or pattern must be provided")
     }
@@ -85,15 +85,15 @@ getColumn <- function(df, col=NULL, pattern="",  msg.col.name="", needed=TRUE) {
 #' The number of the column matching the specification or NULL if no column was found.
 #'
 #' @examples
-#' df <- data.frame("chromosome"="chr1", "Start"=0, "end.position"=100,
-#'  "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
-#'  "strange.name"="strange.value")
+#' df <- data.frame("id"= "rs1234","chromosome"="chr1", "Start"=0, "end.position"=100,
+#' "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
+#' "BAF"=0.2, "Log Ratio"=1.5, "strange.name"="strange.value")
 #' getChrColumn(df)
 #' getChrColumn(df, "strange.name")
 #'
 #' @export getChrColumn
 getChrColumn <- function(df, col=NULL, needed=TRUE) {
-  return(getColumn(df, col=col, pattern="Chr|chr", msg.col.name="Chromosome", needed=needed))
+  return(getColumn(df, col=col, pattern="chr", msg.col.name="Chromosome", needed=needed))
 }
 
 #' getPosColumn
@@ -116,15 +116,15 @@ getChrColumn <- function(df, col=NULL, needed=TRUE) {
 #'
 #' @examples
 #'
-#' df <- data.frame("chromosome"="chr1", "Start"=0, "end.position"=100,
-#'  "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
-#'  "strange.name"="strange.value")
+#' df <- data.frame("id"= "rs1234","chromosome"="chr1", "Start"=0, "end.position"=100,
+#' "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
+#' "BAF"=0.2, "Log Ratio"=1.5, "strange.name"="strange.value")
 #' getPosColumn(df)
 #' getPosColumn(df, "strange.name")
 #'
 #' @export getPosColumn
 getPosColumn <- function(df, col=NULL, needed=TRUE) {
-  return(getColumn(df, col=col, pattern="Position|Pos|pos|loc|maploc", msg.col.name = "Position", needed=needed))
+  return(getColumn(df, col=col, pattern="Position|pos|loc|maploc", msg.col.name = "Position", needed=needed))
 }
 
 #' getStartColumn
@@ -146,15 +146,15 @@ getPosColumn <- function(df, col=NULL, needed=TRUE) {
 #' The number of the column matching the specification or NULL if no column was found.
 #'
 #' @examples
-#' df <- data.frame("chromosome"="chr1", "Start"=0, "end.position"=100,
-#'  "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
-#'  "strange.name"="strange.value")
+#' df <- data.frame("id"= "rs1234","chromosome"="chr1", "Start"=0, "end.position"=100,
+#' "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
+#' "BAF"=0.2, "Log Ratio"=1.5, "strange.name"="strange.value")
 #' getStartColumn(df)
 #' getStartColumn(df, "strange.name")
 #'
 #' @export getStartColumn
 getStartColumn <- function(df, col=NULL, needed=TRUE) {
-  return(getColumn(df, col=col, pattern="Start|start|First|first|Begin|begin", msg.col.name = "Start", needed=needed))
+  return(getColumn(df, col=col, pattern="start|first|begin", msg.col.name = "Start", needed=needed))
 }
 
 #' getEndColumn
@@ -177,15 +177,15 @@ getStartColumn <- function(df, col=NULL, needed=TRUE) {
 #'
 #' @examples
 #'
-#' df <- data.frame("chromosome"="chr1", "Start"=0, "end.position"=100,
-#'  "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
-#'  "strange.name"="strange.value")
+#' df <- data.frame("id"= "rs1234","chromosome"="chr1", "Start"=0, "end.position"=100,
+#' "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
+#' "BAF"=0.2, "Log Ratio"=1.5, "strange.name"="strange.value")
 #' getEndColumn(df)
 #' getEndColumn(df, "strange.name")
 #'
 #' @export getEndColumn
 getEndColumn <- function(df, col=NULL, needed=TRUE) {
-  return(getColumn(df, col=col, pattern="End|end|Last|last", msg.col.name = "End", needed=needed))
+  return(getColumn(df, col=col, pattern="end|last", msg.col.name = "End", needed=needed))
 }
 
 
@@ -195,7 +195,7 @@ getEndColumn <- function(df, col=NULL, needed=TRUE) {
 #' Identify the column in a data.frame with the copy number information
 #'
 #' @details
-#' Identify the column of a data.frame that contains the position 
+#' Identify the column of a data.frame that contains the copy number
 #' information and return its position
 #'
 #' @usage getCopyNumberColumn(df, col=NULL, needed=TRUE)
@@ -209,24 +209,24 @@ getEndColumn <- function(df, col=NULL, needed=TRUE) {
 #'
 #' @examples
 #'
-#' df <- data.frame("chromosome"="chr1", "Start"=0, "end.position"=100,
-#'  "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
-#'  "strange.name"="strange.value")
+#' df <- data.frame("id"= "rs1234","chromosome"="chr1", "Start"=0, "end.position"=100,
+#' "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
+#' "BAF"=0.2, "Log Ratio"=1.5, "strange.name"="strange.value")
 #' getCopyNumberColumn(df)
 #' getCopyNumberColumn(df, "strange.name")
 #'
 #' @export getCopyNumberColumn
 getCopyNumberColumn <- function(df, col=NULL, needed=TRUE) {
-  return(getColumn(df, col=col, pattern="CN|cn|Copy|copy", msg.col.name = "Copy Number", needed=needed))
+  return(getColumn(df, col=col, pattern="cn|copy", msg.col.name = "Copy Number", needed=needed))
 }
 
 #' getLOHColumn
 #'
 #' @description
-#' Identify the column in a data.frame with the end position information
+#' Identify the column in a data.frame with LOH information
 #'
 #' @details
-#' Identify the column of a data.frame that contains the position 
+#' Identify the column of a data.frame that contains the LOH 
 #' information and return its position
 #'
 #' @usage getLOHColumn(df, col=NULL, needed=TRUE)
@@ -240,24 +240,24 @@ getCopyNumberColumn <- function(df, col=NULL, needed=TRUE) {
 #'
 #' @examples
 #'
-#' df <- data.frame("chromosome"="chr1", "Start"=0, "end.position"=100,
-#'  "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
-#'  "strange.name"="strange.value")
+#' df <- data.frame("id"= "rs1234","chromosome"="chr1", "Start"=0, "end.position"=100,
+#' "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
+#' "BAF"=0.2, "Log Ratio"=1.5, "strange.name"="strange.value")
 #' getLOHColumn(df)
 #' getLOHColumn(df, "strange.name")
 #'
 #' @export getLOHColumn
 getLOHColumn <- function(df, col=NULL, needed=TRUE) {
-  return(getColumn(df, col=col, pattern="LOH|Loh|loh|Loss|loss", msg.col.name = "LOH", needed=needed))
+  return(getColumn(df, col=col, pattern="loh|loss", msg.col.name = "LOH", needed=needed))
 }
 
 #' getSegmentValueColumn
 #'
 #' @description
-#' Identify the column in a data.frame with the end position information
+#' Identify the column in a data.frame with the position of the segment value information
 #'
 #' @details
-#' Identify the column of a data.frame that contains the position 
+#' Identify the column of a data.frame that contains the segment 
 #' information and return its position
 #'
 #' @usage getSegmentValueColumn(df, col=NULL, needed=TRUE)
@@ -271,14 +271,111 @@ getLOHColumn <- function(df, col=NULL, needed=TRUE) {
 #'
 #' @examples
 #' 
-#' df <- data.frame("chromosome"="chr1", "Start"=0, "end.position"=100,
-#'  "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
-#'  "strange.name"="strange.value")
+#' df <- data.frame("id"= "rs1234","chromosome"="chr1", "Start"=0, "end.position"=100,
+#' "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
+#' "BAF"=0.2, "Log Ratio"=1.5, "strange.name"="strange.value")
 #' getSegmentValueColumn(df)
 #' getSegmentValueColumn(df, "strange.name")
 #'
 #' @export getSegmentValueColumn
 getSegmentValueColumn <- function(df, col=NULL, needed=TRUE) {
-  return(getColumn(df, col=col, pattern="Value|value|mean|median|ratio", msg.col.name = "Segment Value", needed=needed))
+  return(getColumn(df, col=col, pattern="value|mean|median|ratio", msg.col.name = "Segment Value", needed=needed))
 }
+
+#' getBAFColumn
+#'
+#' @description
+#' Identify the column in a data.frame with the bi-allelic frecuency information
+#'
+#' @details
+#' Identify the column of a data.frame that contains the bi-allelic frecuency 
+#' information and return its position
+#'
+#' @usage getBAFColumn(df, col=NULL, needed=TRUE)
+#'
+#' @param df (data.frame or equivalent) The data frame were columns are searched
+#' @param col (number of character) If a number, it will be returned. If a character, it will be treated as a the exact name of the column. If a column with that name exists, its position in the data.frame will be returned. If it does not, NULL will be returned and an error might be raised (depending on the value of \code{needed}). If NULL, the column will be searched using a predefined pattern (defaults to NULL)
+#' @param needed Whether the column is needed or not. If TRUE, an error will be raised if the column is not found. (defaults to TRUE)
+#' 
+#' @return
+#' The number of the column matching the specification or NULL if no column was found.
+#'
+#' @examples
+#' 
+#' df <- data.frame("id"= "rs1234","chromosome"="chr1", "Start"=0, "end.position"=100,
+#' "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
+#' "BAF"=0.2, "Log Ratio"=1.5, "strange.name"="strange.value")
+#' getBAFColumn(df)
+#' getBAFColumn(df, "strange.name")
+#'
+#' @export getBAFColumn
+
+getBAFColumn <- function(df, col = NULL, needed = TRUE){
+  return(getColumn(df, col = col, pattern = "BAF|B.Allele|freq", msg.col.name = "B-Allele Frequency", needed = needed))
+} 
+
+#' getLRRColumn
+#'
+#' @description
+#' Identify the column in a data.frame with the Log Ratio information
+#'
+#' @details
+#' Identify the column of a data.frame that contains the Log Ratio 
+#' information and return its position
+#'
+#' @usage getLRRColumn(df, col=NULL, needed=TRUE)
+#'
+#' @param df (data.frame or equivalent) The data frame were columns are searched
+#' @param col (number of character) If a number, it will be returned. If a character, it will be treated as a the exact name of the column. If a column with that name exists, its position in the data.frame will be returned. If it does not, NULL will be returned and an error might be raised (depending on the value of \code{needed}). If NULL, the column will be searched using a predefined pattern (defaults to NULL)
+#' @param needed Whether the column is needed or not. If TRUE, an error will be raised if the column is not found. (defaults to TRUE)
+#' 
+#' @return
+#' The number of the column matching the specification or NULL if no column was found.
+#'
+#' @examples
+#' 
+#' df <- data.frame("id"= "rs1234","chromosome"="chr1", "Start"=0, "end.position"=100,
+#' "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
+#' "BAF"=0.2, "Log Ratio"=1.5, "strange.name"="strange.value")
+#' getLRRColumn(df)
+#' getLRRColumn(df, "strange.name")
+#'
+#' @export getLRRColumn
+
+getLRRColumn <- function(df, col = NULL, needed = TRUE){
+  return(getColumn(df, col = col, pattern = "LRR|Log.R.Ratio|Log", msg.col.name = "Log Ratio", needed = needed))
+} 
+
+#' getIDColumn
+#'
+#' @description
+#' Identify the column in a data.frame with the ID information
+#'
+#' @details
+#' Identify the column of a data.frame that contains ID 
+#' information and return its position
+#'
+#' @usage getIDColumn(df, col=NULL, needed=TRUE)
+#'
+#' @param df (data.frame or equivalent) The data frame were columns are searched
+#' @param col (number of character) If a number, it will be returned. If a character, it will be treated as a the exact name of the column. If a column with that name exists, its position in the data.frame will be returned. If it does not, NULL will be returned and an error might be raised (depending on the value of \code{needed}). If NULL, the column will be searched using a predefined pattern (defaults to NULL)
+#' @param needed Whether the column is needed or not. If TRUE, an error will be raised if the column is not found. (defaults to TRUE)
+#' 
+#' @return
+#' The number of the column matching the specification or NULL if no column was found.
+#'
+#' @examples
+#' 
+#' df <- data.frame("id"= "rs1234","chromosome"="chr1", "Start"=0, "end.position"=100,
+#' "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
+#' "BAF"=0.2, "Log Ratio"=1.5, "strange.name"="strange.value")
+#' getIDColumn(df)
+#' getIDColumn(df, "strange.name")
+#'
+#' @export getIDColumn
+
+getIDColumn <- function(df, col = NULL, needed = TRUE){
+  return(getColumn(df, col = col, pattern = "name|id|snp", msg.col.name = "Identifier", needed = needed))
+} 
+
 
