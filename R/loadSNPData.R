@@ -77,7 +77,7 @@ loadSNPData <- function(snps.file, genome = "hg19", chr.col = NULL, pos.col = NU
 
   if(verbose==TRUE) message("Removing SNPs out of the canonical chromosomes...")
   length.before <- length(snps)
-  snps <- regioneR::filterChromosomes(snps, organism = genome, chr.type = "canonical")
+  snps <- regioneR::filterChromosomes(snps, organism = genome, chr.type = "canonical", keep.chr = seqnames(snps))
   if(verbose==TRUE) message("Removed ", length.before - length(snps), " SNPs in non-canonical chromosomes")
 
   snps <- sort(snps)
