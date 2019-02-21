@@ -47,7 +47,7 @@
 #'
 
 #Read the SNPs raw data file, identify the relevant columns
-loadSNPData <- function(snps.file, genome = "hg19", chr.col = NULL, pos.col = NULL, baf.col = NULL, lrr.col = NULL, snp.col = NULL, verbose = TRUE) {
+loadSNPData <- function(snps.file, genome = "hg19", chr.col = NULL, pos.col = NULL, baf.col = NULL, lrr.col = NULL, id.col = NULL, verbose = TRUE) {
   if(verbose==TRUE) message("Reading file ", snps.file, "...")
   snps <- read.table(snps.file, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
 
@@ -56,9 +56,10 @@ loadSNPData <- function(snps.file, genome = "hg19", chr.col = NULL, pos.col = NU
   pos.col <- getPosColumn(df = snps, col = pos.col, needed = TRUE)
   baf.col <- getBAFColumn(df = snps, col = baf.col, needed = TRUE)
   lrr.col <- getLRRColumn(df = snps, col = lrr.col, needed = TRUE)
-  id.col <- getIDColumn(df = snps, col = snp.col, needed = TRUE)
+  id.col <- getIDColumn(df = snps, col = id.col, needed = TRUE)
   
-  if(length(snp.col)>0) {
+ 
+  if(length(id.col)>0) {
     snps <- snps[,c(chr.col, pos.col, pos.col, baf.col, lrr.col, id.col)]
     names(snps) <- c("chr", "start", "end", "baf", "lrr", "id.name")
   } else {
