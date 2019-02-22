@@ -93,7 +93,7 @@ getColumn <- function(df, col=NULL, pattern="",  msg.col.name="", needed=TRUE) {
 #'
 #' @export getChrColumn
 getChrColumn <- function(df, col=NULL, needed=TRUE) {
-  return(getColumn(df, col=col, pattern="chr", msg.col.name="Chromosome", needed=needed))
+  return(getColumn(df, col=col, pattern="chr|seqnames", msg.col.name="Chromosome", needed=needed))
 }
 
 #' getPosColumn
@@ -375,7 +375,7 @@ getLRRColumn <- function(df, col = NULL, needed = TRUE){
 #' @export getIDColumn
 
 getIDColumn <- function(df, col = NULL, needed = TRUE){
-  return(getColumn(df, col = col, pattern = "name|id|snp", msg.col.name = "Identifier", needed = needed))
+  return(getColumn(df, col = col, pattern = "name|id|snp|sampleName", msg.col.name = "Identifier", needed = needed))
 } 
 
 
