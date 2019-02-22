@@ -53,13 +53,14 @@ loadCopyNumberCalls <- function(cnv.data, chr.col=NULL, start.col=NULL, end.col=
     }
     
     #if file exists try to load it using toGRanges
-    gr <- tryCatch(toGRanges(cnv.data, genome=genome),error = function(e){return(NULL)})
+    gr <- tryCatch(toGRanges(cnv.data),error = function(e){return(NULL)})
     #if failed
     if(is.null(gr)){
       #try to load it using read.table
       #Should we accept a sep parameter? and a quote? skip? No, read the table and process the data.frame
       #if failed => error
       stop("cannot load the file. Please give a GRanges object class  to read cnv.data")
+
     } else{
       segs <- tryCatch(toGRanges(cnv.data, genome=genome), error=function(e) {})
       if(is.null(segs)) { #If toGRanges failed
