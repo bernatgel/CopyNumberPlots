@@ -61,7 +61,7 @@ loadSNPData <- function(snps.file, genome = "hg19", chr.col = NULL, pos.col = NU
  
   if(length(id.col)>0) {
     snps <- snps[,c(chr.col, pos.col, pos.col, baf.col, lrr.col, id.col)]
-    names(snps) <- c("chr", "start", "end", "baf", "lrr", "id.name")
+    names(snps) <- c("chr", "start", "end", "baf", "lrr", "id")
   } else {
     snps <- snps[,c(chr.col, pos.col, pos.col, baf.col, lrr.col)]
     names(snps) <- c("chr", "start", "end", "baf", "lrr")
