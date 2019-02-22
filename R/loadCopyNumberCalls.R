@@ -46,11 +46,37 @@ loadCopyNumberCalls <- function(cnv.data, chr.col=NULL, start.col=NULL, end.col=
   #If its a file, try to load it
   if(is.character(cnv.data)) {
     if(verbose) message("Reading data from ", cnv.data)
-    #try to load it using toGRanges
+    
+    #if file dose not exist
+    if(!file.exists(cnv.data)){
+      stop(paste0(cnv.data, " not exist"))
+    }
+    
+    #if file exists try to load it using toGRanges
+    gr <- tryCatch(toGRanges(cnv.data, genome=genome),error = function(e){return(NULL)})
     #if failed
+    if(is.null(gr)){
       #try to load it using read.table
       #Should we accept a sep parameter? and a quote? skip? No, read the table and process the data.frame
       #if failed => error
+      stop("cannot load the file. Please give a GRanges object class  to read cnv.data")
+    } else{
+      segs <- tryCatch(toGRanges(cnv.data, genome=genome), error=function(e) {})
+      if(is.null(segs)) { #If toGRanges failed
+        chr.col <- getChrColumn(chr.col, cnv.data, needed=TRUE)
+        start.col <- getStartColumn(start.col, cnv.data, needed=TRUE)
+        end.col <- getEndColumn(end.col, cnv.data, needed=TRUE)
+
+        #This if should never be true. It should have failed in the column identification functions
+        if(any(is.null(chr.col), is.null(start.col), is.null(end.col))) stop("It was not possible to identify the required data: Chromosome, Start and End")
+
+        other.cols <- seq_len(length(cnv.data))[-c(chr.col, start.col, end.col)][-start.col][-end.col]
+        segs <- toGRanges(cnv.data[,c(chr.col, start.col, end.col, other.cols)], genome=genome)
+      }
+      if(!methods::is(segs, "GRanges")) stop("It was not possible to read and transform the data. Is there any format specific data loading function available?")
+
+    }
+    
   }
 
   #If it's  not a GRanges, try to convert it into a GRanges
