@@ -46,7 +46,7 @@ loadCopyNumberCalls <- function(cnv.data, chr.col=NULL, start.col=NULL, end.col=
   #If its a file, try to load it
   if(is.character(cnv.data)) {
     if(verbose) message("Reading data from ", cnv.data)
-    
+
     #if file dose not exist
     if(!file.exists(cnv.data)){
       stop(paste0(cnv.data, " not exist"))
@@ -61,12 +61,12 @@ loadCopyNumberCalls <- function(cnv.data, chr.col=NULL, start.col=NULL, end.col=
       #if failed => error
       stop("cannot load the file. Please give a GRanges object class  to read cnv.data")
 
-    } else{
-      segs <- tryCatch(toGRanges(cnv.data, genome=genome), error=function(e) {})
+    }else{
+      segs <- tryCatch(toGRanges(cnv.data), error=function(e) {})
       if(is.null(segs)) { #If toGRanges failed
-        chr.col <- getChrColumn(chr.col, cnv.data, needed=TRUE)
-        start.col <- getStartColumn(start.col, cnv.data, needed=TRUE)
-        end.col <- getEndColumn(end.col, cnv.data, needed=TRUE)
+        chr.col <- getChrColumn(col = chr.col, df = cnv.data, needed=TRUE)
+        start.col <- getStartColumn(col = start.col, df = cnv.data, needed=TRUE)
+        end.col <- getEndColumn(col = end.col, df = cnv.data, needed=TRUE)
 
         #This if should never be true. It should have failed in the column identification functions
         if(any(is.null(chr.col), is.null(start.col), is.null(end.col))) stop("It was not possible to identify the required data: Chromosome, Start and End")
@@ -82,11 +82,11 @@ loadCopyNumberCalls <- function(cnv.data, chr.col=NULL, start.col=NULL, end.col=
 
   #If it's  not a GRanges, try to convert it into a GRanges
   if(!methods::is(cnv.data, "GRanges")) {
-    segs <- tryCatch(toGRanges(cnv.data, genome=genome), error=function(e) {})
+    segs <- tryCatch(toGRanges(cnv.data), error=function(e) {})
     if(is.null(segs)) { #If toGRanges failed
-      chr.col <- getChrColumn(chr.col, cnv.data, needed=TRUE)
-      start.col <- getStartColumn(start.col, cnv.data, needed=TRUE)
-      end.col <- getEndColumn(end.col, cnv.data, needed=TRUE)
+      chr.col <- getChrColumn(col = chr.col, df = cnv.data, needed=TRUE)
+      start.col <- getStartColumn(col = start.col, df = cnv.data, needed=TRUE)
+      end.col <- getEndColumn(col = end.col, df = cnv.data, needed=TRUE)
 
       #This if should never be true. It should have failed in the column identification functions
       if(any(is.null(chr.col), is.null(start.col), is.null(end.col))) stop("It was not possible to identify the required data: Chromosome, Start and End")
@@ -111,3 +111,4 @@ loadCopyNumberCalls <- function(cnv.data, chr.col=NULL, start.col=NULL, end.col=
 
   return(segs)
 }
+
