@@ -16,7 +16,7 @@
 #' The returned GRanges will have the chromosome names following the UCSC style
 #' irrespective of the original format.
 #'
-#' @usage loadCopyNumberCalls(cnv.data, chr.col=NULL, start.col=NULL, end.col=NULL, cn.col=NULL, loh.col=NULL, segment.value.col=NULL, genome=NULL, verbose=TRUE)
+#' @usage loadCopyNumberCalls(cnv.data, chr.col = NULL, start.col = NULL, end.col = NULL, cn.col = NULL, loh.col = NULL, segment.value.col = NULL, genome = NULL, verbose = TRUE)
 #'
 #' @param cnv.data The name of the file with the data
 #' @param chr.col The name or number of the column with chromosome information. If NULL, it is automatically identified. (default to NULL)
@@ -119,6 +119,9 @@ loadCopyNumberCalls <- function(cnv.data,
       segment.value.col <- getSegmentValueColumn(df = GenomicRanges::mcols(segs), col = segment.value.col, needed = FALSE)
       if(!is.null(segment.value.col)) names(GenomicRanges::mcols(segs))[segment.value.col] <- "segment.value"
   }
+  
+  
+  
   return(segs)
 }
 
