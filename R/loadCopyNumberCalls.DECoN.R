@@ -1,30 +1,28 @@
 #' loadCopyNumberCalls.DECoN
 #'
 #' @description
-#' Loads copy number calls from a tabular format
+#' Loads copy number calls from DECoN  output file
 #'
 #' @details
-#' This function will load segments data from any "bed-like" data structure
-#' in R or file. Internally it uses the \code{toGRanges} function from regioneR
+#' This function will load segments data from DECoN output  file. 
+#' Internally it uses the \code{toGRanges} function from regioneR
 #' package and can work with any format accepted by it, including R objects
-#' and local or remote files.
+#' and local or remote files. 
 #' If no column names are specified, it will use simple heuristics to try to
 #' identify the relevant data columns.
-#'
 #'
 #' @note
 #' The returned GRanges will have the chromosome names following the UCSC style
 #' irrespective of the original format.
 #'
-#' @usage loadCopyNumberCalls(cnv.data, chr.col=NULL, start.col=NULL, end.col=NULL, cn.col=NULL, loh.col=NULL, segment.value.col=NULL, genome=NULL, verbose=TRUE)
+#' @usage loadCopyNumberCalls.DECoN(decon.file, chr.col = NULL, start.col = "Start", end.col = "End", cn.col = NA, segment.value.col = NULL, genome = NULL, verbose = TRUE)
 #'
-#' @param cnv.data The name of the file with the data
+#' @param decon.file The name of the file with the data
 #' @param chr.col The name or number of the column with chromosome information. If NULL, it is automatically identified. (default to NULL)
-#' @param start.col The name or number of the column with start position information. If NULL, it is automatically identified. (default to NULL)
-#' @param end.col The name or number of the column with end position information. If NULL, it is automatically identified. (default to NULL)
-#' @param cn.col The name or number of the column with BAF information. If NULL, it is automatically identified. (default to NULL)
-#' @param loh.col The name or number of the column with LRR information. If NULL, it is automatically identified. (default to NULL)
-#' @param segment.value.col The name or number of the column with SNP identifier information. If NULL, it is automatically identified. (default to NULL)
+#' @param start.col The name or number of the column with start position information. If NULL, it is automatically identified. (default to "Start")
+#' @param end.col The name or number of the column with end position information. If NULL, it is automatically identified. (default to "End")
+#' @param cn.col The name or number of the column with CN information. If NULL, it is automatically identified. (default to NA)
+#' @param segment.value.col The name or number of the column with segment value. If NULL, it is automatically identified. (default to NULL)
 #' @param genome The name of the genome (default to NULL)
 #' @param verbose Wether information messages should be generated. (default to TRUE)
 #'
@@ -32,18 +30,13 @@
 #' A GRanges object with a range per copy number segment
 #'
 #' @examples
-#'
-#'
+#' decon.file <- "testFiles/calls_all.txt"
+#' loadCopyNumberCalls.DECoN(decon.file = decon.file)
 #'
 #' @export loadCopyNumberCalls.DECoN
 #'
 #' @importFrom GenomicRanges mcols
 #' @importFrom GenomeInfoDb seqlevelsStyle
-
-
-cnv.data <- decon.file
-segs <- 0
-#loadCopyNumberCalls.DECoN
 
 loadCopyNumberCalls.DECoN <- function(decon.file, 
                                       chr.col = NULL, 
@@ -87,9 +80,3 @@ loadCopyNumberCalls.DECoN <- function(decon.file,
 
   return(segs)
 }
-
-#Example:
-
-decon.file <- "testFiles/calls_all.txt"
-cc<-loadCopyNumberCalls.DECoN(decon.file = decon.file, genome = "hg19")
-  
