@@ -19,9 +19,9 @@ loadSNPData(snps.file, genome="hg19", chr.col=NULL, pos.col=NULL, baf.col=NULL, 
 
 \item{lrr.col}{The name or number of the column with LRR information. If NULL, it is automatically identified. (default to NULL)}
 
-\item{snp.col}{The name or number of the column with SNP identifier information. If NULL, it is automatically identified. (default to NULL)}
-
 \item{verbose}{Wether information messages should be generated. (default to TRUE)}
+
+\item{snp.col}{The name or number of the column with SNP identifier information. If NULL, it is automatically identified. (default to NULL)}
 }
 \value{
 A GRanges object with a range per SNP

@@ -20,7 +20,7 @@ The number of the column matching the specification or NULL if no column was fou
 Identify the column in a data.frame with the copy number information
 }
 \details{
-Identify the column of a data.frame that contains the copy number information
+Identify the column of a data.frame that contains the copy number
 information and return its position
 }
 \examples{
