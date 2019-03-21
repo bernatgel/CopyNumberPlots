@@ -4,7 +4,7 @@
 \alias{loadCopyNumberCalls.seg}
 \title{loadCopyNumberCalls.seg}
 \usage{
-loadCopyNumberCalls.seg(seg.file, chr.col = "chrom", start.col = "loc.start", end.col = "loc.end", segment.value.col = "seg.mean", chr.transformation = "23:X,24:Y,25:MT", genome = NULL, verbose = TRUE)
+loadCopyNumberCalls.seg (seg.file, chr.col = "chrom", start.col = "loc.start", end.col = "loc.end", segment.value.col = "seg.mean", genome = NULL, chr.transformation = "23:X,24:Y,25:MT", verbose = TRUE)
 }
 \arguments{
 \item{seg.file}{The name of the file with the data}
@@ -40,14 +40,12 @@ and local or remote files.
 If no column names are specified, it will use simple heuristics to try to
 identify the relevant data columns.
 }
-\note{
-The returned GRanges will have the chromosome names following the UCSC style
-irrespective of the original format.
-}
 \examples{
-## loadCopyNumberCalls.seg from .seg file format: the file to run the example can be found in: https://software.broadinstitute.org/software/igv/SEG
+## loadCopyNumberCalls.seg from .seg file format: 
+## the file to run the example can be found in: https://software.broadinstitute.org/software/igv/SEG
 ## under example.seg file name.
-seg.file <- "testFiles/example.seg"
+
+seg.file <- system.file("extdata", "DNACopy_output.seg", package = "CopyNumberPlots", mustWork = TRUE)
 loadCopyNumberCalls.seg(seg.file)
 
 }

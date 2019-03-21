@@ -15,11 +15,11 @@ loadCopyNumberCalls(cnv.data, chr.col = NULL, start.col = NULL, end.col = NULL, 
 
 \item{end.col}{The name or number of the column with end position information. If NULL, it is automatically identified. (default to NULL)}
 
-\item{cn.col}{The name or number of the column with BAF information. If NULL, it is automatically identified. (default to NULL)}
+\item{cn.col}{The name or number of the column with CN information. If NULL, it is automatically identified. (default to NULL)}
 
-\item{loh.col}{The name or number of the column with LRR information. If NULL, it is automatically identified. (default to NULL)}
+\item{loh.col}{The name or number of the column with LOH information. If NULL, it is automatically identified. (default to NULL)}
 
-\item{segment.value.col}{The name or number of the column with SNP identifier information. If NULL, it is automatically identified. (default to NULL)}
+\item{segment.value.col}{The name or number of the column with segment value. If NULL, it is automatically identified. (default to NULL)}
 
 \item{genome}{The name of the genome (default to NULL)}
 

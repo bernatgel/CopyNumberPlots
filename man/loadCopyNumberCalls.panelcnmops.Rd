@@ -37,12 +37,9 @@ and local or remote files.
 If no column names are specified, it will use simple heuristics to try to
 identify the relevant data columns.
 }
-\note{
-The returned GRanges will have the chromosome names following the UCSC style
-irrespective of the original format.
-}
 \examples{
 ## loadCopyNumberCalls.panelcnmops from panelcn.mops resulttable:
+library(panelcn.mops)
 data(panelcn.mops, package = "panelcn.mops")
 XandCB <- test
 sampleNames <- colnames(elementMetadata(XandCB))

@@ -38,12 +38,9 @@ Column names of the format loaded are specified as default but,
 if no column names are specified, it will use simple heuristics to try to
 identify the relevant data columns.
 }
-\note{
-The returned GRanges will have the chromosome names following the UCSC style
-irrespective of the original format.
-}
 \examples{
 ## loadCopyNumberCalls.cnmops from cn.mops result class:
+require(cn.mops)
 data(cn.mops, package = "cn.mops")
 
 cn.mops.res <- cn.mops(XRanges)
@@ -51,7 +48,8 @@ cn.mops.res <- calcIntegerCopyNumbers(cn.mops.res)
 loadCopyNumberCalls.cnmops(cn.mops.res = cn.mops.res)  
 
 ## loadCopyNumberCalls.cnmops from a file where cn.mops result was saved:
-cn.mops.res <- "cn.mops.segmentation.csv"
+cn.mops.res <- system.file("extdata", "cn.mops.segmentation.csv", package = "CopyNumberPlots", mustWork = TRUE)
+
 loadCopyNumberCalls.cnmops(cn.mops.res = cn.mops.res) 
 
 }

@@ -4,7 +4,7 @@
 \alias{loadCopyNumberCalls.pennCNV}
 \title{loadCopyNumberCalls.seg}
 \usage{
-loadCopyNumberCalls.pennCNV(pennCNV.file, chr.col = NULL, start.col = NULL, end.col = NULL, segment.value.col = NA, genome = NULL, verbose = TRUE)
+loadCopyNumberCalls.pennCNV (pennCNV.file, chr.col = NULL, start.col = NULL, end.col = NULL, cn.col = NULL, segment.value.col = NA, genome = NULL, verbose=TRUE)
 }
 \arguments{
 \item{pennCNV.file}{The name of the file with the data}
@@ -37,14 +37,11 @@ and local or remote files.
 If no column names are specified, it will use simple heuristics to try to
 identify the relevant data columns.
 }
-\note{
-The returned GRanges will have the chromosome names following the UCSC style
-irrespective of the original format.
-}
 \examples{
 ## loadCopyNumberCalls.pennCNV from .rawcnv file format: The file to run the example can be found in: http://penncnv.openbioinformatics.org/en/latest/user-guide/test/
 ## under example.seg file name.
-pennfile <- "testFiles/pennCNV.rawcnv"
+pennCNV.file <- system.file("extdata", "pennCNV.rawcnv", package = "CopyNumberPlots", mustWork = TRUE)
+#pennfile <- "testFiles/pennCNV.rawcnv"
 loadCopyNumberCalls.pennCNV(pennCNV.file = pennCNV.file)
 
 }

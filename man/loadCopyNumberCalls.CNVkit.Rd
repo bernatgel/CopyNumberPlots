@@ -4,7 +4,7 @@
 \alias{loadCopyNumberCalls.CNVkit}
 \title{loadCopyNumberCalls.CNVkit}
 \usage{
-loadCopyNumberCalls.CNVkit(cnvkit.file, chr.col = "chromosome", start.col = "start", end.col = "end", cn.col = NA, segment.value.col = "log2", genome = NULL, verbose=TRUE)
+loadCopyNumberCalls.CNVkit(cnvkit.file, chr.col = "chromosome", start.col = "start", end.col = "end", segment.value.col = "log2", cn.col = NA, genome = NULL, verbose = TRUE)
 }
 \arguments{
 \item{cnvkit.file}{The name of the file with the data}
@@ -44,7 +44,7 @@ irrespective of the original format.
 \examples{
 ## loadCopyNumberCalls.CNVkit from .cns file format:
 ## An example of .cns file format is found in https://github.com/etal/cnvkit/blob/master/test/formats/cl_seq.cns.
-cnvkit.file <- "testFiles/cl_seq.cns"
+cnvkit.file <- system.file("extdata", "CNVkit_output.cns", package = "CopyNumberPlots", mustWork = TRUE)
 loadCopyNumberCalls.CNVkit(cnvkit.file)
 
 }

@@ -37,12 +37,8 @@ and local or remote files.
 If no column names are specified, it will use simple heuristics to try to
 identify the relevant data columns.
 }
-\note{
-The returned GRanges will have the chromosome names following the UCSC style
-irrespective of the original format.
-}
 \examples{
-decon.file <- "testFiles/calls_all.txt"
+decon.file <- system.file("extdata", "DECoN_output.txt", package = "CopyNumberPlots", mustWork = TRUE)
 loadCopyNumberCalls.DECoN(decon.file = decon.file)
 
 }
