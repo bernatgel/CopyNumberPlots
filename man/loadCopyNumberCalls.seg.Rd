@@ -4,30 +4,29 @@
 \alias{loadCopyNumberCalls.seg}
 \title{loadCopyNumberCalls.seg}
 \usage{
-loadCopyNumberCalls.seg (seg.file, chr.col = "chrom", start.col = "loc.start", end.col = "loc.end", segment.value.col = "seg.mean", genome = NULL, chr.transformation = "23:X,24:Y,25:MT", verbose = TRUE)
+loadCopyNumberCalls.seg (seg.file, chr.col = "chrom", start.col = "loc.start", end.col = "loc.end", segment.value.col = "seg.mean", cn.col = NULL, genome = NULL, chr.transformation = "23:X,24:Y,25:MT", verbose = TRUE)
 }
 \arguments{
 \item{seg.file}{The name of the file with the data}
 
-\item{chr.col}{The name or number of the column with chromosome information. If NULL, it is automatically identified. (default to "chrom")}
+\item{chr.col}{(number or character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to "chrom")}
 
-\item{start.col}{The name or number of the column with start position information. If NULL, it is automatically identified. (default to "loc.start")}
+\item{start.col}{(number or character) The name or number of the column with start position information. If NULL, it is automatically identified. (defaults to "loc.start")}
 
-\item{end.col}{The name or number of the column with end position information. If NULL, it is automatically identified. (default to "loc.end")}
+\item{end.col}{(number or character) The name or number of the column with end position information. If NULL, it is automatically identified. (defaults to "loc.end")}
 
-\item{segment.value.col}{The name or number of the column with segment value. If NULL, it is automatically identified. (default to "seg.mean")}
+\item{segment.value.col}{(number or character) The name or number of the column with segment value. If NULL, it is automatically identified. (defaults to "seg.mean")}
 
-\item{genome}{The name of the genome (default to NULL)}
+\item{cn.col}{(number or character)The name or number of the column with CN information. If NULL, it is automatically identified. (defaults to NULL)}
 
-\item{chr.transformation}{Transformation of the chromosomes. The files.seg have the chromosomes in a numerical form.
-In order to transform the sexual and mitocondrial chromosomes from numbers to characters,
-the user has to provide in the chr.transformation parameter as describe in 
-https://cnvkit.readthedocs.io/en/stable/importexport.html#import-seg, in a python dictionary format ("key:value").(default to "23:X,24:Y,25:MT" )}
+\item{genome}{(character) The name of the genome (defaults to NULL)}
 
-\item{verbose}{Wether information messages should be generated. (default to TRUE)}
+\item{chr.transformation}{(character)(character) The transformation of the chromosome names in a comma separated "key:value" format as detailed at https://cnvkit.readthedocs.io/en/stable/importexport.html#import-seg.(defaults to "23:X,24:Y,25:MT")}
+
+\item{verbose}{(logical) Whether to show information messages. (defaults to TRUE)}
 }
 \value{
-A GRanges object with a range per copy number segment
+A GRanges with a range per copy number segment
 }
 \description{
 Loads copy number calls from .seg file format
@@ -42,10 +41,10 @@ identify the relevant data columns.
 }
 \examples{
 ## loadCopyNumberCalls.seg from .seg file format: 
-## the file to run the example can be found in: https://software.broadinstitute.org/software/igv/SEG
+## the file to run in the example can be found in: https://software.broadinstitute.org/software/igv/SEG
 ## under example.seg file name.
 
 seg.file <- system.file("extdata", "DNACopy_output.seg", package = "CopyNumberPlots", mustWork = TRUE)
-loadCopyNumberCalls.seg(seg.file)
+cnv.call <- loadCopyNumberCalls.seg(seg.file = seg.file)
 
 }

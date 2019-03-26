@@ -1,0 +1,10 @@
+chr1:156783977-156788016      numsnp=6      length=4,040       state2,cn=1 sample1.txt startsnp=rs16840314 endsnp=rs10489835
+chr2:4191253-4200019          numsnp=3      length=8,767       state2,cn=1 sample1.txt startsnp=rs1175867 endsnp=rs1175854
+chr2:183794033-183797494      numsnp=3      length=3,462       state2,cn=1 sample1.txt startsnp=rs17758247 endsnp=rs1462530
+chr2:242565979-242656041      numsnp=16     length=90,063      state2,cn=1 sample1.txt startsnp=rs12987376 endsnp=rs6740738
+chr5:17671545-17780897        numsnp=15     length=109,353     state2,cn=1 sample1.txt startsnp=rs6894435 endsnp=rs6451161
+chr10:58185524-58189264       numsnp=6      length=3,741       state2,cn=1 sample1.txt startsnp=rs12250344 endsnp=rs11005504
+chr11:55127597-55204003       numsnp=11     length=76,407      state2,cn=1 sample1.txt startsnp=rs2456022 endsnp=rs7934845
+chr19:503650-507632           numsnp=4      length=3,983       state2,cn=1 sample1.txt startsnp=rs7247601 endsnp=rs4919850
+chr1:59077355-59078584        numsnp=3      length=1,230       state5,cn=3 sample1.txt startsnp=rs942123 endsnp=rs3015321
+chr1:147305744-147427061      numsnp=7      length=121,318     state5,cn=3 sample1.txt startsnp=rs11579261 endsnp=rs3853524

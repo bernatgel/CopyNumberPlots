@@ -20,7 +20,7 @@ loadCopyNumberCalls.ASCAT <- function(cnv.data) {
     segments <- cnv.data$segments[,c("chr", "startpos", "endpos", "nMajor", "nMinor", "sample")]
     segments$cn <- segments$nMajor + segments$nMinor
     segments$loh <- ifelse(segments$nMinor==0, 1, 0)
-    segments <- toGRanges(segments)
+    segments <- regioneR::toGRanges(segments)
     #If there's more than one sample, split per sample to get a list of GRanges
     if(length(unique(segments$sample))>1) {
       segments <- split(x = segments, segments$sample)  

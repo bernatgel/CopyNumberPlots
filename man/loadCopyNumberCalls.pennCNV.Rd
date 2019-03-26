@@ -2,29 +2,29 @@
 % Please edit documentation in R/loadCopyNumberCalls.pennCNV.R
 \name{loadCopyNumberCalls.pennCNV}
 \alias{loadCopyNumberCalls.pennCNV}
-\title{loadCopyNumberCalls.seg}
+\title{loadCopyNumberCalls.pennCNV}
 \usage{
-loadCopyNumberCalls.pennCNV (pennCNV.file, chr.col = NULL, start.col = NULL, end.col = NULL, cn.col = NULL, segment.value.col = NA, genome = NULL, verbose=TRUE)
+loadCopyNumberCalls.pennCNV (pennCNV.file, chr.col = NULL, start.col = NULL, end.col = NULL, cn.col = NULL, segment.value.col = NULL, genome = NULL, verbose=TRUE)
 }
 \arguments{
 \item{pennCNV.file}{The name of the file with the data}
 
-\item{chr.col}{The name or number of the column with chromosome information. If NULL, it is automatically identified. (default to NULL)}
+\item{chr.col}{(number or character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to NULL)}
 
-\item{start.col}{The name or number of the column with start position information. If NULL, it is automatically identified. (default to NULL)}
+\item{start.col}{(number or character) The name or number of the column with start position information. If NULL, it is automatically identified. (defaults to NULL)}
 
-\item{end.col}{The name or number of the column with end position information. If NULL, it is automatically identified. (default to NULL)}
+\item{end.col}{(number or character) The name or number of the column with end position information. If NULL, it is automatically identified. (defaults to NULL)}
 
-\item{cn.col}{The name or number of the column with CN information. If NULL, it is automatically identified. (default to NA)}
+\item{cn.col}{(number or character) The name or number of the column with CN information. If NULL, it is automatically identified. (defaults to NULL)}
 
-\item{segment.value.col}{The name or number of the column with segment value. If NULL, it is automatically identified. (default to NA)}
+\item{segment.value.col}{(number or character) The name or number of the column with segment value. If NULL, it is automatically identified. (defaults to NULL)}
 
-\item{genome}{The name of the genome (default to NULL)}
+\item{genome}{(character) The name of the genome (defaults to NULL)}
 
-\item{verbose}{Wether information messages should be generated. (default to TRUE)}
+\item{verbose}{(logical) Whether to show information messages. (defaults to TRUE)}
 }
 \value{
-A GRanges object with a range per copy number segment
+A GRanges with a range per copy number segment or a list of GRanges with a GRanges per sample.
 }
 \description{
 Loads copy number calls from pennCNV.rawcnv file format
@@ -38,10 +38,10 @@ If no column names are specified, it will use simple heuristics to try to
 identify the relevant data columns.
 }
 \examples{
-## loadCopyNumberCalls.pennCNV from .rawcnv file format: The file to run the example can be found in: http://penncnv.openbioinformatics.org/en/latest/user-guide/test/
-## under example.seg file name.
+## loadCopyNumberCalls.pennCNV from .rawcnv file format: 
+## The file to run the example can be found in: http://penncnv.openbioinformatics.org/en/latest/user-guide/test/
+
 pennCNV.file <- system.file("extdata", "pennCNV.rawcnv", package = "CopyNumberPlots", mustWork = TRUE)
-#pennfile <- "testFiles/pennCNV.rawcnv"
-loadCopyNumberCalls.pennCNV(pennCNV.file = pennCNV.file)
+cnv.call <- loadCopyNumberCalls.pennCNV(pennCNV.file = pennCNV.file)
 
 }

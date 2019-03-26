@@ -4,27 +4,27 @@
 \alias{loadCopyNumberCalls.CNVkit}
 \title{loadCopyNumberCalls.CNVkit}
 \usage{
-loadCopyNumberCalls.CNVkit(cnvkit.file, chr.col = "chromosome", start.col = "start", end.col = "end", segment.value.col = "log2", cn.col = NA, genome = NULL, verbose = TRUE)
+loadCopyNumberCalls.CNVkit(cnvkit.file, chr.col = "chromosome", start.col = "start", end.col = "end", segment.value.col = "log2", cn.col = NULL, genome = NULL, verbose = TRUE)
 }
 \arguments{
 \item{cnvkit.file}{The name of the file with the data}
 
-\item{chr.col}{The name or number of the column with chromosome information. If NULL, it is automatically identified. (default to "chromosome")}
+\item{chr.col}{(number or character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to "chromosome")}
 
-\item{start.col}{The name or number of the column with start position information. If NULL, it is automatically identified. (default to "start")}
+\item{start.col}{(number or character) The name or number of the column with start position information. If NULL, it is automatically identified. (defaults to "start")}
 
-\item{end.col}{The name or number of the column with end position information. If NULL, it is automatically identified. (default to "end")}
+\item{end.col}{(number or character) The name or number of the column with end position information. If NULL, it is automatically identified. (defaults to "end")}
 
-\item{segment.value.col}{The name or number of the column with segment value. If NULL, it is automatically identified. (default to "log2")}
+\item{segment.value.col}{(number or character) The name or number of the column with segment value. If NULL, it is automatically identified. (defaults to "log2")}
 
-\item{cn.col}{The name or number of the column with CN information. If NULL, it is automatically identified. (default to NA)}
+\item{cn.col}{(number or character) The name or number of the column with CN information. If NULL, it is automatically identified. (defaults to NULL)}
 
-\item{genome}{The name of the genome (default to NULL)}
+\item{genome}{(character) The name of the genome (defaults to NULL)}
 
-\item{verbose}{Wether information messages should be generated. (default to TRUE)}
+\item{verbose}{(logical) Whether to show information messages. (defaults to TRUE)}
 }
 \value{
-A GRanges object with a range per copy number segment
+A GRanges with a range per copy number segment.
 }
 \description{
 Loads copy number calls from CNVkit.cns file format
@@ -37,14 +37,11 @@ and local or remote files.
 If no column names are specified, it will use simple heuristics to try to
 identify the relevant data columns.
 }
-\note{
-The returned GRanges will have the chromosome names following the UCSC style
-irrespective of the original format.
-}
 \examples{
 ## loadCopyNumberCalls.CNVkit from .cns file format:
-## An example of .cns file format is found in https://github.com/etal/cnvkit/blob/master/test/formats/cl_seq.cns.
+## An example of .cns file format is found at https://github.com/etal/cnvkit/blob/master/test/formats/cl_seq.cns.
+
 cnvkit.file <- system.file("extdata", "CNVkit_output.cns", package = "CopyNumberPlots", mustWork = TRUE)
-loadCopyNumberCalls.CNVkit(cnvkit.file)
+cnv.call <- loadCopyNumberCalls.CNVkit(cnvkit.file)
 
 }

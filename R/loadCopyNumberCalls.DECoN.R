@@ -11,27 +11,23 @@
 #' If no column names are specified, it will use simple heuristics to try to
 #' identify the relevant data columns.
 #'
-#' @note
-#' The returned GRanges will have the chromosome names following the UCSC style
-#' irrespective of the original format.
-#'
-#' @usage loadCopyNumberCalls.DECoN(decon.file, chr.col = NULL, start.col = "Start", end.col = "End", cn.col = NA, segment.value.col = NULL, genome = NULL, verbose = TRUE)
+#' @usage loadCopyNumberCalls.DECoN(decon.file, chr.col = NULL, start.col = "Start", end.col = "End", cn.col = NULL, segment.value.col = NULL, genome = NULL, verbose = TRUE)
 #'
 #' @param decon.file The name of the file with the data
-#' @param chr.col The name or number of the column with chromosome information. If NULL, it is automatically identified. (default to NULL)
-#' @param start.col The name or number of the column with start position information. If NULL, it is automatically identified. (default to "Start")
-#' @param end.col The name or number of the column with end position information. If NULL, it is automatically identified. (default to "End")
-#' @param cn.col The name or number of the column with CN information. If NULL, it is automatically identified. (default to NA)
-#' @param segment.value.col The name or number of the column with segment value. If NULL, it is automatically identified. (default to NULL)
-#' @param genome The name of the genome (default to NULL)
-#' @param verbose Wether information messages should be generated. (default to TRUE)
+#' @param chr.col (number or character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to NULL)
+#' @param start.col (number or character) The name or number of the column with start position information. If NULL, it is automatically identified. (defaults to "Start")
+#' @param end.col (number or character) The name or number of the column with end position information. If NULL, it is automatically identified. (defaults to "End")
+#' @param cn.col (number or character) The name or number of the column with CN information. If NULL, it is automatically identified. (defaults to NA)
+#' @param segment.value.col (number or character) The name or number of the column with segment value. If NULL, it is automatically identified. (defaults to NULL)
+#' @param genome (character) The name of the genome. (defaults to NULL)
+#' @param verbose (logical) Whether to show information messages. (defaults to TRUE)
 #'
 #' @return
-#' A GRanges object with a range per copy number segment
+#' A GRanges with a range per copy number segment or a list of GRanges with a GRanges per sample.
 #'
 #' @examples
-#' decon.file <- "testFiles/calls_all.txt"
-#' loadCopyNumberCalls.DECoN(decon.file = decon.file)
+#' decon.file <- system.file("extdata", "DECoN_output.txt", package = "CopyNumberPlots", mustWork = TRUE)
+#' cn.calls <- loadCopyNumberCalls.DECoN(decon.file = decon.file)
 #'
 #' @export loadCopyNumberCalls.DECoN
 #'
@@ -42,7 +38,7 @@ loadCopyNumberCalls.DECoN <- function(decon.file,
                                       chr.col = NULL, 
                                       start.col = "Start",
                                       end.col = "End",
-                                      cn.col = NA,
+                                      cn.col = NULL,
                                       segment.value.col= NULL,
                                       genome = NULL, 
                                       verbose = TRUE){
@@ -58,7 +54,7 @@ loadCopyNumberCalls.DECoN <- function(decon.file,
                               end.col = end.col, 
                               cn.col = cn.col, 
                               segment.value.col = segment.value.col,
-                              loh.col = NA, 
+                              loh.col = NULL, 
                               genome = genome,
                               verbose = verbose)
   # We order the segments
@@ -77,6 +73,6 @@ loadCopyNumberCalls.DECoN <- function(decon.file,
   }else{
     segs <- sort(segs)
   }
-
+  
   return(segs)
 }

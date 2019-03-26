@@ -4,27 +4,27 @@
 \alias{loadCopyNumberCalls.DECoN}
 \title{loadCopyNumberCalls.DECoN}
 \usage{
-loadCopyNumberCalls.DECoN(decon.file, chr.col = NULL, start.col = "Start", end.col = "End", cn.col = NA, segment.value.col = NULL, genome = NULL, verbose = TRUE)
+loadCopyNumberCalls.DECoN(decon.file, chr.col = NULL, start.col = "Start", end.col = "End", cn.col = NULL, segment.value.col = NULL, genome = NULL, verbose = TRUE)
 }
 \arguments{
 \item{decon.file}{The name of the file with the data}
 
-\item{chr.col}{The name or number of the column with chromosome information. If NULL, it is automatically identified. (default to NULL)}
+\item{chr.col}{(number or character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to NULL)}
 
-\item{start.col}{The name or number of the column with start position information. If NULL, it is automatically identified. (default to "Start")}
+\item{start.col}{(number or character) The name or number of the column with start position information. If NULL, it is automatically identified. (defaults to "Start")}
 
-\item{end.col}{The name or number of the column with end position information. If NULL, it is automatically identified. (default to "End")}
+\item{end.col}{(number or character) The name or number of the column with end position information. If NULL, it is automatically identified. (defaults to "End")}
 
-\item{cn.col}{The name or number of the column with CN information. If NULL, it is automatically identified. (default to NA)}
+\item{cn.col}{(number or character) The name or number of the column with CN information. If NULL, it is automatically identified. (defaults to NA)}
 
-\item{segment.value.col}{The name or number of the column with segment value. If NULL, it is automatically identified. (default to NULL)}
+\item{segment.value.col}{(number or character) The name or number of the column with segment value. If NULL, it is automatically identified. (defaults to NULL)}
 
-\item{genome}{The name of the genome (default to NULL)}
+\item{genome}{(character) The name of the genome. (defaults to NULL)}
 
-\item{verbose}{Wether information messages should be generated. (default to TRUE)}
+\item{verbose}{(logical) Whether to show information messages. (defaults to TRUE)}
 }
 \value{
-A GRanges object with a range per copy number segment
+A GRanges with a range per copy number segment or a list of GRanges with a GRanges per sample.
 }
 \description{
 Loads copy number calls from DECoN  output file
@@ -39,6 +39,6 @@ identify the relevant data columns.
 }
 \examples{
 decon.file <- system.file("extdata", "DECoN_output.txt", package = "CopyNumberPlots", mustWork = TRUE)
-loadCopyNumberCalls.DECoN(decon.file = decon.file)
+cn.calls <- loadCopyNumberCalls.DECoN(decon.file = decon.file)
 
 }

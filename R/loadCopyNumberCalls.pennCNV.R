@@ -1,4 +1,4 @@
-#' loadCopyNumberCalls.seg
+#' loadCopyNumberCalls.pennCNV
 #'
 #' @description
 #' Loads copy number calls from pennCNV.rawcnv file format 
@@ -11,29 +11,26 @@
 #' If no column names are specified, it will use simple heuristics to try to
 #' identify the relevant data columns.
 #'
-#'
-#' @note
-#' The returned GRanges will have the chromosome names following the UCSC style
-#' irrespective of the original format.
-#'
-#' @usage loadCopyNumberCalls.pennCNV(pennCNV.file, chr.col = NULL, start.col = NULL, end.col = NULL, segment.value.col = NA, genome = NULL, verbose = TRUE)
+#' @usage loadCopyNumberCalls.pennCNV (pennCNV.file, chr.col = NULL, start.col = NULL, end.col = NULL, cn.col = NULL, segment.value.col = NULL, genome = NULL, verbose=TRUE)
 #'
 #' @param pennCNV.file The name of the file with the data
-#' @param chr.col The name or number of the column with chromosome information. If NULL, it is automatically identified. (default to NULL)
-#' @param start.col The name or number of the column with start position information. If NULL, it is automatically identified. (default to NULL)
-#' @param end.col The name or number of the column with end position information. If NULL, it is automatically identified. (default to NULL)
-#' @param segment.value.col The name or number of the column with segment value. If NULL, it is automatically identified. (default to NA)
-#' @param cn.col The name or number of the column with CN information. If NULL, it is automatically identified. (default to NA)
-#' @param genome The name of the genome (default to NULL)
-#' @param verbose Wether information messages should be generated. (default to TRUE)
+#' @param chr.col (number or character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to NULL)
+#' @param start.col (number or character) The name or number of the column with start position information. If NULL, it is automatically identified. (defaults to NULL)
+#' @param end.col (number or character) The name or number of the column with end position information. If NULL, it is automatically identified. (defaults to NULL)
+#' @param segment.value.col (number or character) The name or number of the column with segment value. If NULL, it is automatically identified. (defaults to NULL)
+#' @param cn.col (number or character) The name or number of the column with CN information. If NULL, it is automatically identified. (defaults to NULL)
+#' @param genome (character) The name of the genome (defaults to NULL)
+#' @param verbose (logical) Whether to show information messages. (defaults to TRUE)
+#' 
 #' @return
-#' A GRanges object with a range per copy number segment
+#' A GRanges with a range per copy number segment or a list of GRanges with a GRanges per sample.
 #'
 #' @examples
-#' ## loadCopyNumberCalls.pennCNV from .rawcnv file format: The file to run the example can be found in: http://penncnv.openbioinformatics.org/en/latest/user-guide/test/
-#' ## under example.seg file name.
-#' pennfile <- "testFiles/pennCNV.rawcnv"
-#' loadCopyNumberCalls.pennCNV(pennCNV.file = pennCNV.file)
+#' ## loadCopyNumberCalls.pennCNV from .rawcnv file format: 
+#' ## The file to run the example can be found in: http://penncnv.openbioinformatics.org/en/latest/user-guide/test/
+#' 
+#' pennCNV.file <- system.file("extdata", "pennCNV.rawcnv", package = "CopyNumberPlots", mustWork = TRUE)
+#' cnv.call <- loadCopyNumberCalls.pennCNV(pennCNV.file = pennCNV.file)
 #'
 #' @export loadCopyNumberCalls.pennCNV
 #'
@@ -43,24 +40,24 @@ loadCopyNumberCalls.pennCNV <- function(pennCNV.file,
                                         start.col = NULL,
                                         end.col = NULL, 
                                         cn.col = NULL,
-                                        segment.value.col = NA, 
+                                        segment.value.col = NULL, 
                                         genome = NULL, 
                                         verbose=TRUE){
-
-  penncnv.info <- read.table(file = pennfile, stringsAsFactors = FALSE)
+  
+  penncnv.info <- utils::read.table(file = pennCNV.file, stringsAsFactors = FALSE)
   
   # variables for chr star and end
   penncnv.data <- regioneR::toDataframe(regioneR::toGRanges(penncnv.info$V1))
- 
+  
   #variables for numsnp
-  numsnp <- do.call(rbind, strsplit(x=penncnv.info$V2, split = "="))
+  numsnp <- do.call(rbind, strsplit(x = penncnv.info$V2, split = "="))
   
   if(length(unique(numsnp[,1])) != 1) stop("There are more than one variable in numsnp column")
   
   df <- data.frame(as.numeric(numsnp[,2]))
   names(df) <- unique(numsnp[,1])
   penncnv.data <- cbind(penncnv.data, df)
-
+  
   #variable for lengthsnp
   lengthsnp <- do.call(rbind, strsplit(x = penncnv.info$V3, split = "="))
   lengthsnp[,2] <- gsub(pattern = ",", replacement = "", x = lengthsnp[,2])
@@ -115,13 +112,12 @@ loadCopyNumberCalls.pennCNV <- function(pennCNV.file,
                               start.col = "start",
                               end.col = "end", 
                               cn.col = "cn",
-                              segment.value.col = NA, 
+                              segment.value.col = NULL, 
                               genome = genome, 
                               verbose=TRUE)
   
-  GenomeInfoDb::seqlevelsStyle(segs) <- "UCSC"
   
-  #if there is more than one sample in cn.mops.res
+  #if there is more than one sample in pennCNV results
   if(length(table(segs$samples)) > 1){
     segs <- split(segs, GenomicRanges::mcols(segs)$samples)
   }

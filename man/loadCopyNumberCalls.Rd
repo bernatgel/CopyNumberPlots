@@ -9,24 +9,24 @@ loadCopyNumberCalls(cnv.data, chr.col = NULL, start.col = NULL, end.col = NULL, 
 \arguments{
 \item{cnv.data}{The name of the file with the data}
 
-\item{chr.col}{The name or number of the column with chromosome information. If NULL, it is automatically identified. (default to NULL)}
+\item{chr.col}{(number or character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to NULL)}
 
-\item{start.col}{The name or number of the column with start position information. If NULL, it is automatically identified. (default to NULL)}
+\item{start.col}{(number or character) The name or number of the column with start position information. If NULL, it is automatically identified. (defaults to NULL)}
 
-\item{end.col}{The name or number of the column with end position information. If NULL, it is automatically identified. (default to NULL)}
+\item{end.col}{(number or character) The name or number of the column with end position information. If NULL, it is automatically identified. (defaults to NULL)}
 
-\item{cn.col}{The name or number of the column with CN information. If NULL, it is automatically identified. (default to NULL)}
+\item{cn.col}{(number or character) The name or number of the column with CN information. If NULL, it is automatically identified. (defaults to NULL)}
 
-\item{loh.col}{The name or number of the column with LOH information. If NULL, it is automatically identified. (default to NULL)}
+\item{loh.col}{(number or character) The name or number of the column with LOH information. If NULL, it is automatically identified. (defaults to NULL)}
 
-\item{segment.value.col}{The name or number of the column with segment value. If NULL, it is automatically identified. (default to NULL)}
+\item{segment.value.col}{(number or character) The name or number of the column with segment value. If NULL, it is automatically identified. (defaults to NULL)}
 
-\item{genome}{The name of the genome (default to NULL)}
+\item{genome}{(character) The name of the genome (defaults to NULL)}
 
-\item{verbose}{Wether information messages should be generated. (default to TRUE)}
+\item{verbose}{(logical) Whether to show information messages. (defaults to TRUE)}
 }
 \value{
-A GRanges object with a range per copy number segment
+A GRanges with a range per copy number segment
 }
 \description{
 Loads copy number calls from a tabular format
@@ -39,12 +39,11 @@ and local or remote files.
 If no column names are specified, it will use simple heuristics to try to
 identify the relevant data columns.
 }
-\note{
-The returned GRanges will have the chromosome names following the UCSC style
-irrespective of the original format.
-}
 \examples{
+df <- data.frame("id"= "rs1234","chromosome"="chr1", "Start"=0, "end.position"=100,
+"copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
+"BAF"=0.2, "Log Ratio"=1.5, "strange.name"="strange.value")
 
-
+cnv.call <- loadCopyNumberCalls(cnv.data = df) 
 
 }

@@ -4,52 +4,50 @@
 \alias{loadSNPData}
 \title{loadSNPData}
 \usage{
-loadSNPData(snps.file, genome="hg19", chr.col=NULL, pos.col=NULL, baf.col=NULL, lrr.col=NULL, snp.col=NULL, verbose=TRUE)
+loadSNPData(snp.data, chr.col = NULL, start.col = NULL, end.col = NULL, pos.col = NULL, baf.col = NULL, lrr.col = NULL, id.col = NULL, genome = NULL, verbose = TRUE)
 }
 \arguments{
-\item{snps.file}{The name of the file with the data}
+\item{snp.data}{Either the name of the file with the data or a data.frame containing the data.}
 
-\item{genome}{The name of the genome (default to "hg19")}
+\item{chr.col}{(number of character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to NULL)}
 
-\item{chr.col}{The name or number of the column with chromosome information. If NULL, it is automatically identified. (default to NULL)}
+\item{start.col}{(number of character) the name or number of the column with start position}
 
-\item{pos.col}{The name or number of the column with position information. If NULL, it is automatically identified. (default to NULL)}
+\item{end.col}{(number of character) the name of number of the column with end position}
 
-\item{baf.col}{The name or number of the column with BAF information. If NULL, it is automatically identified. (default to NULL)}
+\item{pos.col}{(number of character) The name or number of the column with position information. If NULL, it is automatically identified. (defaults to NULL)}
 
-\item{lrr.col}{The name or number of the column with LRR information. If NULL, it is automatically identified. (default to NULL)}
+\item{baf.col}{(number of character) The name or number of the column with BAF information. If NULL, it is automatically identified. (defaults to NULL)}
 
-\item{verbose}{Wether information messages should be generated. (default to TRUE)}
+\item{lrr.col}{(number of character) The name or number of the column with LRR information. If NULL, it is automatically identified. (defaults to NULL)}
 
-\item{snp.col}{The name or number of the column with SNP identifier information. If NULL, it is automatically identified. (default to NULL)}
+\item{id.col}{(number of character) The name or number of the column with SNP identifier information. If NULL, it is automatically identified. (defaults to NULL)}
+
+\item{genome}{(character) The name of the genome (defaults to "hg19")}
+
+\item{verbose}{Wether information messages should be generated. (defaults to TRUE)}
 }
 \value{
-A GRanges object with a range per SNP
+A GRanges with a range per SNP
 }
 \description{
 Loads SNP array data in a tabular format
 }
 \details{
-Given a file name, the function loads SNP array data in a tabular format.
+Given a file name or data in a tabular format,
+the function loads SNP array data in a tabular format.
 It will try to identify the columns with the relevant information
 (chr, position, BAF, LRR, etc...) or will use the column number or name
 supplied by the user, if any. It will convert the tabular data into a
 GRanges, with one range per SNP in the table.
 }
-\note{
-The returned GRanges will have the chromosome names following the UCSC style
-irrespective of the original format.
-}
 \examples{
-snp.file <- "test.snp.file.csv"
 
-snp.df <- data.frame("id"= "rs1234","chromosome"="chr1", "Start"=0, "end.position"=100,
-                    "copy.number.level"=3, "LOH"=0,"median.value.per.segment"=1.2, 
-                    "BAF"=0.2, "Log Ratio"=1.5, "strange.name"="strange.value")
+# There are two examples of posible files to load.
+snp.data1 <- system.file("extdata", "snp.data_test.csv", package = "CopyNumberPlots", mustWork=TRUE)
+snps <- loadSNPData(snp.data = snp.data1)
 
-write.table(x = snp.df, file = snp.file, col.names = TRUE, row.names = FALSE, sep = "\\t")
-
-loadSNPData(snps.file = snp.file)
-
+snp.data2 <-  system.file("extdata", "snp.data_test2.csv", package = "CopyNumberPlots", mustWork=TRUE)
+snps <- loadSNPData(snp.data = snp.data2)
 
 }

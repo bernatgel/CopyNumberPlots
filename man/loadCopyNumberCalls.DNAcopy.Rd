@@ -4,34 +4,36 @@
 \alias{loadCopyNumberCalls.DNAcopy}
 \title{loadCopyNumberCalls.DNAcopy}
 \usage{
-loadCopyNumberCalls.DNAcopy(DNAcopy.data, chr.col = "chrom", start.col = "loc.start", end.col = "loc.end", segment.value.col = "seg.mean", chr.transformation = "23:X,24:Y,25:MT", genome = NULL, verbose = TRUE)
+loadCopyNumberCalls.DNAcopy(DNAcopy.data, chr.col = "chrom", start.col = "loc.start", end.col = "loc.end", segment.value.col = "seg.mean", cn.col = NULL, chr.transformation = "23:X,24:Y,25:MT", genome = NULL, verbose = TRUE)
 }
 \arguments{
 \item{DNAcopy.data}{The name of the file with the data}
 
-\item{chr.col}{The name or number of the column with chromosome information. If NULL, it is automatically identified. (default to "chrom")}
+\item{chr.col}{(number or character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to "chrom")}
 
-\item{start.col}{The name or number of the column with start position information. If NULL, it is automatically identified. (default to "loc.start")}
+\item{start.col}{(number or character) The name or number of the column with start position information. If NULL, it is automatically identified. (defaults to "loc.start")}
 
-\item{end.col}{The name or number of the column with end position information. If NULL, it is automatically identified. (default to "loc.end")}
+\item{end.col}{(number or character) The name or number of the column with end position information. If NULL, it is automatically identified. (defaults to "loc.end")}
 
-\item{segment.value.col}{The name or number of the column with segment value. If NULL, it is automatically identified. (default to "seg.mean")}
+\item{segment.value.col}{(number or character) The name or number of the column with segment value. If NULL, it is automatically identified. (defaults to "seg.mean")}
 
-\item{chr.transformation}{"23:X,24:Y,25:MT"}
+\item{cn.col}{(number or character) The name or number of the column with CN information. If NULL, it is automatically identified. (defaults to NULL)}
 
-\item{genome}{The name of the genome (default to NULL)}
+\item{chr.transformation}{(character) The transformation of the chromosome names in a comma separated "key:value" format.(defaults to "23:X,24:Y,25:MT")}
 
-\item{verbose}{Wether information messages should be generated. (default to TRUE)}
+\item{genome}{(character) The name of the genome (defaults to NULL)}
+
+\item{verbose}{(logical) Whether to show information messages. (defaults to TRUE)}
 }
 \value{
-A GRanges object with a range per copy number segment
+A GRanges with a range per copy number segment or a list of GRanges with a GRanges per sample.
 }
 \description{
-Loads copy number calls from a tabular format
+Loads copy number calls from DNACopy results.
 }
 \details{
-This function will load segments data from any "bed-like" data structure
-in R or file. Internally it uses the \code{toGRanges} function from regioneR
+This function will load segments data from DNAcopy data structure
+in R. Internally it uses the \code{toGRanges} function from regioneR
 package and can work with any format accepted by it, including R objects
 and local or remote files.
 If no column names are specified, it will use simple heuristics to try to
@@ -45,10 +47,15 @@ data(coriell)
 CNA.object <- CNA(cbind(coriell$Coriell.05296), coriell$Chromosome, coriell$Position, data.type="logratio",sampleid="c05296")
 
 smoothed.CNA.object <- smooth.CNA(CNA.object)
-segment.smoothed.CNA.object <- segment(smoothed.CNA.object, verbose=1)
+DNAcopy.data <- segment(smoothed.CNA.object, verbose=1)
 
-DNAcopy.data <- segment.smoothed.CNA.object
-loadCopyNumberCalls.DNAcopy(DNAcopy.data = DNAcopy.data)
+cnv.call <- loadCopyNumberCalls.DNAcopy(DNAcopy.data = DNAcopy.data)
 
+# more than 1 sample
+CNA.object <- CNA(genomdat = cbind(coriell$Coriell.05296, coriell$Coriell.13330), chrom = coriell$Chromosome, maploc = coriell$Position, data.type = "logratio", sampleid = c("c05296", "c13330"))
+smoothed.CNA.object <- smooth.CNA(CNA.object)
+DNAcopy.data <- segment(smoothed.CNA.object, verbose=1)
+
+cnv.call <- loadCopyNumberCalls.DNAcopy(DNAcopy.data = DNAcopy.data)
 
 }
