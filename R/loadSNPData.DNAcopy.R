@@ -16,7 +16,7 @@
 #' @inheritParams loadSNPData
 #' @param chr.transformation (character) The transformation of the chromosome 
 #' names in a comma separated "key:value" format.(defaults to "23:X,24:Y,25:MT")
-#' @param na.rm (logical) wether na values would like to be removed (defaults to FALSE)
+#' @param na.rm (logical) Whether to remove NA values. (defaults to FALSE)
 #' 
 #' @return
 #' A list of GRanges with a range per SNP and one GRanges per sample.

@@ -13,7 +13,7 @@
 #'
 #' @usage loadSNPData(snp.data, chr.col = NULL, start.col = NULL, end.col = NULL, pos.col = NULL, baf.col = NULL, lrr.col = NULL, id.col = NULL, genome = NULL, verbose = TRUE)
 #'
-#' @param snp.data Either the name of the file with the data or a data.frame containing the data.
+#' @param snp.data Either the name of the file with the data or a variable containing the data.
 #' @param start.col (number of character) the name or number of the column with start position
 #' @param end.col (number of character) the name of number of the column with end position
 #' @param genome (character) The name of the genome (defaults to "hg19")

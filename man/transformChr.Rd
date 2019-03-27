@@ -13,7 +13,8 @@ transformChr(chr, chr.transformation = "23:X,24:Y,25:MT")
 names in a comma separated "key:value" format.(defaults to "23:X,24:Y,25:MT")}
 }
 \value{
-A data.frame object where the name of the chromosomes will have been changed according to chr.transformation parameter.
+A character vector where the name of the chromosomes have been changed
+according to chr.transformation parameter.
 }
 \description{
 Transformation of the chromosomes
@@ -32,7 +33,6 @@ https://cnvkit.readthedocs.io/en/stable/importexport.html#import-seg,
 seg.file <- system.file("extdata", "DNACopy_output.seg", package = "CopyNumberPlots", mustWork = TRUE)
 seg.data <- read.table(file = seg.file, sep = "\\t", skip = 1, stringsAsFactors = FALSE)
 colnames(seg.data) <-  c("ID", "chrom", "loc.start", "loc.end", "num.mark", "seg.mean")
-
 
 # here we have the name of the chromosomes in a number format and how many segments are in each one.
 table(seg.data$chrom)

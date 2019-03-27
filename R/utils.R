@@ -4,8 +4,8 @@
 #' getColumn
 #'
 #' @description
-#' Use simple pattern matching to try to identify a column in a data.frame by 
-#' its name
+#' Use simple pattern matching to try to identify a column in a data.frame or
+#' equivalent by its name
 #'
 #' @details
 #' This function will use pattern matching to try to identify which column of 
@@ -123,10 +123,10 @@ getColumn <- function(df, col = NULL, pattern = NULL, avoid.pattern = NULL, msg.
 #' getChrColumn
 #'
 #' @description
-#' Identify the column in a data.frame with the chromosome information
+#' Identify the column in a data.frame or equivalent with the chromosome information
 #'
 #' @details
-#' Identify the column of a data.frame that contains the chromosome 
+#' Identify the column of a data.frame or equivalent that contains the chromosome 
 #' information and return its position
 #'
 #' @usage getChrColumn(df, col=NULL, avoid.pattern = NULL, needed=TRUE, verbose = TRUE)
@@ -155,10 +155,10 @@ getChrColumn <- function(df, col = NULL, avoid.pattern = NULL, needed = TRUE, ve
 #' getPosColumn
 #'
 #' @description
-#' Identify the column in a data.frame with the position information
+#' Identify the column in a data.frame or equivalent with the position information
 #'
 #' @details
-#' Identify the column of a data.frame that contains the position 
+#' Identify the column of a data.frame or equivalent that contains the position 
 #' information and return its position
 #'
 #' @usage getPosColumn(df, col = NULL, avoid.pattern = NULL, needed = TRUE, verbose = TRUE)
@@ -213,10 +213,10 @@ getStartColumn <- function(df, col=NULL, avoid.pattern = NULL, needed = TRUE, ve
 #' getEndColumn
 #'
 #' @description
-#' Identify the column in a data.frame with the end position information
+#' Identify the column in a data.frame or equivalent with the end position information
 #'
 #' @details
-#' Identify the column of a data.frame that contains the position 
+#' Identify the column of a data.frame or equivalent that contains the position 
 #' information and return its position
 #'
 #' @usage getEndColumn(df, col = NULL, avoid.pattern = NULL, needed = TRUE, verbose = TRUE)
@@ -244,10 +244,10 @@ getEndColumn <- function(df, col=NULL, avoid.pattern = NULL, needed = TRUE, verb
 #' getCopyNumberColumn
 #'
 #' @description
-#' Identify the column in a data.frame with the copy number information
+#' Identify the column in a data.frame or equivalent with the copy number information
 #'
 #' @details
-#' Identify the column of a data.frame that contains the copy number
+#' Identify the column of a data.frame or equivalent that contains the copy number
 #' information and return its position
 #'
 #' @usage getCopyNumberColumn(df, col = NULL, avoid.pattern = NULL, needed = TRUE, verbose = TRUE)
@@ -273,10 +273,10 @@ getCopyNumberColumn <- function(df, col = NULL, avoid.pattern = NULL, needed = T
 #' getLOHColumn
 #'
 #' @description
-#' Identify the column in a data.frame with LOH information
+#' Identify the column in a data.frame or equivalent with LOH information
 #'
 #' @details
-#' Identify the column of a data.frame that contains the LOH 
+#' Identify the column of a data.frame or equivalent that contains the LOH 
 #' information and return its position
 #'
 #' @usage getLOHColumn(df, col = NULL, avoid.pattern = NULL, needed = TRUE, verbose = TRUE)
@@ -302,11 +302,12 @@ getLOHColumn <- function(df, col = NULL, avoid.pattern = NULL, needed = TRUE, ve
 #' getSegmentValueColumn
 #'
 #' @description
-#' Identify the column in a data.frame with the position of the segment value information
+#' Identify the column in a data.frame or equivalent with the position of 
+#' the segment value information.
 #'
 #' @details
-#' Identify the column of a data.frame that contains the segment 
-#' information and return its position
+#' Identify the column of a data.frame or equivalent that contains the segment 
+#' information and return its position.
 #'
 #' @usage getSegmentValueColumn(df, col = NULL, avoid.pattern = NULL, needed = TRUE, verbose = TRUE)
 #'
@@ -333,10 +334,10 @@ getSegmentValueColumn <- function(df, col = NULL, avoid.pattern = NULL, needed =
 #' getBAFColumn
 #'
 #' @description
-#' Identify the column in a data.frame with the B-allele frecuency information
+#' Identify the column in a data.frame or equivalent with the B-allele frecuency information
 #'
 #' @details
-#' Identify the column of a data.frame that contains the bi-allelic frecuency 
+#' Identify the column of a data.frame or equivalent that contains the bi-allelic frecuency 
 #' information and return its position
 #'
 #' @usage getBAFColumn(df, col = NULL, avoid.pattern = NULL, needed = TRUE, verbose = TRUE)
@@ -363,10 +364,10 @@ getBAFColumn <- function(df, col = NULL, avoid.pattern = NULL, needed = TRUE, ve
 #' getLRRColumn
 #'
 #' @description
-#' Identify the column in a data.frame with the Log Ratio information
+#' Identify the column in a data.frame or equivalent with the Log Ratio information
 #'
 #' @details
-#' Identify the column of a data.frame that contains the Log Ratio 
+#' Identify the column of a data.frame or equivalent that contains the Log Ratio 
 #' information and return its position
 #'
 #' @usage getLRRColumn(df, col = NULL, avoid.pattern = NULL, needed = TRUE, verbose = TRUE)
@@ -394,10 +395,10 @@ getLRRColumn <- function(df, col = NULL, avoid.pattern = NULL, needed = TRUE, ve
 #' getIDColumn
 #'
 #' @description
-#' Identify the column in a data.frame with the ID information
+#' Identify the column in a data.frame or equivalent with the ID information
 #'
 #' @details
-#' Identify the column of a data.frame that contains ID 
+#' Identify the column of a data.frame or equivalent that contains ID 
 #' information and return its position
 #'
 #' @usage getIDColumn(df, col = NULL, avoid.pattern = NULL, needed = TRUE, verbose = TRUE)
@@ -447,14 +448,14 @@ getIDColumn <- function(df, col = NULL, avoid.pattern = NULL, needed = TRUE, ver
 #' names in a comma separated "key:value" format.(defaults to "23:X,24:Y,25:MT")
 #'
 #' @return
-#' A data.frame object where the name of the chromosomes will have been changed according to chr.transformation parameter.
+#' A character vector where the name of the chromosomes have been changed
+#' according to chr.transformation parameter.
 #'
 #' @examples
 #' seg.file <- system.file("extdata", "DNACopy_output.seg", package = "CopyNumberPlots", mustWork = TRUE)
 #' seg.data <- read.table(file = seg.file, sep = "\t", skip = 1, stringsAsFactors = FALSE)
 #' colnames(seg.data) <-  c("ID", "chrom", "loc.start", "loc.end", "num.mark", "seg.mean")
-#' 
-#' 
+#'
 #' # here we have the name of the chromosomes in a number format and how many segments are in each one.
 #' table(seg.data$chrom)
 #' 
@@ -480,7 +481,7 @@ transformChr <- function(chr, chr.transformation = "23:X,24:Y,25:MT"){
 #' removeNAs
 #'
 #' @description
-#' Removing NA from of snp data.
+#' Removing NA from snp data.
 #'
 #' @details
 #' This function will remove rows with NA values in snp data. We can decide 

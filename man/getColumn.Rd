@@ -25,8 +25,8 @@ getColumn(df, col=NULL, pattern="", avoid.pattern = NULL, msg.col.name="", neede
 The number of the column matching the specification or NULL if no column was found.
 }
 \description{
-Use simple pattern matching to try to identify a column in a data.frame by 
-its name
+Use simple pattern matching to try to identify a column in a data.frame or
+equivalent by its name
 }
 \details{
 This function will use pattern matching to try to identify which column of 

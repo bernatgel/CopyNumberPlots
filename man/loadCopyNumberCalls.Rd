@@ -7,7 +7,7 @@
 loadCopyNumberCalls(cnv.data, chr.col = NULL, start.col = NULL, end.col = NULL, cn.col = NULL, loh.col = NULL, segment.value.col = NULL, genome = NULL, verbose = TRUE)
 }
 \arguments{
-\item{cnv.data}{The name of the file with the data}
+\item{cnv.data}{Either the name of the file with the data or a variable containing the data}
 
 \item{chr.col}{(number or character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to NULL)}
 

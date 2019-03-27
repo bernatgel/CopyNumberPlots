@@ -30,7 +30,7 @@ A GRanges with a range per copy number segment or a list of GRanges with a GRang
 Loads copy number calls from DECoN  output file
 }
 \details{
-This function will load segments data from DECoN output  file. 
+This function will load segments data from DECoN output file. 
 Internally it uses the \code{toGRanges} function from regioneR
 package and can work with any format accepted by it, including R objects
 and local or remote files. 

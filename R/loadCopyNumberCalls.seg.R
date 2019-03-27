@@ -28,7 +28,8 @@
 #'
 #' @examples
 #' ## loadCopyNumberCalls.seg from .seg file format: 
-#' ## the file to run in the example can be found in: https://software.broadinstitute.org/software/igv/SEG
+#' ## the file to run in the example can be found in:
+#' ## https://software.broadinstitute.org/software/igv/SEG
 #' ## under example.seg file name.
 #' 
 #' seg.file <- system.file("extdata", "DNACopy_output.seg", package = "CopyNumberPlots", mustWork = TRUE)
