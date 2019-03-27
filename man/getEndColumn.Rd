@@ -21,10 +21,10 @@ getEndColumn(df, col = NULL, avoid.pattern = NULL, needed = TRUE, verbose = TRUE
 The number of the column matching the specification or NULL if no column was found.
 }
 \description{
-Identify the column in a data.frame with the end position information
+Identify the column in a data.frame or equivalent with the end position information
 }
 \details{
-Identify the column of a data.frame that contains the position 
+Identify the column of a data.frame or equivalent that contains the position 
 information and return its position
 }
 \examples{

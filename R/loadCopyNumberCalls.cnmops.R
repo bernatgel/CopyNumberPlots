@@ -5,7 +5,7 @@
 #'
 #' @details
 #' This function will load segments data from either cn.mops result class or
-#' in a tabular format or file. Internally it uses the \code{toGRanges} function from regioneR
+#' in a tabular format from a file. Internally it uses the \code{toGRanges} function from regioneR
 #' package and can work with any format accepted by it, including R objects
 #' and local or remote files. 
 #' Column names of the format loaded are specified as default but,

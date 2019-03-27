@@ -21,10 +21,10 @@ getBAFColumn(df, col = NULL, avoid.pattern = NULL, needed = TRUE, verbose = TRUE
 The number of the column matching the specification or NULL if no column was found.
 }
 \description{
-Identify the column in a data.frame with the B-allele frecuency information
+Identify the column in a data.frame or equivalent with the B-allele frecuency information
 }
 \details{
-Identify the column of a data.frame that contains the bi-allelic frecuency 
+Identify the column of a data.frame or equivalent that contains the bi-allelic frecuency 
 information and return its position
 }
 \examples{

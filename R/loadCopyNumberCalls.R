@@ -13,7 +13,7 @@
 #'
 #' @usage loadCopyNumberCalls(cnv.data, chr.col = NULL, start.col = NULL, end.col = NULL, cn.col = NULL, loh.col = NULL, segment.value.col = NULL, genome = NULL, verbose = TRUE)
 #'
-#' @param cnv.data The name of the file with the data
+#' @param cnv.data Either the name of the file with the data or a variable containing the data
 #' @param chr.col (number or character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to NULL)
 #' @param start.col (number or character) The name or number of the column with start position information. If NULL, it is automatically identified. (defaults to NULL)
 #' @param end.col (number or character) The name or number of the column with end position information. If NULL, it is automatically identified. (defaults to NULL)

@@ -7,7 +7,7 @@
 loadSNPData.DNAcopy (snp.data, chr.col = "chrom", start.col = NULL, end.col = NULL, pos.col = "maploc", lrr.col = NULL, chr.transformation = "23:X,24:Y,25:MT", genome = NULL, na.rm = FALSE, verbose = TRUE)
 }
 \arguments{
-\item{snp.data}{Either the name of the file with the data or a data.frame containing the data.}
+\item{snp.data}{Either the name of the file with the data or a variable containing the data.}
 
 \item{chr.col}{(number of character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to NULL)}
 
@@ -24,7 +24,7 @@ names in a comma separated "key:value" format.(defaults to "23:X,24:Y,25:MT")}
 
 \item{genome}{(character) The name of the genome (defaults to "hg19")}
 
-\item{na.rm}{(logical) wether na values would like to be removed (defaults to FALSE)}
+\item{na.rm}{(logical) Whether to remove NA values. (defaults to FALSE)}
 
 \item{verbose}{Wether information messages should be generated. (defaults to TRUE)}
 }

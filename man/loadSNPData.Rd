@@ -7,7 +7,7 @@
 loadSNPData(snp.data, chr.col = NULL, start.col = NULL, end.col = NULL, pos.col = NULL, baf.col = NULL, lrr.col = NULL, id.col = NULL, genome = NULL, verbose = TRUE)
 }
 \arguments{
-\item{snp.data}{Either the name of the file with the data or a data.frame containing the data.}
+\item{snp.data}{Either the name of the file with the data or a variable containing the data.}
 
 \item{chr.col}{(number of character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to NULL)}
 

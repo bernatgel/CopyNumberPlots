@@ -21,7 +21,7 @@ removeNAs(snp.data, lrr.na = TRUE, baf.na = TRUE, id.na = TRUE, verbose = TRUE)
 A GRanges or a list of GRanges where the NA values have been removed.
 }
 \description{
-Removing NA from of snp data.
+Removing NA from snp data.
 }
 \details{
 This function will remove rows with NA values in snp data. We can decide 
