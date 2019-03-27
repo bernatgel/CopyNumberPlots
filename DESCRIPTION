@@ -18,10 +18,13 @@ Imports:
     methods,
     stats,
     GenomeInfoDb,
-    GenomicRanges
+    GenomicRanges,
+    cn.mops
 Suggests:
     BiocStyle,
-    knitr
+    knitr,
+    panelcn.mops,
+    DNAcopy
 License: Artistic-2.0
 Encoding: UTF-8
 VignetteBuilder: knitr

@@ -4,18 +4,22 @@
 \alias{getColumn}
 \title{getColumn}
 \usage{
-getColumn(df, col=NULL, pattern="",  msg.col.name="", needed=TRUE)
+getColumn(df, col=NULL, pattern="", avoid.pattern = NULL, msg.col.name="", needed=TRUE, verbose = TRUE)
 }
 \arguments{
-\item{df}{(data.frame or equivalent) The data frame were columns are searched}
+\item{df}{(data.frame or equivalent) The object were columns are searched. It must be either a data.frame or an object where names(df) works.}
 
-\item{col}{(number of character) If a number, it will be returned. If a character, it will be treated as a the exact name of the column. If a column with that name exists, its position in the data.frame will be returned. If it does not, NULL will be returned and an error might be raised (depending on the value of \code{needed}). If NULL, teh column will be searched using pattern (defaults to NULL)}
+\item{col}{(number of character) The column to identify. If NULL an heuristic will be used to automatically identify the column. It can also a number or a character to define the exact column to return.(defaults to NULL)}
 
 \item{pattern}{(character) The pattern to match the column name. If more than one column matches the pattern, the first one (leftmost) will be returned. The pattern may be any valid regular expression. (defaults to "")}
 
+\item{avoid.pattern}{(character) The pattern to avoid on the column name. The pattern may be any valid regular expression. (defaults to "")}
+
 \item{msg.col.name}{(character) Only used in the error message to make the message clearer. The name of the column we are searching for. (defaults to "")}
 
-\item{needed}{(defaults to TRUE)}
+\item{needed}{(logical) Whether the column is needed or not. If TRUE, an error will be raised if the column is not found. (defaults to TRUE)}
+
+\item{verbose}{(logical) Whether to show information messages. (defaults to TRUE)}
 }
 \value{
 The number of the column matching the specification or NULL if no column was found.
@@ -32,11 +36,16 @@ if a column with that exact name exists and return its position.
 }
 \examples{
 
-df <- data.frame("id"= "rs1234","chromosome"="chr1", "Start"=0, "end.position"=100,
+df <- data.frame("id"= "rs1234", "endogenous" = FALSE, "chromosome"="chr1", "Start"=0, "end.position"=100,
 "copy.number.level"=3, "LOH"=0, "median.value.per.segment"=1.2,
-"BAF"=0.2, "Log Ratio"=1.5, "strange.name"="strange.value")
+"BAF"=0.2, "Log Ratio"=1.5,  "strange.name"="strange.value")
 
-getColumn(df, pattern="Chr|chr",  msg.col.name="Chromosome", needed=TRUE)
-getColumn(df, col="chromosome",  msg.col.name="Chromosome", needed=TRUE)
+col.num <- getColumn(df = df, pattern = "Chr|chr",  msg.col.name = "Chromosome", needed = TRUE)
+col.num <- getColumn(df = df, col = "chromosome",  msg.col.name = "Chromosome", needed = TRUE)
+col.num <- getColumn(df = df, col = 3, msg.col.name = "Chromosome", needed = TRUE)
+
+
+col.num <- getColumn(df = df, pattern = "end",  msg.col.name = "End", needed = TRUE)
+col.num <- getColumn(df = df, pattern = "end", avoid.pattern = "endogenous", msg.col.name = "End", needed = TRUE)
 
 }

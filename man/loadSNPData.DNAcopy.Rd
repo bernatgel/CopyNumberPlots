@@ -2,10 +2,61 @@
 % Please edit documentation in R/loadSNPData.DNAcopy.R
 \name{loadSNPData.DNAcopy}
 \alias{loadSNPData.DNAcopy}
-\title{importFrom stats setNames}
+\title{loadSNPData.DNAcopy}
 \usage{
-loadSNPData.DNAcopy(snp.data)
+loadSNPData.DNAcopy (snp.data, chr.col = "chrom", start.col = NULL, end.col = NULL, pos.col = "maploc", lrr.col = NULL, chr.transformation = "23:X,24:Y,25:MT", genome = NULL, na.rm = FALSE, verbose = TRUE)
+}
+\arguments{
+\item{snp.data}{Either the name of the file with the data or a data.frame containing the data.}
+
+\item{chr.col}{(number of character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to NULL)}
+
+\item{start.col}{(number of character) the name or number of the column with start position}
+
+\item{end.col}{(number of character) the name of number of the column with end position}
+
+\item{pos.col}{(number of character) The name or number of the column with position information. If NULL, it is automatically identified. (defaults to NULL)}
+
+\item{lrr.col}{(number of character) The name or number of the column with LRR information. If NULL, it is automatically identified. (defaults to NULL)}
+
+\item{chr.transformation}{(character) The transformation of the chromosome 
+names in a comma separated "key:value" format.(defaults to "23:X,24:Y,25:MT")}
+
+\item{genome}{(character) The name of the genome (defaults to "hg19")}
+
+\item{na.rm}{(logical) wether na values would like to be removed (defaults to FALSE)}
+
+\item{verbose}{Wether information messages should be generated. (defaults to TRUE)}
+}
+\value{
+A list of GRanges with a range per SNP and one GRanges per sample.
 }
 \description{
-importFrom stats setNames
+Loads SNP array data in a tabular format using data from DNAcopy rawdata or DNAcopy results
+}
+\details{
+Given a DNAcopy rawdata or DNAcopy results object, 
+the function load SNP array data in a tabular format.
+It will try to identify the columns with the relevant information
+(chr, position, BAF, LRR, etc...) or will use the column number or name
+supplied by the user, if any. It will convert the tabular data into a
+GRanges, with one range per SNP in the table.
+}
+\examples{
+library(DNAcopy)
+data(coriell)
+#one sample
+CNA.object <- CNA(cbind(coriell$Coriell.05296), coriell$Chromosome, coriell$Position, data.type="logratio")
+CNA.object <-  smooth.CNA(CNA.object)
+snps <- loadSNPData.DNAcopy(snp.data = CNA.object, na.rm = TRUE) 
+
+# more than 1 sample
+CNA.object <- CNA(genomdat = cbind(coriell$Coriell.05296, coriell$Coriell.13330), chrom = coriell$Chromosome, maploc = coriell$Position, data.type = "logratio", sampleid = c("c05296", "c13330"))
+CNA.object <-  smooth.CNA(CNA.object)
+snps <- loadSNPData.DNAcopy(snp.data = CNA.object, na.rm = TRUE)
+
+#If the data come from DNAcopy results
+DNAcopy.object <- segment(CNA.object, verbose=1)
+snps <- loadSNPData.DNAcopy(snp.data = DNAcopy.object)
+
 }
