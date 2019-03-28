@@ -1,0 +1,62 @@
+---
+title: "CopyNumberPlots: create copy-number specific plots using karyoploteR "
+author: "Bernat Gel (bgel@igtp.cat);Míriam Magallón (mmagallon@igtp.cat)"
+date: "`r doc_date()`"
+package: "`r pkg_ver('CopyNumberPlots')`"
+output: 
+  BiocStyle::html_document:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{CopyNumberPlots vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}  
+---
+
+
+```{r, include=FALSE}
+library(knitr)
+library(CopyNumberPlots)
+opts_chunk$set(concordance=FALSE)
+set.seed(21666641)
+```
+
+
+# Introduction
+
+Data visualisation is a powerful tool used for data analysis and exploration in 
+many fields. Genomics data analysis is one of these fields where good 
+visualisation tools can be of great help. 
+The aim of CopyNumberPlots is to offer the user an easy way to create 
+copy-number 
+
+along the genome to get broad wide view where it is possible to identify genome wide relations and distributions. 
+
+`r BiocStyle::Biocpkg("karyoploteR")` is based on base R graphics and mimicks its interface. You first create a plot with `plotKaryotype` and then sequentially call a number of functions (`kpLines`, `kpPoints`, `kpBars`...) to add data to the plot. 
+
+`r BiocStyle::Biocpkg("karyoploteR")` is a plotting tool and only a plotting tool. That means that it is not able to download or retrieve any data. The downside of this is that the user is responsible of getting the data into R. The upside is that it is not tied to any data provider and thus can be used to plot genomic data coming from anywhere. The only exception to this are the ideograms cytobands, that by default are plotted using predownloaded data from UCSC. 
+
+
+# Quick Start
+
+The basic idea behind `r BiocStyle::Biocpkg("karyoploteR")` has been to create a plotting system inspired by the R base graphics. Therefore, the basic workflow to create a karyoplot is to start with an empty plot with no data apart from the ideograms themselves using `plotKaryotype` and then add the data plots as required. To add the data there are functions based on the R base graphics low-level primitives -e.g `kpPoints`, `kpLines`, `kpSegments`, `kpRects`... - that can be used to plot virtually anything along the genome and other functions at a higher level useful to plot more specific genomic data types -e.g. `kpPlotRegions`, `kpPlotCoverage`...-.
+
+This is a first simple example plotting a set of regions representing copy-number gains and losses using the `kpPlotRegions` function:
+
+```{r}
+  gains <- toGRanges(data.frame(chr=c("chr1", "chr5", "chr17", "chr22"), start=c(1, 1000000, 4000000, 1),
+                      end=c(5000000, 3200000, 80000000, 1200000)))
+  losses <- toGRanges(data.frame(chr=c("chr3", "chr9", "chr17"), start=c(80000000, 20000000, 1),
+                       end=c(170000000, 30000000, 25000000)))
+  kp <- plotKaryotype(genome="hg19")
+  kpPlotRegions(kp, gains, col="#FFAACC")
+  kpPlotRegions(kp, losses, col="#CCFFAA")
+
+```
+
+# Session Info
+
+```{r, sessionInfo}
+sessionInfo()
+```
+
+
