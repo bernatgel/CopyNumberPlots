@@ -132,7 +132,7 @@ getColumn <- function(df, col = NULL, pattern = NULL, avoid.pattern = NULL, msg.
 #' @usage getChrColumn(df, col=NULL, avoid.pattern = NULL, needed=TRUE, verbose = TRUE)
 #'
 #' @param df (data.frame or equivalent) The object were columns are searched. It must be either a data.frame or an object where names(df) works.
-#' @param col (number of character) The column to identify. If NULL an heuristic will be used to automatically identify the column. It can also a number or a character to define the exact column to return.(defaults to NULL)
+#' @param col (number or character) The column to identify. If NULL an heuristic will be used to automatically identify the column. It can also a number or a character to define the exact column to return.(defaults to NULL)
 #' @param needed (logical) Whether the column is needed or not. If TRUE, an error will be raised if the column is not found. (defaults to TRUE)
 #' @param avoid.pattern (character) An optional pattern to avoid on the column name. The pattern may be any valid regular expression. (defaults to "")
 #' @param verbose Whether to show information messages. (defaults to TRUE)
