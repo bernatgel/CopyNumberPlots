@@ -9,7 +9,7 @@ getColumn(df, col=NULL, pattern="", avoid.pattern = NULL, msg.col.name="", neede
 \arguments{
 \item{df}{(data.frame or equivalent) The object were columns are searched. It must be either a data.frame or an object where names(df) works.}
 
-\item{col}{(number of character) The column to identify. If NULL an heuristic will be used to automatically identify the column. It can also a number or a character to define the exact column to return.(defaults to NULL)}
+\item{col}{(number or character) The column to identify. If NULL an heuristic will be used to automatically identify the column. It can also a number or a character to define the exact column to return.(defaults to NULL)}
 
 \item{pattern}{(character) The pattern to match the column name. If more than one column matches the pattern, the first one (leftmost) will be returned. The pattern may be any valid regular expression. (defaults to "")}
 
@@ -29,8 +29,8 @@ Use simple pattern matching to try to identify a column in a data.frame or
 equivalent by its name
 }
 \details{
-This function will use pattern matching to try to identify which column of 
-a data.frame contains a certain data. It will return its number. If 
+This function will use pattern matching to try to identify which column of
+a data.frame contains a certain data. It will return its number. If
 \code{col} is specified it will not use pattern matching but identify
 if a column with that exact name exists and return its position.
 }

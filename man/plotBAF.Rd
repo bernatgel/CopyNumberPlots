@@ -4,16 +4,16 @@
 \alias{plotBAF}
 \title{plotBAF}
 \usage{
-plotBAF(karyoplot, snps, baf.column="baf", label="BAF", points.cex=0.3, points.col="#333333", points.pch=16, label.cex=1.5, label.srt=90, label.margin=0.03, add.axis=TRUE, axis.cex=1.2, r0=0, r1=1, data.panel=1, ...)
+plotBAF(karyoplot, snps, baf.column="baf", labels="BAF", points.cex=0.3, points.col="#333333", points.pch=16, label.cex=1.5, label.srt=90, label.margin=0.03, add.axis=TRUE, axis.cex=1.2, r0=0, r1=1, track.margin=0.1, data.panel=1, ...)
 }
 \arguments{
 \item{karyoplot}{(a KaryoPlot object) The object returned by the \code{\link[karyoploteR]{plotKaryotype}} function and representing the current active plot.}
 
-\item{snps}{(a GRanges) A GRanges object with the positions of the SNPs and a column with the BAF values. Other columns are ignored.}
+\item{snps}{(a GRanges, a list of GRanges or a GRangesList) An object with the positions of the SNPs and a column with the BAF values. Other columns are ignored. If it's a list of GRanges with different samples, all samples will be plotted, splitting the total plot space between them.}
 
 \item{baf.column}{(a character) The name of the column in \code{snps} with the BAF values. (defaults to "baf")}
 
-\item{label}{(a character) The text of the label to identify the data. If NULL or NA, no label will be plotted. (defaults to "BAF")}
+\item{labels}{(a character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "BAF", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL. (defaults to NULL)}
 
 \item{points.cex}{(numeric) The size of the points. (defaults to 0.3)}
 
@@ -34,6 +34,8 @@ plotBAF(karyoplot, snps, baf.column="baf", label="BAF", points.cex=0.3, points.c
 \item{r0}{(numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to NULL)}
 
 \item{r1}{(numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to NULL)}
+
+\item{track.margin}{(numeric) If snps is a list object, this is the margin between the samples BAF. (deafults to 0.1)}
 
 \item{data.panel}{(numeric) (karyoploteR parameter) The identifier of the data panel where the data is to be plotted. The available data panels depend on the plot type selected in the call to \code{\link{plotKaryotype}}. (defaults to 1)}
 
@@ -70,7 +72,22 @@ plotBAF(kp, baf.data)
 
 names(mcols(baf.data)) <- "values"
 kp <- plotKaryotype(zoom=toGRanges("chr1", 1, 10000))
-plotBAF(kp, baf.data, baf.column="values", r0=0, r1=0.5, points.col="red", label="Values")
-plotBAF(kp, baf.data, baf.column=1, r0=0.5, r1=1, points.col="orange", label="First", label.cex=0.8, points.cex=1.4)
+plotBAF(kp, baf.data, baf.column="values", r0=0, r1=0.5, points.col="red", labels="Values")
+plotBAF(kp, baf.data, baf.column=1, r0=0.5, r1=1, points.col="orange", labels="First", label.cex=0.8, points.cex=1.4)
+
+#Plotting a list
+baf.data2 <- baf.data
+baf.data2$baf <- rnorm(1000, mean = 0.5, sd = 0.05)
+baf.list <- list(Tumor=baf.data, Normal=baf.data2)
+
+
+kp <- plotKaryotype(zoom=toGRanges("chr1", 1, 10000))
+plotBAF(kp, baf.list, labels=NULL)
+
+kp <- plotKaryotype(zoom=toGRanges("chr1", 1, 10000))
+plotBAF(kp, baf.list, labels=NULL, r1=0.8, label.cex=0.8, axis.cex=0.4)
+kpRect(kp, chr="chr1", x0=0, x1=pos[400], y0=0, y1=0.8, border="red")
+kpPlotNames(kp, chr="chr1", x0=0, x1=pos[400], y0=0, y1=0.8, labels = "Alteration", position = "top", col="red")
+
 
 }

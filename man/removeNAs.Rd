@@ -24,17 +24,17 @@ A GRanges or a list of GRanges where the NA values have been removed.
 Removing NA from snp data.
 }
 \details{
-This function will remove rows with NA values in snp data. We can decide 
+This function will remove rows with NA values in snp data. We can decide
 which columns we take into account to detect NAs, using the lrr.na, baf.na
 and id.na parameters.
 }
 \examples{
-#GRanges 
+#GRanges
 seg.data <- regioneR::toGRanges(data.frame(chr = c("chr1", "chr1", "chr2", "chr5"), start = c(0,50000,8014630,14523572), end = c(48953, 7023664,9216331,153245687), lrr = c(NA,0.25,1.5,NA)))
 seg.data <- removeNAs(snp.data = seg.data)
 
 #List of GRanges
-seg.data <- list(a = regioneR::toGRanges(data.frame(chr = c("chr1", "chr1", "chr2", "chr5"), start = c(0,50000,8014630,14523572), end = c(48953, 7023664,9216331,153245687), lrr = c(NA,0.25,1.5,NA),baf = c(1.5,2.5,NA,6), id = c("rs52456","rs52457","rs52458","rs52459"))), 
+seg.data <- list(a = regioneR::toGRanges(data.frame(chr = c("chr1", "chr1", "chr2", "chr5"), start = c(0,50000,8014630,14523572), end = c(48953, 7023664,9216331,153245687), lrr = c(NA,0.25,1.5,NA),baf = c(1.5,2.5,NA,6), id = c("rs52456","rs52457","rs52458","rs52459"))),
                     b=regioneR::toGRanges(data.frame(chr = c("chr1", "chr1", "chr2", "chr5"), start = c(0,50000,8014630,14523572), end = c(48953, 7023664,9216331,153245687), lrr = c(2.5,NA,1.5,0.25), baf = c(1.5,2.5,NA,6), id = c("rs52456","rs52457","rs52458","rs52459"))))
 seg.data <- removeNAs(snp.data = seg.data)
 

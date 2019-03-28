@@ -9,7 +9,7 @@ getLOHColumn(df, col = NULL, avoid.pattern = NULL, needed = TRUE, verbose = TRUE
 \arguments{
 \item{df}{(data.frame or equivalent) The object were columns are searched. It must be either a data.frame or an object where names(df) works.}
 
-\item{col}{(number of character) The column to identify. If NULL an heuristic will be used to automatically identify the column. It can also a number or a character to define the exact column to return.(defaults to NULL)}
+\item{col}{(number or character) The column to identify. If NULL an heuristic will be used to automatically identify the column. It can also a number or a character to define the exact column to return.(defaults to NULL)}
 
 \item{avoid.pattern}{(character) An optional pattern to avoid on the column name. The pattern may be any valid regular expression. (defaults to "")}
 
@@ -24,7 +24,7 @@ The number of the column matching the specification or NULL if no column was fou
 Identify the column in a data.frame or equivalent with LOH information
 }
 \details{
-Identify the column of a data.frame or equivalent that contains the LOH 
+Identify the column of a data.frame or equivalent that contains the LOH
 information and return its position
 }
 \examples{
