@@ -26,6 +26,23 @@
 #'
 #' @examples
 #'
+#' vcf.file <- system.file("extdata", "example.vcf.gz", package = "CopyNumberPlots", mustWork = TRUE)
+#' snps <- loadSNPDataFromVCF(vcf.file)
+#'
+#'
+
+seqlevelsStyle(snps[[1]]) <- "UCSC"
+seqlevelsStyle(snps[[2]]) <- "UCSC"
+
+library(karyoploteR)
+library(CopyNumberPlots)
+kp <- plotKaryotype(plot.type = 4)
+plotBAF(kp, snps = snps[[1]], r0=0, r1=0.4)
+plotBAF(kp, snps = snps[[2]], r0=0.5, r1=0.9)
+
+plotBAF no accepta llistes
+
+#'
 #'
 #'
 #' @export loadSNPDataFromVCF
@@ -35,43 +52,61 @@
 #' @importFrom GenomicRanges start
 
 #Read a VCF file and extract coverage (LRR) and frequency (BAF) information from it
-loadSNPDataFromVCF <- function(vcf.file, genome="hg19", randomize.baf=TRUE, verbose=TRUE) {
+loadSNPDataFromVCF <- function(vcf.file, regions=NULL, genome="hg19", mirror.baf=TRUE, verbose=TRUE) {
   if(verbose==TRUE) message("Scanning file ", vcf.file, "...")
 
+  if(!is.null(regions)) regions <- tryCatch(regioneR::toGRanges(regions), error = function(e){stop("regions must be in a valid format accepted by toGRanges.\n ", e)})
+
   vcf.header <- VariantAnnotation::scanVcfHeader(vcf.file)
-  if(!("AD" %in% row.names(VariantAnnotation::geno(vcf.header)))) stop("The VCF file does not have the AD field in genotype. BAF/LRR computation from FREQ and DP still not implemented.")
+
+  mode <- NULL
+  if("AD" %in% row.names(VariantAnnotation::geno(vcf.header))) mode <- "AD"
+  if(is.null(mode)) stop("The VCF file does not have the AD field in genotype. BAF/LRR computation from FREQ and DP still not implemented.")
 
   #TODO: Should we accept a GRanges to scan only specific regions of the file? (for zooming, etc...)
-  vars <- VariantAnnotation::readVcf(file=Rsamtools::TabixFile(vcf.file), genome = "hg19", param = VariantAnnotation::ScanVcfParam(info=NA, geno = "AD"))
-
-  #TODO: Remove the indels? Or at least make sure the frequency is correct
-
-  #BAF
-    #Compute the freq
-    ad <- VariantAnnotation::geno(vars)$AD
-    ad.ref <- unlist(lapply(ad, "[", 1))
-    ad.alt <- unlist(lapply(ad, "[", 2))
-
-    baf <- ad.alt/(ad.alt+ad.ref)
-
-  #LRR
-    lrr <- ad.alt+ad.ref+1
-    lrr <- log(lrr/mean(lrr))
-
-  #Build the GRanges
-  vars <- SummarizedExperiment::rowRanges(vars)
-  GenomicRanges::mcols(vars) <- data.frame(baf=baf, lrr=lrr)
-
-  if(randomize.baf==TRUE) {
-    #flip the frequency of every other SNP to achieve the same mirroring effect
-    #we see in SNP-arrays
-    odd.pos <- GenomicRanges::start(vars) %% 2 == 1
-    vars[odd.pos]$baf <- 1 - vars[odd.pos]$baf
+  if(is.null(regions)) {
+    vars <- VariantAnnotation::readVcf(file=Rsamtools::TabixFile(vcf.file), genome = "hg19", param = VariantAnnotation::ScanVcfParam(info=NA, geno = "AD"))
+  } else {
+            #TODO: Add a which=regions
   }
 
-  vars <- sort(vars)
+  #TODO: Remove the indels? Or at least make sure the frequency is correct.
+  #Yes, filter out INDELS
 
-  return(vars)
+
+
+  samples <- colnames(vars)
+  res <- list()
+  for(s in samples) {
+    v <- vars[,s]
+    if(mode == "AD") {
+      #Compute the freq
+      ad <- VariantAnnotation::geno(v)$AD
+      ad.ref <- unlist(lapply(ad, "[", 1))
+      ad.alt <- unlist(lapply(ad, "[", 2))
+
+      #BAF
+      baf <- ad.alt/(ad.alt+ad.ref)
+      baf[is.nan(baf)] <- NA
+
+      #LRR
+      lrr <- ad.alt+ad.ref+1
+      lrr <- log(lrr/mean(lrr))
+    }
+
+    #flip the frequency of every other SNP to achieve the same mirroring effect
+    #we see in SNP-arrays
+    if(mirror.baf==TRUE) baf[seq_len(length(baf))%% 2 == 1] <- 1-baf[seq_len(length(baf))%% 2 == 1]
+
+    #Build the GRanges
+    v <- SummarizedExperiment::rowRanges(v)
+    GenomicRanges::mcols(v) <- data.frame(baf=baf, lrr=lrr)
+    res[[s]] <- v
+  }
+
+
+
+  return(res)
 }
 
 
