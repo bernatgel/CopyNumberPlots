@@ -9,19 +9,19 @@ loadSNPData(snp.data, chr.col = NULL, start.col = NULL, end.col = NULL, pos.col 
 \arguments{
 \item{snp.data}{Either the name of the file with the data or a variable containing the data.}
 
-\item{chr.col}{(number of character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to NULL)}
+\item{chr.col}{(number or character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to NULL)}
 
-\item{start.col}{(number of character) the name or number of the column with start position}
+\item{start.col}{(number or character) the name or number of the column with start position}
 
-\item{end.col}{(number of character) the name of number of the column with end position}
+\item{end.col}{(number or character) the name of number of the column with end position}
 
-\item{pos.col}{(number of character) The name or number of the column with position information. If NULL, it is automatically identified. (defaults to NULL)}
+\item{pos.col}{(number or character) The name or number of the column with position information. If NULL, it is automatically identified. (defaults to NULL)}
 
-\item{baf.col}{(number of character) The name or number of the column with BAF information. If NULL, it is automatically identified. (defaults to NULL)}
+\item{baf.col}{(number or character) The name or number of the column with BAF information. If NULL, it is automatically identified. (defaults to NULL)}
 
-\item{lrr.col}{(number of character) The name or number of the column with LRR information. If NULL, it is automatically identified. (defaults to NULL)}
+\item{lrr.col}{(number or character) The name or number of the column with LRR information. If NULL, it is automatically identified. (defaults to NULL)}
 
-\item{id.col}{(number of character) The name or number of the column with SNP identifier information. If NULL, it is automatically identified. (defaults to NULL)}
+\item{id.col}{(number or character) The name or number of the column with SNP identifier information. If NULL, it is automatically identified. (defaults to NULL)}
 
 \item{genome}{(character) The name of the genome (defaults to "hg19")}
 

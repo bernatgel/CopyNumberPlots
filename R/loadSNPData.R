@@ -14,14 +14,14 @@
 #' @usage loadSNPData(snp.data, chr.col = NULL, start.col = NULL, end.col = NULL, pos.col = NULL, baf.col = NULL, lrr.col = NULL, id.col = NULL, genome = NULL, verbose = TRUE)
 #'
 #' @param snp.data Either the name of the file with the data or a variable containing the data.
-#' @param start.col (number of character) the name or number of the column with start position
-#' @param end.col (number of character) the name of number of the column with end position
+#' @param start.col (number or character) the name or number of the column with start position
+#' @param end.col (number or character) the name of number of the column with end position
 #' @param genome (character) The name of the genome (defaults to "hg19")
-#' @param chr.col (number of character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to NULL)
-#' @param pos.col (number of character) The name or number of the column with position information. If NULL, it is automatically identified. (defaults to NULL)
-#' @param baf.col (number of character) The name or number of the column with BAF information. If NULL, it is automatically identified. (defaults to NULL)
-#' @param lrr.col (number of character) The name or number of the column with LRR information. If NULL, it is automatically identified. (defaults to NULL)
-#' @param id.col (number of character) The name or number of the column with SNP identifier information. If NULL, it is automatically identified. (defaults to NULL)
+#' @param chr.col (number or character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to NULL)
+#' @param pos.col (number or character) The name or number of the column with position information. If NULL, it is automatically identified. (defaults to NULL)
+#' @param baf.col (number or character) The name or number of the column with BAF information. If NULL, it is automatically identified. (defaults to NULL)
+#' @param lrr.col (number or character) The name or number of the column with LRR information. If NULL, it is automatically identified. (defaults to NULL)
+#' @param id.col (number or character) The name or number of the column with SNP identifier information. If NULL, it is automatically identified. (defaults to NULL)
 #' @param verbose Wether information messages should be generated. (defaults to TRUE)
 #'
 #' @return
