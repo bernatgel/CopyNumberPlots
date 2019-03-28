@@ -29,21 +29,8 @@
 #' vcf.file <- system.file("extdata", "example.vcf.gz", package = "CopyNumberPlots", mustWork = TRUE)
 #' snps <- loadSNPDataFromVCF(vcf.file)
 #'
-#'
-
-seqlevelsStyle(snps[[1]]) <- "UCSC"
-seqlevelsStyle(snps[[2]]) <- "UCSC"
-
-library(karyoploteR)
-library(CopyNumberPlots)
-kp <- plotKaryotype(plot.type = 4)
-plotBAF(kp, snps = snps[[1]], r0=0, r1=0.4)
-plotBAF(kp, snps = snps[[2]], r0=0.5, r1=0.9)
-
-plotBAF no accepta llistes
-
-#'
-#'
+#' kp <- plotKaryotype(plot.type = 4)
+#' plotBAF(kp, snps = snps, labels = names(snps))
 #'
 #' @export loadSNPDataFromVCF
 #' @importFrom VariantAnnotation readVcf ScanVcfParam scanVcfHeader geno
