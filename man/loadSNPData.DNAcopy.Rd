@@ -9,15 +9,15 @@ loadSNPData.DNAcopy (snp.data, chr.col = "chrom", start.col = NULL, end.col = NU
 \arguments{
 \item{snp.data}{Either the name of the file with the data or a variable containing the data.}
 
-\item{chr.col}{(number of character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to NULL)}
+\item{chr.col}{(number or character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to NULL)}
 
-\item{start.col}{(number of character) the name or number of the column with start position}
+\item{start.col}{(number or character) the name or number of the column with start position}
 
-\item{end.col}{(number of character) the name of number of the column with end position}
+\item{end.col}{(number or character) the name of number of the column with end position}
 
-\item{pos.col}{(number of character) The name or number of the column with position information. If NULL, it is automatically identified. (defaults to NULL)}
+\item{pos.col}{(number or character) The name or number of the column with position information. If NULL, it is automatically identified. (defaults to NULL)}
 
-\item{lrr.col}{(number of character) The name or number of the column with LRR information. If NULL, it is automatically identified. (defaults to NULL)}
+\item{lrr.col}{(number or character) The name or number of the column with LRR information. If NULL, it is automatically identified. (defaults to NULL)}
 
 \item{chr.transformation}{(character) The transformation of the chromosome 
 names in a comma separated "key:value" format.(defaults to "23:X,24:Y,25:MT")}
