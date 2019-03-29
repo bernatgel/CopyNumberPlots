@@ -1,6 +1,6 @@
 ---
 title: "CopyNumberPlots: create copy-number specific plots using karyoploteR "
-author: "Bernat Gel (bgel@igtp.cat);Míriam Magallón (mmagallon@igtp.cat)"
+author: "Bernat Gel (bgel@igtp.cat);Miriam Magallon (mmagallon@igtp.cat)"
 date: "`r doc_date()`"
 package: "`r pkg_ver('CopyNumberPlots')`"
 output: 
