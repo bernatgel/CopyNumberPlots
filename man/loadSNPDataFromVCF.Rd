@@ -4,14 +4,16 @@
 \alias{loadSNPDataFromVCF}
 \title{loadSNPDataFromVCF}
 \usage{
-loadSNPDataFromVCF(vcf.file, genome="hg19", randomize.baf=TRUE, verbose=TRUE)
+loadSNPDataFromVCF(vcf.file, regions=NULL, genome="hg19", mirror.baf=TRUE, verbose=TRUE)
 }
 \arguments{
 \item{vcf.file}{The name of the file with the data}
 
-\item{genome}{The name of the genome (default to "hg19")}
+\item{regions}{(defaults to NULL)}
 
-\item{verbose}{Wether information messages should be generated. (default to TRUE)}
+\item{genome}{(a character)The name of the genome (defaults to "hg19")}
+
+\item{verbose}{Wether information messages should be generated. (defaults to TRUE)}
 
 \item{randomize.baf}{Flip the baf of about half the snps (the ones in odd positions in the genome) to achieve a mirror-like effect as in SNP arrays (defaults to TRUE)}
 }
