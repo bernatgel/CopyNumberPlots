@@ -11,7 +11,7 @@
 #' (usually named 'baf') with the BAF values or any object valid to \code{\link[regioneR]{toGRanges}}. This object can be created with
 #' \code{\link{loadSNPData}}.
 #'
-#' @usage plotBAF(karyoplot, snps, baf.column="baf", labels="BAF", points.cex=0.3, points.col="#333333", points.pch=16, label.cex=1.5, label.srt=90, label.margin=0.03, add.axis=TRUE, axis.cex=1.2, r0=0, r1=1, track.margin=0.1, data.panel=1, ...)
+#' @usage plotBAF(karyoplot, snps, baf.column="baf", labels=NULL, points.cex=0.3, points.col="#333333", points.pch=16, label.cex=1.5, label.srt=90, label.margin=0.03, add.axis=TRUE, axis.cex=1.2, r0=0, r1=1, track.margin=0.1, data.panel=1, ...)
 #'
 #'
 #' @param karyoplot  (a KaryoPlot object) The object returned by the \code{\link[karyoploteR]{plotKaryotype}} function and representing the current active plot.
@@ -57,6 +57,9 @@
 #' #Plotting a list
 #' baf.data2 <- baf.data
 #' baf.data2$baf <- rnorm(1000, mean = 0.5, sd = 0.05)
+#' baf.data$baf <- rnorm(1000, mean = 0.5, sd = 0.05)
+#' baf.data$baf[1:400] <- baf.data$baf[1:400] + c(0.2, -0.2)
+#' 
 #' baf.list <- list(Tumor=baf.data, Normal=baf.data2)
 #'
 #'
