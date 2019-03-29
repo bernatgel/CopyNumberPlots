@@ -57,6 +57,9 @@
 #' #Plotting a list
 #' baf.data2 <- baf.data
 #' baf.data2$baf <- rnorm(1000, mean = 0.5, sd = 0.05)
+#' baf.data$baf <- rnorm(1000, mean = 0.5, sd = 0.05)
+#' baf.data$baf[1:400] <- baf.data$baf[1:400] + c(0.2, -0.2)
+#' 
 #' baf.list <- list(Tumor=baf.data, Normal=baf.data2)
 #'
 #'
