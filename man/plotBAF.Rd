@@ -4,7 +4,7 @@
 \alias{plotBAF}
 \title{plotBAF}
 \usage{
-plotBAF(karyoplot, snps, baf.column="baf", labels="BAF", points.cex=0.3, points.col="#333333", points.pch=16, label.cex=1.5, label.srt=90, label.margin=0.03, add.axis=TRUE, axis.cex=1.2, r0=0, r1=1, track.margin=0.1, data.panel=1, ...)
+plotBAF(karyoplot, snps, baf.column="baf", labels=NULL, points.cex=0.3, points.col="#333333", points.pch=16, label.cex=1.5, label.srt=90, label.margin=0.03, add.axis=TRUE, axis.cex=1.2, r0=0, r1=1, track.margin=0.1, data.panel=1, ...)
 }
 \arguments{
 \item{karyoplot}{(a KaryoPlot object) The object returned by the \code{\link[karyoploteR]{plotKaryotype}} function and representing the current active plot.}

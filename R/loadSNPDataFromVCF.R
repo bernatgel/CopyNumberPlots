@@ -19,7 +19,7 @@
 #' @param vcf.file The name of the file with the data
 #' @param regions (defaults to NULL)
 #' @param genome (a character)The name of the genome (defaults to "hg19")
-#' @param randomize.baf Flip the baf of about half the snps (the ones in odd positions in the genome) to achieve a mirror-like effect as in SNP arrays (defaults to TRUE)
+#' @param mirror.baf Flip the baf of about half the snps (the ones in odd positions in the genome) to achieve a mirror-like effect as in SNP arrays (defaults to TRUE)
 #' @param verbose Wether information messages should be generated. (defaults to TRUE)
 #'
 #' @return

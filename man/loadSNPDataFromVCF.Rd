@@ -13,9 +13,9 @@ loadSNPDataFromVCF(vcf.file, regions=NULL, genome="hg19", mirror.baf=TRUE, verbo
 
 \item{genome}{(a character)The name of the genome (defaults to "hg19")}
 
-\item{verbose}{Wether information messages should be generated. (defaults to TRUE)}
+\item{mirror.baf}{Flip the baf of about half the snps (the ones in odd positions in the genome) to achieve a mirror-like effect as in SNP arrays (defaults to TRUE)}
 
-\item{randomize.baf}{Flip the baf of about half the snps (the ones in odd positions in the genome) to achieve a mirror-like effect as in SNP arrays (defaults to TRUE)}
+\item{verbose}{Wether information messages should be generated. (defaults to TRUE)}
 }
 \value{
 A GRanges object with a range per SNP
