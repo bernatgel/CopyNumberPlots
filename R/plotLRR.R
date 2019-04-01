@@ -66,6 +66,7 @@ plotLRR <- function(karyoplot, snps, lrr.column="lrr", label="LRR", ymin=-4, yma
 
   snps <- regioneR::toGRanges(snps)
 
+  snps <- removeNAs(snps, verbose = FALSE)
 
   karyoploteR::kpAddLabels(karyoplot, r0=r0, r1=r1, labels = label, srt=label.srt, pos = 3, cex=label.cex, label.margin = label.margin, ...)
   if(ymin<0 && ymax>0) {
