@@ -1,2 +1,2 @@
-"id"	"chromosome"	"Start"	"end.position"	"copy.number.level"	"LOH"	"median.value.per.segment"	"BAF"	"Log.Ratio"	"strange.name"
-"rs1234"	"chr1"	0	100	3	0	1.2	0.2	1.5	"strange.value"
+id	chromosome	Start	end.position	copy.number.level	LOH	median.value.per.segment	BAF	Log.Ratio	strange.name
+rs1234	chr1	0	100	3	0	1.2	0.2	1.5	strange.value
