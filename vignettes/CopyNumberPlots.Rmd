@@ -26,9 +26,9 @@ set.seed(21666641)
 Data visualisation is a powerful tool used for data analysis and exploration in 
 many fields. Genomics data analysis is one of these fields where good 
 visualisation tools can be of great help. 
-The aim of `r BiocStyle::Biocpkg("CopyNumberPlots")` is to offer the user an easy way to create 
-copy-number related plots using the infrastructure provided by the R package
-`r BiocStyle::Biocpkg("karyoploteR")`.
+The aim of `r BiocStyle::Biocpkg("CopyNumberPlots")` is to offer the user an 
+easy way to create copy-number related plots using the infrastructure provided
+by the R package `r BiocStyle::Biocpkg("karyoploteR")`.
 
 In addition to a set of specialized plotting functions for copy-number analysis
 data and results (`plotBAF`, `plotCopyNumberCalls`, ...), 
@@ -45,19 +45,116 @@ figure for your data.
 
 # Quick Start
 
+To start working with `r BiocStyle::Biocpkg("CopyNumberPlots")` we will need
+to use the `plotKaryoptype` function from `r BiocStyle::Biocpkg("karyoploteR")`.
+If you want more information on how to customize it, use for other organisms
+or genome version, etc... you can take a look at the
+[karyoploteR tutorial](https://bernatgel.github.io/karyoploter_tutorial/) and 
+specifically at the section on 
+[how to plot ideograms](https://bernatgel.github.io/karyoploter_tutorial//Tutorial/CreateIdeogram/CreateIdeogram.html).
 
+For this quick start example we'll plot SNP-array data from a cancer cell line.
+The data is in a file included with the package and in a format very similar
+to the Final Report file you would get from Illumina's Genome Studio. In this
+case we have subsampled the file to only 10000 snps.
+
+To load the data we'll use `loadSNPData` which will detect the right columns, 
+read the data and build a GRanges object for us. 
+
+Since this data uses Ensembl-style chromosome names (1,2,3,...,X,Y) and by 
+default karyoploteR uses UCSC chromosome names (chr1,chr2,chr3,...,chrX,chrY)
+we'll change the chromosome style to UCSC.
 
 ```{r}
-  gains <- toGRanges(data.frame(chr=c("chr1", "chr5", "chr17", "chr22"), start=c(1, 1000000, 4000000, 1),
-                      end=c(5000000, 3200000, 80000000, 1200000)))
-  losses <- toGRanges(data.frame(chr=c("chr3", "chr9", "chr17"), start=c(80000000, 20000000, 1),
-                       end=c(170000000, 30000000, 25000000)))
-  kp <- plotKaryotype(genome="hg19")
-  kpPlotRegions(kp, gains, col="#FFAACC")
-  kpPlotRegions(kp, losses, col="#CCFFAA")
 
+  s1.file <- system.file("extdata", "S0001.snparray.txt", package = "CopyNumberPlots", mustWork = TRUE)
+  s1 <- loadSNPData(s1)
+  seqlevelsStyle(s1) <- "UCSC"
+  
+  head(s1)
 ```
 
+
+
+
+Once we have our data loaded we can start plotting. We'll start by creating 
+a karyoplot using `plotKaryotype`. We'll use `plot.type=4` to get all 
+chromosomes in a single line one next to the other. You can get more information
+on the available plot types at 
+[the karyoploteR tutorial](https://bernatgel.github.io/karyoploter_tutorial//Tutorial/PlotTypes/PlotTypes.html).
+
+```{r}
+  kp <- plotKaryotype(plot.type=4)
+```
+
+And once we have a karyoplot we can start adding out data. We can plot the 
+B-allele frequency using `plotBAF`
+
+```{r}
+  kp <- plotKaryotype(plot.type=4)
+  plotBAF(kp, s1)
+```
+
+We can plot LRR using `plotLRR`
+
+```{r}
+  kp <- plotKaryotype(plot.type=4)
+  plotLRR(kp, s1)
+```
+
+And we can see in this plot that points with a LRR below -4 in the Y chromosome
+are plotted in red at -4 so we don't lose them.
+
+We can also use the 
+[data positioning](https://bernatgel.github.io/karyoploter_tutorial//Tutorial/DataPositioning/DataPositioning.html) parameters `r0` and `r1` to add more than one data type 
+on the same plot.
+
+```{r}
+  kp <- plotKaryotype(plot.type=4)
+  plotBAF(kp, s1, r0=0.55, r1=1)
+  plotLRR(kp, s1, r0=0, r1=0.45)
+```
+
+Finally, we can load a copy number calling made on this data and plot it.
+As an example, we have the calls made by 
+[ASCAT](https://github.com/Crick-CancerGenomics/ascat) included in the package.
+To load the copy number calls in this file we can use the function
+`loadCopyNumberCalls` that will read the data, identify the correct columns and 
+create a GRanges object for us.
+
+```{r}
+  s1.calls.file <- system.file("extdata", "S0001.ASCAT.segments.txt", package = "CopyNumberPlots", mustWork = TRUE)
+  s1.calls <- loadCopyNumberCalls(s1.calls.file)
+  s1.calls
+```
+
+And then use `kpPlotCopyNumberCalls` to add them to the previous plot.
+
+```{r}
+  kp <- plotKaryotype(plot.type=4)
+  plotBAF(kp, s1, r0=0.6, r1=1)
+  plotLRR(kp, s1, r0=0.15, r1=0.55)
+  plotCopyNumberCalls(kp, s1.calls, r0=0, r1=0.10)
+```
+ 
+With that the main functionality of  `r BiocStyle::Biocpkg("CopyNumberPlots")`
+is covered. It is important to take into account that since we are extending
+the functionality of `r BiocStyle::Biocpkg("karyoploteR")`, we can use all
+karyoploteR functions to add more data and other data types into these plots.
+
+In the following pages you will find more information on how to load 
+data to use with `r BiocStyle::Biocpkg("CopyNumberPlots")`, how to create other 
+plot types and how to customize them.
+
+
+# Loading Copy-Number Data
+
+
+# Plotting Copy-Number Data
+
+
+
+ 
 # Session Info
 
 ```{r, sessionInfo}
