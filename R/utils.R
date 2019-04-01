@@ -547,7 +547,7 @@ removeNAs <- function(snp.data, lrr.na = TRUE, baf.na = TRUE, id.na = TRUE, verb
     if("lrr" %in% names(GenomicRanges::mcols(snp.data))){
       na.values <- is.na(snp.data$lrr)
       snp.data <- snp.data[!(na.values)]
-      if(verbose==TRUE) message("The number of NAs removed in LRR are : ", length(na.values))
+      if(verbose==TRUE) message("The number of NAs removed in LRR are : ", length(which(na.values)))
 
     }else{
       message("lrr column not found in snp.data")
@@ -559,7 +559,7 @@ removeNAs <- function(snp.data, lrr.na = TRUE, baf.na = TRUE, id.na = TRUE, verb
     if("baf" %in% names(GenomicRanges::mcols(snp.data))){
       na.values <- is.na(snp.data$baf)
       snp.data <- snp.data[!(na.values)]
-      if(verbose==TRUE) message("The number of NAs removed in BAF are : ", length(na.values))
+      if(verbose==TRUE) message("The number of NAs removed in BAF are : ", length(which(na.values)))
 
 
     }else{
@@ -572,7 +572,7 @@ removeNAs <- function(snp.data, lrr.na = TRUE, baf.na = TRUE, id.na = TRUE, verb
     if("id" %in% names(GenomicRanges::mcols(snp.data))){
       na.values <- is.na(snp.data$baf)
       snp.data <- snp.data[!(na.values)]
-      if(verbose==TRUE) message("The number of NAs removed in ID are : ", length(na.values))
+      if(verbose==TRUE) message("The number of NAs removed in ID are : ", length(which(na.values)))
 
 
     }else{
