@@ -68,7 +68,7 @@ we'll change the chromosome style to UCSC.
 ```{r}
 
   s1.file <- system.file("extdata", "S0001.snparray.txt", package = "CopyNumberPlots", mustWork = TRUE)
-  s1 <- loadSNPData(s1)
+  s1 <- loadSNPData(s1.file)
   seqlevelsStyle(s1) <- "UCSC"
   
   head(s1)
