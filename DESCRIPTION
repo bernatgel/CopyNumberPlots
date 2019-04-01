@@ -1,12 +1,10 @@
 Package: CopyNumberPlots
 Type: Package
-Title: Create Copy-Number Plots using karyoploteR's functionality.
+Title: Create Copy-Number Plots using karyoploteR functionality.
 Version: 0.1.13
-Author: Bernat Gel (bgel@igtp.cat) and Miriam Magallon <mmagallon@igtp.cat>
+Author: Bernat Gel <bgel@igtp.cat> and Miriam Magallon <mmagallon@igtp.cat>
 Maintainer: Bernat Gel <bgel@igtp.cat>
-Description: CopyNumberPlots have a set of functions extending karyoploteR's 
-functionality to create beautiful, customizable and flexible plots of 
-copy-number related data.
+Description: CopyNumberPlots have a set of functions extending karyoploteRs functionality to create beautiful, customizable and flexible plots of copy-number related data.
 Depends:
     R (>= 3.5),
     karyoploteR
