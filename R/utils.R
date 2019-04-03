@@ -584,3 +584,100 @@ removeNAs <- function(snp.data, lrr.na = TRUE, baf.na = TRUE, id.na = TRUE, verb
   return(snp.data)
 }
 
+
+################### SeqLevelStyle ##############################################
+#' UCSCStyle
+#'
+#' @description
+#' Set the style of the chromosome names to UCSC ("chr1" instead of "1")
+#'
+#' @usage UCSCStyle(x)
+#'
+#' @param x (GRanges, GRangesList or list of GRanges) The object to transform to UCSC style
+#'
+#' @return
+#' The same x object with the styles of the seqlevels set to UCSC
+#'
+#' @examples
+#' #GRanges
+#' seg.data <- regioneR::toGRanges(data.frame(chr = c("1", "1", "2", "5"), start = c(0,50000,8014630,14523572), end = c(48953, 7023664,9216331,153245687), lrr = c(NA,0.25,1.5,NA)))
+#' seg.data <- UCSCStyle(seg.data)
+#'
+#' #List of GRanges
+#' seg.data <- list(a = regioneR::toGRanges(data.frame(chr = c("1", "1", "2", "5"), start = c(0,50000,8014630,14523572), end = c(48953, 7023664,9216331,153245687), lrr = c(NA,0.25,1.5,NA),baf = c(1.5,2.5,NA,6), id = c("rs52456","rs52457","rs52458","rs52459"))),
+#'                     b=regioneR::toGRanges(data.frame(chr = c("1", "1", "2", "5"), start = c(0,50000,8014630,14523572), end = c(48953, 7023664,9216331,153245687), lrr = c(2.5,NA,1.5,0.25), baf = c(1.5,2.5,NA,6), id = c("rs52456","rs52457","rs52458","rs52459"))))
+#' seg.data <- UCSCStyle(seg.data)
+#'
+#' #GRangesList
+#' seg.data <- GRangesList(a = regioneR::toGRanges(data.frame(chr = c("1", "1", "2", "5"), start = c(0,50000,8014630,14523572), end = c(48953, 7023664,9216331,153245687), lrr = c(NA,0.25,1.5,NA), baf = c(1.5,2.5,NA,6), id = c("rs52456","rs52457","rs52458","rs52459"))),
+#'                         b = regioneR::toGRanges(data.frame(chr = c("1", "1", "2", "5"), start = c(0,50000,8014630,14523572), end = c(48953, 7023664,9216331,153245687), lrr = c(2.5,NA,1.5,0.25), baf = c(1.5,2.5,NA,6), id = c("rs52456","rs52457","rs52458","rs52459"))))
+#' seg.data <- UCSCStyle(seg.data)
+#'
+#'
+#' @export UCSCStyle
+#'
+#'
+UCSCStyle <- function(x) {
+  if(methods::is(x, "list")) {
+    if(all(unlist(lapply(x, methods::is, "GRanges")))) {
+      for(i in seq_len(length(x))) {seqlevelsStyle(x[[i]]) <- "UCSC"}
+      return(x)
+    } else {
+      stop("All elements of the list must be GRanges")
+    }
+  }
+  if(methods::is(x, "GenomicRanges_OR_GenomicRangesList")) {
+    seqlevelsStyle(x) <- "UCSC"
+    return(x)
+  }
+  stop("Unknown class. Only GRanges, GRangesLists and lists of GRanges are accepted by UCSCStyle.")
+}
+
+#' EnsemblStyle
+#'
+#' @description
+#' Set the style of the chromosome names to Ensembl ("chr1" instead of "1")
+#'
+#' @usage EnsemblStyle(x)
+#'
+#' @param x (GRanges, GRangesList or list of GRanges) The object to transform to Ensembl style
+#'
+#' @return
+#' The same x object with the styles of the seqlevels set to Ensembl
+#'
+#' @examples
+#' #GRanges
+#' seg.data <- regioneR::toGRanges(data.frame(chr = c("chr1", "chr1", "chr2", "chr5"), start = c(0,50000,8014630,14523572), end = c(48953, 7023664,9216331,153245687), lrr = c(NA,0.25,1.5,NA)))
+#' seg.data <- EnsemblStyle(seg.data)
+#'
+#' #List of GRanges
+#' seg.data <- list(a = regioneR::toGRanges(data.frame(chr = c("chr1", "chr1", "chr2", "chr5"), start = c(0,50000,8014630,14523572), end = c(48953, 7023664,9216331,153245687), lrr = c(NA,0.25,1.5,NA),baf = c(1.5,2.5,NA,6), id = c("rs52456","rs52457","rs52458","rs52459"))),
+#'                     b=regioneR::toGRanges(data.frame(chr = c("chr1", "chr1", "chr2", "chr5"), start = c(0,50000,8014630,14523572), end = c(48953, 7023664,9216331,153245687), lrr = c(2.5,NA,1.5,0.25), baf = c(1.5,2.5,NA,6), id = c("rs52456","rs52457","rs52458","rs52459"))))
+#' seg.data <- EnsemblStyle(seg.data)
+#'
+#' #GRangesList
+#' seg.data <- GRangesList(a = regioneR::toGRanges(data.frame(chr = c("chr1", "chr1", "chr2", "chr5"), start = c(0,50000,8014630,14523572), end = c(48953, 7023664,9216331,153245687), lrr = c(NA,0.25,1.5,NA), baf = c(1.5,2.5,NA,6), id = c("rs52456","rs52457","rs52458","rs52459"))),
+#'                         b = regioneR::toGRanges(data.frame(chr = c("chr1", "chr1", "chr2", "chr5"), start = c(0,50000,8014630,14523572), end = c(48953, 7023664,9216331,153245687), lrr = c(2.5,NA,1.5,0.25), baf = c(1.5,2.5,NA,6), id = c("rs52456","rs52457","rs52458","rs52459"))))
+#' seg.data <- EnsemblStyle(seg.data)
+#'
+#'
+#' @export EnsemblStyle
+#'
+#'
+EnsemblStyle <- function(x) {
+  if(methods::is(x, "list")) {
+    if(all(unlist(lapply(x, methods::is, "GRanges")))) {
+      for(i in seq_len(length(x))) {seqlevelsStyle(x[[i]]) <- "Ensembl"}
+      return(x)
+    } else {
+      stop("All elements of the list must be GRanges")
+    }
+  }
+  if(methods::is(x, "GenomicRanges_OR_GenomicRangesList")) {
+    seqlevelsStyle(x) <- "Ensembl"
+    return(x)
+  }
+  stop("Unknown class. Only GRanges, GRangesLists and lists of GRanges are accepted by EnsemblStyle.")
+}
+
+
