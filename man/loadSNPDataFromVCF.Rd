@@ -7,7 +7,7 @@
 loadSNPDataFromVCF(vcf.file, regions=NULL, genome="hg19", mirror.baf=TRUE, verbose=TRUE)
 }
 \arguments{
-\item{vcf.file}{The name of the file with the data}
+\item{vcf.file}{The name of the VCF file with the data}
 
 \item{regions}{The regions to which we will limit the import (defaults to NULL)}
 
@@ -18,17 +18,15 @@ loadSNPDataFromVCF(vcf.file, regions=NULL, genome="hg19", mirror.baf=TRUE, verbo
 \item{verbose}{Wether information messages should be generated. (defaults to TRUE)}
 }
 \value{
-A GRanges object with a range per SNP
+A GRanges object with a range per variant and a column named baf
 }
 \description{
-Loads SNP array data in a tabular format
+Load BAF-like data from a VCF file based on the variant allele frequency
 }
 \details{
-Given a file name, the function loads SNP array data in a tabular format.
-It will try to identify the columns with the relevant information
-(chr, position, BAF, LRR, etc...) or will use the column number or name
-supplied by the user, if any. It will convert the tabular data into a
-GRanges, with one range per SNP in the table.
+Given a VCF file the function will compute BAF-like values based on the
+variant allele frequency contained in it and return a GRanges object
+with a column named "baf".
 }
 \examples{
 

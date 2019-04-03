@@ -1,26 +1,23 @@
 #' loadSNPDataFromVCF
 #'
 #' @description
-#' Loads SNP array data in a tabular format
+#' Load BAF-like data from a VCF file based on the variant allele frequency
 #'
 #' @details
-#' Given a file name, the function loads SNP array data in a tabular format.
-#' It will try to identify the columns with the relevant information
-#' (chr, position, BAF, LRR, etc...) or will use the column number or name
-#' supplied by the user, if any. It will convert the tabular data into a
-#' GRanges, with one range per SNP in the table.
-#'
+#' Given a VCF file the function will compute BAF-like values based on the
+#' variant allele frequency contained in it and return a GRanges object
+#' with a column named "baf".
 #'
 #' @usage loadSNPDataFromVCF(vcf.file, regions=NULL, genome="hg19", mirror.baf=TRUE, verbose=TRUE)
 #'
-#' @param vcf.file The name of the file with the data
+#' @param vcf.file The name of the VCF file with the data
 #' @param regions The regions to which we will limit the import (defaults to NULL)
 #' @param genome (a character)The name of the genome (defaults to "hg19")
 #' @param mirror.baf Flip the baf of about half the snps (the ones in odd positions in the genome) to achieve a mirror-like effect as in SNP arrays (defaults to TRUE)
 #' @param verbose Wether information messages should be generated. (defaults to TRUE)
 #'
 #' @return
-#' A GRanges object with a range per SNP
+#' A GRanges object with a range per variant and a column named baf
 #'
 #' @examples
 #'
@@ -48,7 +45,6 @@ loadSNPDataFromVCF <- function(vcf.file, regions=NULL, genome="hg19", mirror.baf
   if("AD" %in% row.names(VariantAnnotation::geno(vcf.header))) mode <- "AD"
   if(is.null(mode)) stop("The VCF file does not have the AD field in genotype. BAF/LRR computation from FREQ and DP still not implemented.")
 
-  #TODO: Should we accept a GRanges to scan only specific regions of the file? (for zooming, etc...)
   if(is.null(regions)) {
     vars <- VariantAnnotation::readVcf(file=Rsamtools::TabixFile(vcf.file), genome = "hg19", param = VariantAnnotation::ScanVcfParam(info=NA, geno = "AD"))
   } else {
@@ -74,9 +70,9 @@ loadSNPDataFromVCF <- function(vcf.file, regions=NULL, genome="hg19", mirror.baf
       baf <- ad.alt/(ad.alt+ad.ref)
       baf[is.nan(baf)] <- NA
 
-      #LRR
-      lrr <- ad.alt+ad.ref+1
-      lrr <- log(lrr/mean(lrr))
+      # #LRR
+      # lrr <- ad.alt+ad.ref+1
+      # lrr <- log(lrr/mean(lrr))
     }
 
     #flip the frequency of every other SNP to achieve the same mirroring effect
@@ -85,7 +81,7 @@ loadSNPDataFromVCF <- function(vcf.file, regions=NULL, genome="hg19", mirror.baf
 
     #Build the GRanges
     v <- SummarizedExperiment::rowRanges(v)
-    GenomicRanges::mcols(v) <- data.frame(baf=baf, lrr=lrr)
+    GenomicRanges::mcols(v) <- data.frame(baf=baf) #, lrr=lrr)
     res[[s]] <- v
   }
 
