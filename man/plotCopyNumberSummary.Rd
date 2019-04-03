@@ -7,35 +7,35 @@
 plotCopyNumberSummary(karyoplot, cn.calls, direction="in",  gain.color=NULL, normal.color=NULL, loss.color=NULL, add.grid=FALSE, grid.color="white", label="", lab.cex=1, lab.srt=0, pos=2, r0=0, r1=1, ...)
 }
 \arguments{
-\item{karyoplot}{the karyoplot object}
+\item{karyoplot}{(a KaryoPlot object) The object returned by the \code{\link[karyoploteR]{plotKaryotype}} function and representing the current active plot.}
 
-\item{cn.calls}{(list) a LIST of cn.calls objects!}
+\item{cn.calls}{(a list of GRanges or a GRangesList) A list of GRanges or a GRangesList containing the GRanges objects with cn.column value}
 
 \item{direction}{(defaults to "in")}
 
-\item{gain.color}{(defaults to NULL)}
+\item{gain.color}{(color) The color assigned to gains (defaults to NULL)}
 
-\item{normal.color}{(defaults to NULL)}
+\item{normal.color}{(color) The color assigned to normal ploidy(defaults to NULL)}
 
-\item{loss.color}{(defaults to NULL)}
+\item{loss.color}{(colors) The color assigned to losses(defaults to NULL)}
 
-\item{add.grid}{(defaults to FALSE)}
+\item{add.grid}{(logical) Whether to add lines as a grid in the plot (defaults to FALSE)}
 
-\item{grid.color}{(defaults to "white")}
+\item{grid.color}{(color) The color of the grid (defaults to "white")}
 
-\item{label}{(defaults to "")}
+\item{labels}{(a character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "BAF", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL. (defaults to NULL)}
 
-\item{lab.cex}{(defaults to 1)}
-
-\item{lab.srt}{(defaults to 0)}
+\item{label.cex}{(numeric) The size of the label (defaults to 1.5)}
 
 \item{pos}{(defaults to 2)}
 
-\item{r0}{(defaults to 0)}
+\item{r0}{(numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to NULL)}
 
-\item{r1}{(defaults to 1)}
+\item{r1}{(numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to NULL)}
 
-\item{...}{additional params}
+\item{...}{The ellipsis operator can be used to specify any additional graphical parameters. Any additional parameter will be passed to the internal calls to karyoploteR functions.}
+
+\item{label.srt}{(numeric) The rotation of the label (defaults to 90, vertical text)}
 }
 \value{
 Invisibly returns the karyoplot object representing the plot. With it
@@ -69,7 +69,7 @@ kp <- plotKaryotype("hg19", plot.type=4)
 plotCopyNumberSummary(kp, all.scnas)
 
 kp <- plotKaryotype("hg19", plot.type=4)
-plotCopyNumberSummary(kp, all.scnas, gain.col="blue", loss.col="red", label="Copy Number", r0=0, r1=0.3, lab.srt=90, pos=3)
+plotCopyNumberSummary(kp, all.scnas, gain.col="blue", loss.col="red", labels="Copy Number", r0=0, r1=0.3, label.srt=90, pos=3)
 plotCopyNumberSummary(kp, all.scnas, direction="out", add.grid=TRUE, r0=0.35, r1=0.65)
 plotCopyNumberSummary(kp, all.scnas, direction="out", r0=0.7, r1=1)
 kpAxis(kp, ymin=0, ymax=10, r0=0.85, r1=1, tick.pos = c(0,5,10))

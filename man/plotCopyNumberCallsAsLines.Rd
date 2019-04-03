@@ -4,38 +4,38 @@
 \alias{plotCopyNumberCallsAsLines}
 \title{plotCopyNumberCallsAsLines}
 \usage{
-plotCopyNumberCallsAsLines(karyoplot, cn.calls, style="line", cn.column="cn", label="", lab.cex=1, axis=TRUE, axis.cex=1, numticks=NULL, col="black", ymin=NULL, ymax=NULL, r0=0, r1=1, ...)
+plotCopyNumberCallsAsLines(karyoplot, cn.calls, style="line", cn.column="cn", labels=NULL, lab.cex=1, add.axis=TRUE, axis.cex=1, numticks=NULL, col="black", ymin=NULL, ymax=NULL, r0=0, r1=1, ...)
 }
 \arguments{
-\item{karyoplot}{The karyoplot}
+\item{karyoplot}{(a KaryoPlot object) The object returned by the \code{\link[karyoploteR]{plotKaryotype}} function and representing the current active plot.}
 
-\item{cn.calls}{The data}
+\item{cn.calls}{(a GRanges, a list of GRanges or a GRangesList) An object with the positions of the CN calls and a column with the CN values. Other columns are ignored. If it's a list of GRanges with different samples, all samples will be plotted, splitting the total plot space between them.}
 
-\item{style}{(defaults to "line")}
+\item{style}{(character) The style in which the lines can be plot. It colud be as lines or segments using the kplines or kpsegments. (defaults to "line")}
 
-\item{cn.column}{(defaults to "cn")}
+\item{cn.column}{(integer or character vector) The name or number of the column with CN information.(defaults to "cn")}
 
-\item{label}{(defaults to "")}
+\item{labels}{(character vector or list) labels (a character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "BAF", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL. (defaults to NULL)}
 
-\item{lab.cex}{(defaults to 1)}
+\item{label.cex}{(numeric) The size of the label (defaults to 1)}
 
-\item{axis}{(defaults to TRUE)}
-
-\item{axis.cex}{(defaults to 1)}
+\item{axis.cex}{(numeric) The size of the axis labels.(defaults to 1)}
 
 \item{numticks}{(defaults to NULL)}
 
-\item{col}{(defaults to "black")}
+\item{col}{(color) The color of the lines (defaults to "black")}
 
-\item{ymin}{(defaults to NULL)}
+\item{ymin}{(numeric) (karyoploteR parameter) The minimum value of y to be plotted. If NULL, it is set to the min value of the selected data panel. (defaults to -4)}
 
-\item{ymax}{(defaults to NULL)}
+\item{ymax}{(numeric) (karyoploteR parameter) (numeric) The maximum value of y to be plotted. If NULL, it is set to the max value of the selected data panel. (defaults to 2)}
 
-\item{r0}{(defaults to 0)}
+\item{r0}{(numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to 0)}
 
-\item{r1}{(defaults to 1)}
+\item{r1}{(numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to 1)}
 
-\item{...}{additional params}
+\item{...}{The ellipsis operator can be used to specify any additional graphical parameters. Any additional parameter will be passed to the internal calls to karyoploteR functions.}
+
+\item{axis}{(logical) Whether to plot an axis (defaults to TRUE)}
 }
 \value{
 Invisibly returns the karyoplot object representing the plot. With it
@@ -70,6 +70,6 @@ plotCopyNumberCallsAsLines(kp, scnas, r0=0.25, r1=0.55)
 plotCopyNumberCallsAsLines(kp, scnas, r0=0.65, r1=0.95, style="segments", col="red", ymin=0, ymax=4, numticks=3)
 
 kp <- plotKaryotype("hg19")
-plotCopyNumberCallsAsLines(kp, scnas, r0=0.2, r1=0.4, style="segments", axis=FALSE, label="CopyNumber")
+plotCopyNumberCallsAsLines(kp, scnas, r0=0.2, r1=0.4, style="segments", add.axis=FALSE, labels="CopyNumber")
 
 }

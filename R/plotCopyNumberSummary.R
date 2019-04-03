@@ -9,21 +9,21 @@
 #'
 #' @usage plotCopyNumberSummary(karyoplot, cn.calls, direction="in",  gain.color=NULL, normal.color=NULL, loss.color=NULL, add.grid=FALSE, grid.color="white", label="", lab.cex=1, lab.srt=0, pos=2, r0=0, r1=1, ...)
 #'
-#' @param karyoplot the karyoplot object
-#' @param cn.calls (list) a LIST of cn.calls objects!
+#' @param karyoplot (a KaryoPlot object) The object returned by the \code{\link[karyoploteR]{plotKaryotype}} function and representing the current active plot.
+#' @param cn.calls (a list of GRanges or a GRangesList) A list of GRanges or a GRangesList containing the GRanges objects with cn.column value
 #' @param direction (defaults to "in")
-#' @param gain.color (defaults to NULL)
-#' @param normal.color (defaults to NULL)
-#' @param loss.color (defaults to NULL)
-#' @param add.grid (defaults to FALSE)
-#' @param grid.color (defaults to "white")
-#' @param label (defaults to "")
-#' @param lab.cex (defaults to 1)
-#' @param lab.srt (defaults to 0)
+#' @param gain.color (color) The color assigned to gains (defaults to NULL)
+#' @param normal.color (color) The color assigned to normal ploidy(defaults to NULL)
+#' @param loss.color (colors) The color assigned to losses(defaults to NULL)
+#' @param add.grid (logical) Whether to add lines as a grid in the plot (defaults to FALSE)
+#' @param grid.color (color) The color of the grid (defaults to "white")
+#' @param labels (a character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "BAF", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL. (defaults to NULL)
+#' @param label.cex (numeric) The size of the label (defaults to 1.5)
+#' @param label.srt (numeric) The rotation of the label (defaults to 90, vertical text)
 #' @param pos (defaults to 2)
-#' @param r0 (defaults to 0)
-#' @param r1 (defaults to 1)
-#' @param ... additional params
+#' @param r0  (numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to NULL)
+#' @param r1  (numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to NULL)
+#' @param ... The ellipsis operator can be used to specify any additional graphical parameters. Any additional parameter will be passed to the internal calls to karyoploteR functions.
 #'
 #' @return
 #' Invisibly returns the karyoplot object representing the plot. With it
@@ -50,7 +50,7 @@
 #' plotCopyNumberSummary(kp, all.scnas)
 #'
 #' kp <- plotKaryotype("hg19", plot.type=4)
-#' plotCopyNumberSummary(kp, all.scnas, gain.col="blue", loss.col="red", label="Copy Number", r0=0, r1=0.3, lab.srt=90, pos=3)
+#' plotCopyNumberSummary(kp, all.scnas, gain.col="blue", loss.col="red", labels="Copy Number", r0=0, r1=0.3, label.srt=90, pos=3)
 #' plotCopyNumberSummary(kp, all.scnas, direction="out", add.grid=TRUE, r0=0.35, r1=0.65)
 #' plotCopyNumberSummary(kp, all.scnas, direction="out", r0=0.7, r1=1)
 #' kpAxis(kp, ymin=0, ymax=10, r0=0.85, r1=1, tick.pos = c(0,5,10))
@@ -62,7 +62,7 @@
 #' @importFrom GenomicRanges GRangesList
 
 
-plotCopyNumberSummary <- function(karyoplot, cn.calls, direction="in",  gain.color=NULL, normal.color=NULL, loss.color=NULL, add.grid=FALSE, grid.color="white", label="", lab.cex=1, lab.srt=0, pos=2, r0=0, r1=1, ...) {
+plotCopyNumberSummary <- function(karyoplot, cn.calls, direction="in",  gain.color=NULL, normal.color=NULL, loss.color=NULL, add.grid=FALSE, grid.color="white", labels=NULL, label.cex=1, labl.srt=0, pos=2, r0=0, r1=1, ...) {
 
   if(!is.list(cn.calls)) stop("cn.calls must be a list of GRanges with copy number information")
 
@@ -94,8 +94,8 @@ plotCopyNumberSummary <- function(karyoplot, cn.calls, direction="in",  gain.col
     }
   }
 
-  if(nchar(label)>0) {
-    karyoploteR::kpAddLabels(karyoplot, labels = label, r0=r0, r1=r1, cex=lab.cex, srt=lab.srt, pos=pos, ...)
+  if(nchar(labels)>0) {
+    karyoploteR::kpAddLabels(karyoplot, labels = labels, r0=r0, r1=r1, cex=lab.cex, srt=lab.srt, pos=pos, ...)
   }
 
   invisible(karyoplot)

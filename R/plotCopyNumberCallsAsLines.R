@@ -6,23 +6,23 @@
 #' @details
 #' Plots the segments
 #'
-#' @usage plotCopyNumberCallsAsLines(karyoplot, cn.calls, style="line", cn.column="cn", label="", lab.cex=1, axis=TRUE, axis.cex=1, numticks=NULL, col="black", ymin=NULL, ymax=NULL, r0=0, r1=1, ...)
+#' @usage plotCopyNumberCallsAsLines(karyoplot, cn.calls, style="line", cn.column="cn", labels=NULL, lab.cex=1, add.axis=TRUE, axis.cex=1, numticks=NULL, col="black", ymin=NULL, ymax=NULL, r0=0, r1=1, ...)
 #'
-#' @param karyoplot The karyoplot
-#' @param cn.calls  The data
-#' @param style (defaults to "line")
-#' @param cn.column (defaults to "cn")
-#' @param label (defaults to "")
-#' @param lab.cex (defaults to 1)
-#' @param axis (defaults to TRUE)
-#' @param axis.cex (defaults to 1)
+#' @param karyoplot (a KaryoPlot object) The object returned by the \code{\link[karyoploteR]{plotKaryotype}} function and representing the current active plot.
+#' @param cn.calls  (a GRanges, a list of GRanges or a GRangesList) An object with the positions of the CN calls and a column with the CN values. Other columns are ignored. If it's a list of GRanges with different samples, all samples will be plotted, splitting the total plot space between them.
+#' @param style (character) The style in which the lines can be plot. It colud be as lines or segments using the kplines or kpsegments. (defaults to "line")
+#' @param cn.column (integer or character vector) The name or number of the column with CN information.(defaults to "cn")
+#' @param labels (character vector or list) labels (a character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "BAF", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL. (defaults to NULL)
+#' @param label.cex (numeric) The size of the label (defaults to 1)
+#' @param axis (logical) Whether to plot an axis (defaults to TRUE)
+#' @param axis.cex (numeric) The size of the axis labels.(defaults to 1)
 #' @param numticks (defaults to NULL)
-#' @param col (defaults to "black")
-#' @param ymin (defaults to NULL)
-#' @param ymax (defaults to NULL)
-#' @param r0 (defaults to 0)
-#' @param r1 (defaults to 1)
-#' @param ... additional params
+#' @param col (color) The color of the lines (defaults to "black")
+#' @param ymin (numeric) (karyoploteR parameter) The minimum value of y to be plotted. If NULL, it is set to the min value of the selected data panel. (defaults to -4)
+#' @param ymax (numeric) (karyoploteR parameter) (numeric) The maximum value of y to be plotted. If NULL, it is set to the max value of the selected data panel. (defaults to 2)
+#' @param r0  (numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to 0)
+#' @param r1  (numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to 1)
+#' @param ... The ellipsis operator can be used to specify any additional graphical parameters. Any additional parameter will be passed to the internal calls to karyoploteR functions.
 #'
 #'
 #' @return
@@ -52,7 +52,7 @@
 #' plotCopyNumberCallsAsLines(kp, scnas, r0=0.65, r1=0.95, style="segments", col="red", ymin=0, ymax=4, numticks=3)
 #'
 #' kp <- plotKaryotype("hg19")
-#' plotCopyNumberCallsAsLines(kp, scnas, r0=0.2, r1=0.4, style="segments", axis=FALSE, label="CopyNumber")
+#' plotCopyNumberCallsAsLines(kp, scnas, r0=0.2, r1=0.4, style="segments", add.axis=FALSE, labels="CopyNumber")
 #'
 #' @export plotCopyNumberCallsAsLines
 #'
@@ -60,30 +60,24 @@
 
 
 
-plotCopyNumberCallsAsLines <- function(karyoplot, cn.calls, style="line", cn.column="cn", label="", lab.cex=1, axis=TRUE, axis.cex=1, numticks=NULL, col="black", ymin=NULL, ymax=NULL, r0=0, r1=1, ...) {
-
+plotCopyNumberCallsAsLines <- function(karyoplot, cn.calls, style="line", cn.column="cn", labels=NULL, label.cex=1, add.axis=TRUE, axis.cex=1, numticks=NULL, col="black", ymin=NULL, ymax=NULL, r0=0, r1=1, ...) {
 
   #If cn.calls is a list, call this same function with each single element to actually produce the plot. Use autotrack to set the appropiate r0 and r1 values.
-  if(methods::is(cn.calls, "list")) {
+  if(methods::is(cn.calls, "list") || methods::is(cn.calls, "CompressedGRangesList")) {
+    if(is.null(labels)) labels <- ifelse(is.null(names(cn.calls)), seq_len(length(cn.calls)), names(cn.calls))
+    if(methods::is(labels, "list")) labels <- as.character(unlist(labels)) #If labels are a list, make them a vector
     for(i in seq_len(length(cn.calls))) {
-      if(methods::is(labels, "list")) labels <- as.character(unlist(labels))
-      if(length(labels)==length(cn.calls)) { #If there are as many labels as samples, assume each label should be used for one track
-        lab <- labels[i]
-      } else {
-        lab <- labels[1]
-      }
-      rr <- karyoploteR::autotrack(current.track=i, total.tracks=length(cn.calls), r0=r0, r1=r1)
+      #If there are as many labels as samples, assume each label should be used for one track, else, use the first one
+      lab <- ifelse(length(labels)==length(cn.calls), labels[i], labels[1])
+      rr <- karyoploteR::autotrack(current.track=i, total.tracks=length(cn.calls), margin = track.margin, r0=r0, r1=r1)
       plotCopyNumberCallsAsLines(karyoplot, cn.calls[[i]], r0=rr$r0, r1=rr$r1,
-                          labels = lab, lab.cex = lab.cex, style=style,
-                          cn.column=cn.column, axis=axis, axis.cex=axis.cex, numticks=numticks,
-                          col=col, ymin=ymin, ymax=ymax, ...)
+                                 labels = lab, label.cex = label.cex, style=style,
+                                 cn.column=cn.column, add.axis=add.axis, axis.cex=axis.cex, numticks=numticks,
+                                 col=col, ymin=ymin, ymax=ymax, ...)
     }
     return(invisible(karyoplot))
   }
-
-
-
-
+  
 
   style <- match.arg(style, choices = c("line", "segments"))
 
@@ -104,13 +98,19 @@ plotCopyNumberCallsAsLines <- function(karyoplot, cn.calls, style="line", cn.col
     karyoploteR::kpSegments(karyoplot, data=cn.calls, y0=GenomicRanges::mcols(cn.calls)[,cn.column], y1=GenomicRanges::mcols(cn.calls)[,cn.column], ymin=ymin, ymax=ymax, col=col, r0=r0, r1=r1, ...)
   }
 
-  if(axis==TRUE) {
+  if(add.axis==TRUE) {
     if(is.null(numticks)) numticks <- ymax-ymin+1
     karyoploteR::kpAxis(karyoplot, ymin=ymin, ymax=ymax, cex=axis.cex, numticks=numticks, r0=r0, r1=r1, ...)
   }
-  if(!is.null(label) & nchar(label)>0) {
-    karyoploteR::kpAddLabels(karyoplot, labels = label, cex=lab.cex, r0=r0, r1=r1, ...)
+  
+  if(methods::is(labels, "list")) labels <- as.character(unlist(labels)) #If labels are a list, make them a vector
+  
+  if(is.null(labels)) labels <- "Segments"
+  
+  if(!is.na(labels) && nchar(labels)>0) {
+    karyoploteR::kpAddLabels(karyoplot, labels = labels, cex=label.cex, r0=r0, r1=r1, ...)
   }
+  
 
   invisible(karyoplot)
 }
