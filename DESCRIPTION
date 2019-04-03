@@ -23,6 +23,7 @@ Suggests:
     BiocStyle,
     knitr,
     panelcn.mops,
+    BSgenome.Hsapiens.UCSC.hg19.masked,
     DNAcopy
 License: Artistic-2.0
 Encoding: UTF-8
