@@ -53,11 +53,14 @@ Plot the B-allele frequency (BAF) data
 This function plot the B-allele frequency (BAF) values on the
 genome. BAF values represent the frequency of one of the alleles (NOT always
 the minor allele) in the sample and usually come from SNP-array. However,
-it's possible to get similar values from NGS variant calling data.
-The function plots the data points, an optional axis and an optional label identifying the data.
-The function expects a GRanges object with the position of the SNPs with a column
-(usually named 'baf') with the BAF values or any object valid to \code{\link[regioneR]{toGRanges}}. This object can be created with
-\code{\link{loadSNPData}}.
+it's possible to get similar values from NGS variant calling data
+(\code{\link{loadSNPDataFromVCF}} for example, will load a standard VCF and
+generate BAF-like values).
+The function plots the data points, an optional axis and an optional label
+identifying the data. The function expects a GRanges object with the position
+of the SNPs with a column (usually named 'baf') with the BAF values or any
+object valid to \code{\link[regioneR]{toGRanges}}. This object can be created
+with \code{\link{loadSNPData}}.
 }
 \examples{
 

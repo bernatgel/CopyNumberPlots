@@ -86,7 +86,7 @@ plotBAF <- function(karyoplot, snps, baf.column="baf", labels=NULL, points.cex=0
   if(!methods::is(karyoplot, "KaryoPlot")) stop("karyoplot must be a KaryoPlot object")
 
 
-  #If cn.calls is a list, call this same function with each single element to actually produce the plot. Use autotrack to set the appropiate r0 and r1 values.
+  #If snps is a list, call this same function with each single element to actually produce the plot. Use autotrack to set the appropiate r0 and r1 values.
   if(methods::is(snps, "list") || methods::is(snps, "CompressedGRangesList")) {
     if(is.null(labels)) labels <- ifelse(is.null(names(snps)), seq_len(length(snps)), names(snps))
     for(i in seq_len(length(snps))) {
@@ -99,7 +99,7 @@ plotBAF <- function(karyoplot, snps, baf.column="baf", labels=NULL, points.cex=0
               points.cex=points.cex, points.col=points.col, points.pch=points.pch,
               label.cex=label.cex, label.srt=label.srt, label.margin=label.margin,
               add.axis=add.axis, axis.cex=axis.cex, track.margin = track.margin,
-              data.panel=1, ...)
+              data.panel=data.panel, ...)
     }
     return(invisible(karyoplot))
   }
