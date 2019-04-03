@@ -187,16 +187,17 @@ although it will also accept the object before segmentation, of class `CNA`.
 
   CNA.object <- CNA(cbind(coriell$Coriell.05296), coriell$Chromosome, coriell$Position,     data.type="logratio")
   CNA.object <-  smooth.CNA(CNA.object)
-  results <- segment(CNA.object, verbose=1)
-  results
+  DNAcopy.results <- segment(CNA.object, verbose=1)
+  DNAcopy.results
 ```
 
+And to load it we simply need to call `loadSNPData.DNAcopy`
 
-
-
-<!-- ### Generic -->
-
-<!-- ### DNAcopy -->
+```{r}
+  snps <- loadSNPData.DNAcopy(DNAcopy.results)
+  snps <- UCSCStyle(snps)
+  snps
+```
   
 ### Special case: BAF from VCF files
 
