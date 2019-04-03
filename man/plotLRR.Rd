@@ -4,9 +4,9 @@
 \alias{plotLRR}
 \title{plotLRR}
 \usage{
-plotLRR(karyoplot, snps, lrr.column="lrr", label="LRR", ymin=-4, ymax=2, out.of.range = "points", out.of.range.col="red", density.height=0.05, density.window=1e5,
-               line.at.0 = TRUE, line.at.0.col="blue", r0=0, r1=1, points.cex=0.3, points.col="#333333",
-               points.pch=16, label.cex=1.5, label.srt=90, label.margin=0.03, axis.cex=1.2, ...)
+plotLRR(karyoplot, snps, lrr.column="lrr", labels="LRR", ymin=-4, ymax=2, out.of.range = c("points", "density"), out.of.range.col="red", density.height=0.05, density.window=1e5,
+               line.at.0 = TRUE, line.at.0.col="blue",
+               r0=0, r1=1, points.cex=0.3, points.col="#333333", points.pch=16, label.cex=1.5, label.srt=90, label.margin=0.03, add.axis=TRUE, axis.cex=1.2, data.panel=1, ...)
 }
 \arguments{
 \item{karyoplot}{the karyoplot}
@@ -15,13 +15,11 @@ plotLRR(karyoplot, snps, lrr.column="lrr", label="LRR", ymin=-4, ymax=2, out.of.
 
 \item{lrr.column}{(defaults to "lrr")}
 
-\item{label}{(defaults to "LRR")}
+\item{labels}{(defaults to "LRR")}
 
 \item{ymin}{(defaults to -4)}
 
 \item{ymax}{(defaults to 2)}
-
-\item{out.of.range}{(defaults to  "points")}
 
 \item{out.of.range.col}{(defaults to "red")}
 
@@ -49,9 +47,15 @@ plotLRR(karyoplot, snps, lrr.column="lrr", label="LRR", ymin=-4, ymax=2, out.of.
 
 \item{label.margin}{(defaults to 0.03)}
 
+\item{add.axis}{(defaults to TRUE)}
+
 \item{axis.cex}{(defaults to 1.2)}
 
+\item{data.panel}{(defaults to 1)}
+
 \item{...}{Additional params}
+
+\item{out.of.rangeEither}{"points" or "density" (defaults to  "points")}
 }
 \value{
 Invisibly returns the karyoplot object representing the plot. With it
