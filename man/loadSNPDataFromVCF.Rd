@@ -9,7 +9,7 @@ loadSNPDataFromVCF(vcf.file, regions=NULL, genome="hg19", mirror.baf=TRUE, verbo
 \arguments{
 \item{vcf.file}{The name of the file with the data}
 
-\item{regions}{(defaults to NULL)}
+\item{regions}{The regions to which we will limit the import (defaults to NULL)}
 
 \item{genome}{(a character)The name of the genome (defaults to "hg19")}
 
@@ -29,10 +29,6 @@ It will try to identify the columns with the relevant information
 (chr, position, BAF, LRR, etc...) or will use the column number or name
 supplied by the user, if any. It will convert the tabular data into a
 GRanges, with one range per SNP in the table.
-}
-\note{
-The returned GRanges will have the chromosome names following the UCSC style
-irrespective of the original format.
 }
 \examples{
 

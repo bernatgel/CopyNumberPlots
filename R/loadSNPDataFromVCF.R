@@ -10,14 +10,11 @@
 #' supplied by the user, if any. It will convert the tabular data into a
 #' GRanges, with one range per SNP in the table.
 #'
-#' @note
-#' The returned GRanges will have the chromosome names following the UCSC style
-#' irrespective of the original format.
 #'
 #' @usage loadSNPDataFromVCF(vcf.file, regions=NULL, genome="hg19", mirror.baf=TRUE, verbose=TRUE)
 #'
 #' @param vcf.file The name of the file with the data
-#' @param regions (defaults to NULL)
+#' @param regions The regions to which we will limit the import (defaults to NULL)
 #' @param genome (a character)The name of the genome (defaults to "hg19")
 #' @param mirror.baf Flip the baf of about half the snps (the ones in odd positions in the genome) to achieve a mirror-like effect as in SNP arrays (defaults to TRUE)
 #' @param verbose Wether information messages should be generated. (defaults to TRUE)
@@ -55,7 +52,7 @@ loadSNPDataFromVCF <- function(vcf.file, regions=NULL, genome="hg19", mirror.baf
   if(is.null(regions)) {
     vars <- VariantAnnotation::readVcf(file=Rsamtools::TabixFile(vcf.file), genome = "hg19", param = VariantAnnotation::ScanVcfParam(info=NA, geno = "AD"))
   } else {
-            #TODO: Add a which=regions
+    vars <- VariantAnnotation::readVcf(file=Rsamtools::TabixFile(vcf.file), genome = "hg19", param = VariantAnnotation::ScanVcfParam(info=NA, geno = "AD", which = regions))
   }
 
   #TODO: Remove the indels? Or at least make sure the frequency is correct.
