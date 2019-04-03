@@ -313,10 +313,76 @@ To plot this objet we can call, for example `plotCopyNumberCalls`.
 
 # Plotting Copy-Number Data
 
-Once we have data loaded (or directly created by us)
+Once we have data loaded (or directly created by us) we can plot it.
+
+There are two fucntions to plot raw data (`plotBAF` and `plotLRR`) and three
+functions to plot the copy-number calls (`plotCopyNumberCalls`, 
+`plotCopyNumberCallsAsLines` and `plotCopyNumberSummary`).
+
+## Plotting Raw Data
+
+  To demonstrate the raw-data plotting functions we'll use two example
+  files included with the package
+  
+```{r}
+  s1.file <- system.file("extdata", "S0001.snparray.txt", package = "CopyNumberPlots", mustWork = TRUE)
+  s1 <- loadSNPData(s1.file)
+  head(s1)
+  
+  s2.file <- system.file("extdata", "S0002.snparray.txt", package = "CopyNumberPlots", mustWork = TRUE)
+  s2 <- loadSNPData(s2.file)
+  head(s2)
+```  
+
+## plotBAF
+
+To plot the B-Allele frequency (BAF) we'll use `plotBAF`. We'll start creating 
+a karyoplot using [karyoploteR's plotKaryotype](https://bernatgel.github.io/karyoploter_tutorial//Tutorial/CreateIdeogram/CreateIdeogram.html) and then add the BAF values into it.
+
+Since the chromosome names in s1 and s2 are in Ensembl style (1,2,3...) and
+the default chromosome names in karyoploteR are in UCSC style (chr1, chr2, chr3,
+...) we'll use the function `UCSCStyle` to change them prior to plotting, 
+otherwise we would get an empty plot.
+
+```{r}
+  s1 <- UCSCStyle(s1)
+  kp <- plotKaryotype(plot.type = 4)
+  plotBAF(kp, snps=s1)
+```
 
 
- 
+We can change a number of parameters to alter the appearance of the plot.
+We can activate and deactivate the axis and label, we can change the color, size
+and glyph (shape) of the points, we can [use r0 and r1 alter the vertical 
+position of the data](https://bernatgel.github.io/karyoploter_tutorial//Tutorial/DataPositioning/DataPositioning.html) and in general we can use any of the standard base R
+plotting parameters.
+
+```{r}
+  kp <- plotKaryotype(plot.type = 4)
+  plotBAF(kp, snps=s1, r0=0, r1=0.2, labels = "BAF1", points.col = "orange",
+          points.cex = 2, points.pch = 4, axis.cex = 0.3)
+  plotBAF(kp, snps=s1, r0=0.3, r1=0.5, labels = "BAF2", points.col = "red",
+          points.cex = 0.5, points.pch = 8, axis.cex = 0.7)
+  plotBAF(kp, snps=s1, r0=0.6, r1=1, labels = "BAF3", 
+          points.col = "#FF552222", points.cex = 1.8, points.pch = 16, 
+          axis.cex = 0.7)
+```
+
+If we want to plot more than one sample, if we have  the data in a list of 
+GRanges or in a GRanges list, `plotBAF` will take care of it and plot the 
+different samples one below the other. It will also use the names of the list
+as labels to identify the different samples. Since s2 was still in Ensembl style
+we can apply `UCSCStyle` to it to change it.
+
+```{r}
+  samples <- list("Sample1"=s1, "Sample2"=s2)
+  samples <- UCSCStyle(samples)
+  kp <- plotKaryotype(plot.type = 4)
+  plotBAF(kp, snps=samples)
+```
+  
+
+  
 # Session Info
 
 ```{r, sessionInfo}
