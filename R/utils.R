@@ -681,4 +681,4 @@ EnsemblStyle <- function(x) {
   stop("Unknown class. Only GRanges, GRangesLists and lists of GRanges are accepted by EnsemblStyle.")
 }
 
-
+seqleve
