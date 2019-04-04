@@ -4,7 +4,7 @@
 \alias{plotCopyNumberSummary}
 \title{plotCopyNumberSummary}
 \usage{
-plotCopyNumberSummary(karyoplot, cn.calls, direction="in",  gain.color=NULL, normal.color=NULL, loss.color=NULL, add.grid=FALSE, grid.color="white", label="", lab.cex=1, lab.srt=0, pos=2, r0=0, r1=1, ...)
+plotCopyNumberSummary(karyoplot, cn.calls, direction="in",  gain.color=NULL, normal.color=NULL, loss.color=NULL, add.grid=FALSE, grid.color="white", labels=NULL, label.cex=1, label.srt=0, pos=2, r0=0, r1=1, ...)
 }
 \arguments{
 \item{karyoplot}{(a KaryoPlot object) The object returned by the \code{\link[karyoploteR]{plotKaryotype}} function and representing the current active plot.}
@@ -23,9 +23,11 @@ plotCopyNumberSummary(karyoplot, cn.calls, direction="in",  gain.color=NULL, nor
 
 \item{grid.color}{(color) The color of the grid (defaults to "white")}
 
-\item{labels}{(a character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "BAF", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL. (defaults to NULL)}
+\item{labels}{(a character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "CN", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL. (defaults to NULL)}
 
 \item{label.cex}{(numeric) The size of the label (defaults to 1.5)}
+
+\item{label.srt}{(numeric) The rotation of the label (defaults to 90, vertical text)}
 
 \item{pos}{(defaults to 2)}
 
@@ -34,8 +36,6 @@ plotCopyNumberSummary(karyoplot, cn.calls, direction="in",  gain.color=NULL, nor
 \item{r1}{(numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to NULL)}
 
 \item{...}{The ellipsis operator can be used to specify any additional graphical parameters. Any additional parameter will be passed to the internal calls to karyoploteR functions.}
-
-\item{label.srt}{(numeric) The rotation of the label (defaults to 90, vertical text)}
 }
 \value{
 Invisibly returns the karyoplot object representing the plot. With it

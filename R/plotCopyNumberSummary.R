@@ -7,7 +7,7 @@
 #' @details
 #' 2 types of plots. Convergent or divergent barplots
 #'
-#' @usage plotCopyNumberSummary(karyoplot, cn.calls, direction="in",  gain.color=NULL, normal.color=NULL, loss.color=NULL, add.grid=FALSE, grid.color="white", label="", lab.cex=1, lab.srt=0, pos=2, r0=0, r1=1, ...)
+#' @usage plotCopyNumberSummary(karyoplot, cn.calls, direction="in",  gain.color=NULL, normal.color=NULL, loss.color=NULL, add.grid=FALSE, grid.color="white", labels=NULL, label.cex=1, label.srt=0, pos=2, r0=0, r1=1, ...)
 #'
 #' @param karyoplot (a KaryoPlot object) The object returned by the \code{\link[karyoploteR]{plotKaryotype}} function and representing the current active plot.
 #' @param cn.calls (a list of GRanges or a GRangesList) A list of GRanges or a GRangesList containing the GRanges objects with cn.column value
@@ -17,7 +17,7 @@
 #' @param loss.color (colors) The color assigned to losses(defaults to NULL)
 #' @param add.grid (logical) Whether to add lines as a grid in the plot (defaults to FALSE)
 #' @param grid.color (color) The color of the grid (defaults to "white")
-#' @param labels (a character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "BAF", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL. (defaults to NULL)
+#' @param labels (a character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "CN", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL. (defaults to NULL)
 #' @param label.cex (numeric) The size of the label (defaults to 1.5)
 #' @param label.srt (numeric) The rotation of the label (defaults to 90, vertical text)
 #' @param pos (defaults to 2)
@@ -62,9 +62,9 @@
 #' @importFrom GenomicRanges GRangesList
 
 
-plotCopyNumberSummary <- function(karyoplot, cn.calls, direction="in",  gain.color=NULL, normal.color=NULL, loss.color=NULL, add.grid=FALSE, grid.color="white", labels=NULL, label.cex=1, labl.srt=0, pos=2, r0=0, r1=1, ...) {
+plotCopyNumberSummary <- function(karyoplot, cn.calls, direction="in",  gain.color=NULL, normal.color=NULL, loss.color=NULL, add.grid=FALSE, grid.color="white", labels=NULL, label.cex=1, label.srt=0, pos=2, r0=0, r1=1, ...) {
 
-  if(!is.list(cn.calls)) stop("cn.calls must be a list of GRanges with copy number information")
+  if(!is.list(cn.calls) || methods::is(cn.calls, "CompressedGRangesList")) stop("cn.calls must be a list of GRanges with copy number information")
 
   direction <- match.arg(direction, c("in", "out"))
 
@@ -94,8 +94,10 @@ plotCopyNumberSummary <- function(karyoplot, cn.calls, direction="in",  gain.col
     }
   }
 
-  if(nchar(labels)>0) {
-    karyoploteR::kpAddLabels(karyoplot, labels = labels, r0=r0, r1=r1, cex=lab.cex, srt=lab.srt, pos=pos, ...)
+  if(is.null(labels)) labels <- "CN"
+  
+  if(!is.na(labels) && nchar(labels)>0) {
+    karyoploteR::kpAddLabels(karyoplot, labels = labels, r0=r0, r1=r1, cex=label.cex, srt=label.srt, pos=pos, ...)
   }
 
   invisible(karyoplot)
