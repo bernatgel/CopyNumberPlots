@@ -615,7 +615,8 @@ removeNAs <- function(snp.data, lrr.na = TRUE, baf.na = TRUE, id.na = TRUE, verb
 #'
 #'
 #' @export UCSCStyle
-#'
+#' 
+#' @importFrom GenomeInfoDb seqlevelsStyle
 #'
 UCSCStyle <- function(x) {
   if(methods::is(x, "list")) {
@@ -680,4 +681,4 @@ EnsemblStyle <- function(x) {
   stop("Unknown class. Only GRanges, GRangesLists and lists of GRanges are accepted by EnsemblStyle.")
 }
 
-seqleve
+
