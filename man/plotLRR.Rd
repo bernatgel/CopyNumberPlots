@@ -4,9 +4,7 @@
 \alias{plotLRR}
 \title{plotLRR}
 \usage{
-plotLRR(karyoplot, snps, lrr.col="lrr", labels="LRR", ymin=-4, ymax=2, out.of.range = "points", "density"), out.of.range.col="red", density.height=0.05, density.window=1e5,
-               line.at.0 = TRUE, line.at.0.col="blue",
-               r0=0, r1=1, points.cex=0.3, points.col="#333333", points.pch=16, label.cex=1.5, label.srt=90, label.margin=0.03, add.axis=TRUE, axis.cex=1.2, data.panel=1, ...)
+plotLRR(karyoplot, snps, lrr.column="lrr", labels="LRR", ymin=-4, ymax=2, out.of.range = "points", out.of.range.col="red", density.height=0.05, density.window=1e5, line.at.0 = TRUE, line.at.0.col="blue", r0=0, r1=1, points.cex=0.3, points.col="#333333", points.pch=16, label.cex=1.5, label.srt=90, label.margin=0.03, add.axis=TRUE, axis.cex=1.2, track.margin=0.1, data.panel=1, ...)
 }
 \arguments{
 \item{karyoplot}{(a KaryoPlot object) The object returned by the \code{\link[karyoploteR]{plotKaryotype}} function and representing the current active plot.}
@@ -15,13 +13,13 @@ plotLRR(karyoplot, snps, lrr.col="lrr", labels="LRR", ymin=-4, ymax=2, out.of.ra
 
 \item{lrr.column}{(number or character) The name or number of the column with LRR information. (defaults to "lrr")}
 
-\item{labels}{(character vector or list) labels (a character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "BAF", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL. (defaults to NULL) (defaults to "LRR")}
+\item{labels}{(character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "BAF", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL.(defaults to "LRR")}
 
 \item{ymin}{(numeric) (karyoploteR parameter) The minimum value of y to be plotted. If NULL, it is set to the min value of the selected data panel. (defaults to -4)}
 
 \item{ymax}{(numeric) (karyoploteR parameter) (numeric) The maximum value of y to be plotted. If NULL, it is set to the max value of the selected data panel. (defaults to 2)}
 
-\item{out.of.range}{(a character)Either to plot "points" or "density" (defaults to  "points")}
+\item{out.of.range}{(a character) Either to plot "points" or "density" (defaults to  "points")}
 
 \item{out.of.range.col}{(defaults to "red")}
 
@@ -52,6 +50,8 @@ plotLRR(karyoplot, snps, lrr.col="lrr", labels="LRR", ymin=-4, ymax=2, out.of.ra
 \item{add.axis}{(logical) Whether to add an axis (defaults to TRUE)}
 
 \item{axis.cex}{(numeric) The size of the axis labels.  (defaults to 1.2)}
+
+\item{track.margin}{(numeric) (defaults to 0.1)}
 
 \item{data.panel}{(numeric) (karyoploteR parameter) The identifier of the data panel where the data is to be plotted. The available data panels depend on the plot type selected in the call to \code{\link{plotKaryotype}}. (defaults to 1)}
 
