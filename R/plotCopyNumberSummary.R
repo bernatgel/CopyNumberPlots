@@ -31,8 +31,6 @@
 #' functions
 #'
 #' @examples
-#'
-#'
 #' gg <- filterChromosomes(getGenome("hg19"))
 #'
 #' all.scnas <- list()
@@ -64,8 +62,7 @@
 
 plotCopyNumberSummary <- function(karyoplot, cn.calls, direction="in",  gain.color=NULL, normal.color=NULL, loss.color=NULL, add.grid=FALSE, grid.color="white", labels=NULL, label.cex=1, label.srt=0, pos=2, r0=0, r1=1, ...) {
 
-  if(!is.list(cn.calls) || methods::is(cn.calls, "CompressedGRangesList")) stop("cn.calls must be a list of GRanges with copy number information")
-
+  
   direction <- match.arg(direction, c("in", "out"))
 
   if(any(is.null(gain.color), is.null(loss.color), is.null(normal.color))) {

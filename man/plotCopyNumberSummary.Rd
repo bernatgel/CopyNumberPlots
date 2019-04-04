@@ -50,8 +50,6 @@ histogram-like representation.
 2 types of plots. Convergent or divergent barplots
 }
 \examples{
-
-
 gg <- filterChromosomes(getGenome("hg19"))
 
 all.scnas <- list()
