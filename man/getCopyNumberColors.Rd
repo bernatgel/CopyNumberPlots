@@ -22,9 +22,11 @@ of the vector. The colors will be used to represent copy numbers from
 vector (typically 7 or 8). The function has a single parameter `colors`,
 which can be either the name of one of the available palettes or the
 a vector of valid color specifications (i.e. c("red", "#FFAAAA", "gray",
-"#AAAAFF", "#5555FF", "#0000FF")). #' If `colors` is a palette name,
+"#AAAAFF", "#5555FF", "#0000FF")).  If `colors` is a palette name,
 the palette will be returned. If color is a color vector, it will be returned
-with the names set as needed.#'
+with the names set as needed.
+
+Available palettes are: "gree_orange_red" and "red_blue"
 }
 \examples{
 
