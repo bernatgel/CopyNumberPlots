@@ -29,7 +29,7 @@ plotCopyNumberCalls(karyoplot, cn.calls, cn.values=NULL, cn.column="cn", cn.colo
 
 \item{label.cex}{(numeric) The size of tthe label (defaults to 1)}
 
-\item{label2.cex}{(numeric) The size of the label 2. If NULL label2.cex will be lable.cex. (defaults to NULL)}
+\item{label2.cex}{(numeric) The size of the label 2. If NULL label2.cex will be label.cex. (defaults to NULL)}
 
 \item{track.margin}{(numeric) If cn.calls is a list object, this is the margin between the samples CN. (deafults to 0.01)}
 

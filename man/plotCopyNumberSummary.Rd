@@ -11,7 +11,7 @@ plotCopyNumberSummary(karyoplot, cn.calls, direction="in",  gain.color=NULL, nor
 
 \item{cn.calls}{(a list of GRanges or a GRangesList) A list of GRanges or a GRangesList containing the GRanges objects with cn.column value}
 
-\item{direction}{(defaults to "in")}
+\item{direction}{The direction to which the coverage plot point, either "in" for inward or "out" for outward. (defaults to "in")}
 
 \item{gain.color}{(color) The color assigned to gains (defaults to NULL)}
 
@@ -29,7 +29,7 @@ plotCopyNumberSummary(karyoplot, cn.calls, direction="in",  gain.color=NULL, nor
 
 \item{label.srt}{(numeric) The rotation of the label (defaults to 90, vertical text)}
 
-\item{pos}{(defaults to 2)}
+\item{pos}{The position of the label (defaults to 2)}
 
 \item{r0}{(numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to NULL)}
 

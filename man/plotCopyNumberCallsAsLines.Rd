@@ -11,7 +11,7 @@ plotCopyNumberCallsAsLines(karyoplot, cn.calls, style="line", cn.column="cn", la
 
 \item{cn.calls}{(a GRanges, a list of GRanges or a GRangesList) An object with the positions of the CN calls and a column with the CN values. Other columns are ignored. If it's a list of GRanges with different samples, all samples will be plotted, splitting the total plot space between them.}
 
-\item{style}{(character) The style in which the lines can be plot. It colud be as lines or segments using the kplines or kpsegments. (defaults to "line")}
+\item{style}{(character) The style in which the lines can be plot. It colud be as lines or segments. (defaults to "line")}
 
 \item{cn.column}{(integer or character vector) The name or number of the column with CN information.(defaults to "cn")}
 
@@ -23,7 +23,7 @@ plotCopyNumberCallsAsLines(karyoplot, cn.calls, style="line", cn.column="cn", la
 
 \item{axis.cex}{(numeric) The size of the axis labels.(defaults to 1)}
 
-\item{numticks}{(defaults to NULL)}
+\item{numticks}{The number of tocks in the axis (defaults to NULL)}
 
 \item{col}{(color) The color of the lines (defaults to "black")}
 

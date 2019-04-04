@@ -11,7 +11,7 @@
 #'
 #' @param karyoplot (a KaryoPlot object) The object returned by the \code{\link[karyoploteR]{plotKaryotype}} function and representing the current active plot.
 #' @param cn.calls (a list of GRanges or a GRangesList) A list of GRanges or a GRangesList containing the GRanges objects with cn.column value
-#' @param direction (defaults to "in")
+#' @param direction The direction to which the coverage plot point, either "in" for inward or "out" for outward. (defaults to "in")
 #' @param gain.color (color) The color assigned to gains (defaults to NULL)
 #' @param normal.color (color) The color assigned to normal ploidy(defaults to NULL)
 #' @param loss.color (colors) The color assigned to losses(defaults to NULL)
@@ -20,7 +20,7 @@
 #' @param labels (a character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "CN", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL. (defaults to NULL)
 #' @param label.cex (numeric) The size of the label (defaults to 1.5)
 #' @param label.srt (numeric) The rotation of the label (defaults to 90, vertical text)
-#' @param pos (defaults to 2)
+#' @param pos The position of the label (defaults to 2)
 #' @param r0  (numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to NULL)
 #' @param r1  (numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to NULL)
 #' @param ... The ellipsis operator can be used to specify any additional graphical parameters. Any additional parameter will be passed to the internal calls to karyoploteR functions.
@@ -62,7 +62,7 @@
 
 plotCopyNumberSummary <- function(karyoplot, cn.calls, direction="in",  gain.color=NULL, normal.color=NULL, loss.color=NULL, add.grid=FALSE, grid.color="white", labels=NULL, label.cex=1, label.srt=0, pos=2, r0=0, r1=1, ...) {
 
-  
+
   direction <- match.arg(direction, c("in", "out"))
 
   if(any(is.null(gain.color), is.null(loss.color), is.null(normal.color))) {
@@ -92,7 +92,7 @@ plotCopyNumberSummary <- function(karyoplot, cn.calls, direction="in",  gain.col
   }
 
   if(is.null(labels)) labels <- "CN"
-  
+
   if(!is.na(labels) && nchar(labels)>0) {
     karyoploteR::kpAddLabels(karyoplot, labels = labels, r0=r0, r1=r1, cex=label.cex, srt=label.srt, pos=pos, ...)
   }
