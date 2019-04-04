@@ -15,9 +15,11 @@ plotCopyNumberCallsAsLines(karyoplot, cn.calls, style="line", cn.column="cn", la
 
 \item{cn.column}{(integer or character vector) The name or number of the column with CN information.(defaults to "cn")}
 
-\item{labels}{(character vector or list) labels (a character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "BAF", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL. (defaults to NULL)}
+\item{labels}{(character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "BAF", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL. (defaults to NULL)}
 
 \item{label.cex}{(numeric) The size of the label (defaults to 1)}
+
+\item{add.axis}{(logical) Whether to plot an axis (defaults to TRUE)}
 
 \item{axis.cex}{(numeric) The size of the axis labels.(defaults to 1)}
 
@@ -34,8 +36,6 @@ plotCopyNumberCallsAsLines(karyoplot, cn.calls, style="line", cn.column="cn", la
 \item{r1}{(numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to 1)}
 
 \item{...}{The ellipsis operator can be used to specify any additional graphical parameters. Any additional parameter will be passed to the internal calls to karyoploteR functions.}
-
-\item{axis}{(logical) Whether to plot an axis (defaults to TRUE)}
 }
 \value{
 Invisibly returns the karyoplot object representing the plot. With it

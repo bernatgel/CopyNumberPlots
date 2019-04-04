@@ -4,10 +4,7 @@
 \alias{plotCopyNumberCalls}
 \title{plotCopyNumberCalls}
 \usage{
-plotCopyNumberCalls(karyoplot, cn.calls, cn.values=NULL, cn.column="cn", cn.colors=NULL,
-                           loh.values=NULL, loh.column="loh", loh.color="#1E90FF", loh.height=0.3,
-                           labels=NULL, label.cex=1, label2.cex=NULL,
-                           track.margin=0.01, r0=0, r1=1, ...)
+plotCopyNumberCalls(karyoplot, cn.calls, cn.values=NULL, cn.column="cn", cn.colors=NULL, loh.values=NULL, loh.column="loh", loh.color="#1E90FF", loh.height=0.3, labels=NULL, label.cex=1, label2.cex=NULL,track.margin=0.01, r0=0, r1=1, ...)
 }
 \arguments{
 \item{karyoplot}{A karyoplote object}
@@ -26,11 +23,11 @@ plotCopyNumberCalls(karyoplot, cn.calls, cn.values=NULL, cn.column="cn", cn.colo
 
 \item{loh.color}{(a color) The color assigned to LOH values. (defaults to "#1E90FF")}
 
-\item{loh.height}{(numeric) The proportion of r0 and r1 of the vertical space over each chromosome dedicated to loh. It is dedicated the 30% of the vertical space by default.(defaults to 0.3)}
+\item{loh.height}{(numeric) The proportion of r0 and r1 of the vertical space over each chromosome dedicated to loh. It is dedicated the 30\% of the vertical space by default.(defaults to 0.3)}
 
-\item{labels}{(character vector or list) labels (a character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "BAF", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL. (defaults to NULL)}
+\item{labels}{(character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "BAF", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL. (defaults to NULL)}
 
-\item{label.cex}{(numeric) The size of the label (defaults to 1)}
+\item{label.cex}{(numeric) The size of tthe label (defaults to 1)}
 
 \item{label2.cex}{(numeric) The size of the label 2. If NULL label2.cex will be lable.cex. (defaults to NULL)}
 
