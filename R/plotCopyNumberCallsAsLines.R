@@ -12,7 +12,7 @@
 #' @param cn.calls  (a GRanges, a list of GRanges or a GRangesList) An object with the positions of the CN calls and a column with the CN values. Other columns are ignored. If it's a list of GRanges with different samples, all samples will be plotted, splitting the total plot space between them.
 #' @param style (character) The style in which the lines can be plot. It colud be as lines or segments using the kplines or kpsegments. (defaults to "line")
 #' @param cn.column (integer or character vector) The name or number of the column with CN information.(defaults to "cn")
-#' @param labels (character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "BAF", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL. (defaults to NULL)
+#' @param labels (character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "Segments", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL. (defaults to NULL)
 #' @param label.cex (numeric) The size of the label (defaults to 1)
 #' @param add.axis (logical) Whether to plot an axis (defaults to TRUE)
 #' @param axis.cex (numeric) The size of the axis labels.(defaults to 1)

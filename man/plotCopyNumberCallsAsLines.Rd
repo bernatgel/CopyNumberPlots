@@ -15,7 +15,7 @@ plotCopyNumberCallsAsLines(karyoplot, cn.calls, style="line", cn.column="cn", la
 
 \item{cn.column}{(integer or character vector) The name or number of the column with CN information.(defaults to "cn")}
 
-\item{labels}{(character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "BAF", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL. (defaults to NULL)}
+\item{labels}{(character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "Segments", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL. (defaults to NULL)}
 
 \item{label.cex}{(numeric) The size of the label (defaults to 1)}
 

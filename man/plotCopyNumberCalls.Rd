@@ -25,7 +25,7 @@ plotCopyNumberCalls(karyoplot, cn.calls, cn.values=NULL, cn.column="cn", cn.colo
 
 \item{loh.height}{(numeric) The proportion of r0 and r1 of the vertical space over each chromosome dedicated to loh. It is dedicated the 30\% of the vertical space by default.(defaults to 0.3)}
 
-\item{labels}{(character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "BAF", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL. (defaults to NULL)}
+\item{labels}{(character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "CN", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL. (defaults to NULL)}
 
 \item{label.cex}{(numeric) The size of tthe label (defaults to 1)}
 
