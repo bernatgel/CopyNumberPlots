@@ -51,7 +51,7 @@ plotLRR(karyoplot, snps, lrr.column="lrr", labels="LRR", ymin=-4, ymax=2, out.of
 
 \item{axis.cex}{(numeric) The size of the axis labels.  (defaults to 1.2)}
 
-\item{track.margin}{(numeric) (defaults to 0.1)}
+\item{track.margin}{(numeric) If snps is a list object, this is the margin between the samples BAF.  (defaults to 0.1)}
 
 \item{data.panel}{(numeric) (karyoploteR parameter) The identifier of the data panel where the data is to be plotted. The available data panels depend on the plot type selected in the call to \code{\link{plotKaryotype}}. (defaults to 1)}
 

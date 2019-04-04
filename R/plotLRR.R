@@ -30,7 +30,7 @@
 #' @param label.margin (numeric) The margin between the label and the origin of the plot in plot coordinates (the width of the plot is 1). (defaults to 0.03)
 #' @param add.axis (logical) Whether to add an axis (defaults to TRUE)
 #' @param axis.cex (numeric) The size of the axis labels.  (defaults to 1.2)
-#' @param track.margin (numeric) (defaults to 0.1)
+#' @param track.margin (numeric) If snps is a list object, this is the margin between the samples BAF.  (defaults to 0.1)
 #' @param data.panel (numeric) (karyoploteR parameter) The identifier of the data panel where the data is to be plotted. The available data panels depend on the plot type selected in the call to \code{\link{plotKaryotype}}. (defaults to 1)
 #' @param ... The ellipsis operator can be used to specify any additional graphical parameters. Any additional parameter will be passed to the internal calls to karyoploteR functions.
 #'

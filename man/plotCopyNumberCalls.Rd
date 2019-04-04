@@ -25,13 +25,13 @@ plotCopyNumberCalls(karyoplot, cn.calls, cn.values=NULL, cn.column="cn", cn.colo
 
 \item{loh.height}{(numeric) The proportion of r0 and r1 of the vertical space over each chromosome dedicated to loh. It is dedicated the 30\% of the vertical space by default.(defaults to 0.3)}
 
-\item{labels}{(character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "BAF", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL. (defaults to NULL)}
+\item{labels}{(character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "CN", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL. (defaults to NULL)}
 
 \item{label.cex}{(numeric) The size of tthe label (defaults to 1)}
 
 \item{label2.cex}{(numeric) The size of the label 2. If NULL label2.cex will be lable.cex. (defaults to NULL)}
 
-\item{track.margin}{(numeric) If snps is a list object, this is the margin between the samples BAF. (deafults to 0.01)}
+\item{track.margin}{(numeric) If cn.calls is a list object, this is the margin between the samples CN. (deafults to 0.01)}
 
 \item{r0}{(numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to NULL)(defaults to 0)}
 
