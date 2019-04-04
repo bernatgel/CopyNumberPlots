@@ -27,11 +27,11 @@
 #' A GRanges with a range per copy number segment or a list of GRanges with a GRanges per sample.
 #'
 #' @examples
-#' 
+#'
 #' library(DNAcopy)
 #'
 #' data(coriell)
-#' CNA.object <- CNA(cbind(coriell$Coriell.05296), coriell$Chromosome, coriell$Position, data.type="logratio",sampleid="c05296")
+#' CNA.object <- suppressWarnings(CNA(cbind(coriell$Coriell.05296), coriell$Chromosome, coriell$Position, data.type="logratio",sampleid="c05296"))
 #'
 #' smoothed.CNA.object <- smooth.CNA(CNA.object)
 #' DNAcopy.data <- segment(smoothed.CNA.object, verbose=1)
@@ -44,14 +44,14 @@
 #' DNAcopy.data <- segment(smoothed.CNA.object, verbose=1)
 #'
 #' cnv.call <- loadCopyNumberCalls.DNAcopy(DNAcopy.data = DNAcopy.data)
-#' 
+#'
 #' @export loadCopyNumberCalls.DNAcopy
 #'
 loadCopyNumberCalls.DNAcopy <- function(DNAcopy.data,
-                                        chr.col = "chrom", 
+                                        chr.col = "chrom",
                                         start.col = "loc.start",
-                                        end.col = "loc.end", 
-                                        segment.value.col = "seg.mean", 
+                                        end.col = "loc.end",
+                                        segment.value.col = "seg.mean",
                                         cn.col = NULL,
                                         chr.transformation = "23:X,24:Y,25:MT",
                                         genome = NULL,
@@ -62,32 +62,32 @@ loadCopyNumberCalls.DNAcopy <- function(DNAcopy.data,
   }else{
     stop("DNAcopy.data must be DNAcopy object")
   }
-  
-  
+
+
   if(!is.null(chr.transformation)){
     chr.col <- names(cnv.data)[getChrColumn(df = cnv.data, col = chr.col, verbose = FALSE)]
     cnv.data[,chr.col] <- transformChr(chr = cnv.data[,chr.col], chr.transformation = chr.transformation)
   }
-  
-  
-  segs <- loadCopyNumberCalls(cnv.data = cnv.data, 
-                              chr.col = chr.col, 
+
+
+  segs <- loadCopyNumberCalls(cnv.data = cnv.data,
+                              chr.col = chr.col,
                               start.col = start.col,
-                              end.col = end.col, 
-                              cn.col = cn.col, 
+                              end.col = end.col,
+                              cn.col = cn.col,
                               segment.value.col = segment.value.col,
-                              loh.col = NULL, 
+                              loh.col = NULL,
                               genome = genome,
                               verbose = verbose)
-  
-  
+
+
   #if there is more than one sample in segs
-  
+
   if(length(unique(segs$ID)) > 1){
     segs <- split(segs, mcols(segs)$ID)
   }
-  
-  
+
+
   return(segs)
 }
 
