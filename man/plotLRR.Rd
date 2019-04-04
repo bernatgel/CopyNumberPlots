@@ -21,11 +21,11 @@ plotLRR(karyoplot, snps, lrr.column="lrr", labels="LRR", ymin=-4, ymax=2, out.of
 
 \item{out.of.range}{(a character) Either to plot "points" or "density" (defaults to  "points")}
 
-\item{out.of.range.col}{(defaults to "red")}
+\item{out.of.range.col}{The color the out-of-range points should be plotted (defaults to "red")}
 
-\item{density.height}{(defaults to 0.05)}
+\item{density.height}{The height of the maximum density peak if out.of.range is "density" (defaults to 0.05)}
 
-\item{density.window}{(defaults to 1e5)}
+\item{density.window}{The window used to compute the uot-of-range density (defaults to 1e5)}
 
 \item{line.at.0}{(logical) Whether to plot an horizontal line at 0. (defaults to  TRUE)}
 
@@ -51,7 +51,7 @@ plotLRR(karyoplot, snps, lrr.column="lrr", labels="LRR", ymin=-4, ymax=2, out.of
 
 \item{axis.cex}{(numeric) The size of the axis labels.  (defaults to 1.2)}
 
-\item{track.margin}{(numeric) If snps is a list object, this is the margin between the samples BAF.  (defaults to 0.1)}
+\item{track.margin}{(numeric) if data for multiple samples is provided, the margin between samples. (defaults to 0.1)}
 
 \item{data.panel}{(numeric) (karyoploteR parameter) The identifier of the data panel where the data is to be plotted. The available data panels depend on the plot type selected in the call to \code{\link{plotKaryotype}}. (defaults to 1)}
 

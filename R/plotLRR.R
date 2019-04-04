@@ -15,9 +15,9 @@
 #' @param ymin (numeric) (karyoploteR parameter) The minimum value of y to be plotted. If NULL, it is set to the min value of the selected data panel. (defaults to -4)
 #' @param ymax (numeric) (karyoploteR parameter) (numeric) The maximum value of y to be plotted. If NULL, it is set to the max value of the selected data panel. (defaults to 2)
 #' @param out.of.range (a character) Either to plot "points" or "density" (defaults to  "points")
-#' @param out.of.range.col (defaults to "red")
-#' @param density.height (defaults to 0.05)
-#' @param density.window (defaults to 1e5)
+#' @param out.of.range.col The color the out-of-range points should be plotted (defaults to "red")
+#' @param density.height The height of the maximum density peak if out.of.range is "density" (defaults to 0.05)
+#' @param density.window The window used to compute the uot-of-range density (defaults to 1e5)
 #' @param line.at.0  (logical) Whether to plot an horizontal line at 0. (defaults to  TRUE)
 #' @param line.at.0.col (color) The color of the horizontal line plotted at 0. (defaults to "blue")
 #' @param r0  (numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to 0)
@@ -30,7 +30,7 @@
 #' @param label.margin (numeric) The margin between the label and the origin of the plot in plot coordinates (the width of the plot is 1). (defaults to 0.03)
 #' @param add.axis (logical) Whether to add an axis (defaults to TRUE)
 #' @param axis.cex (numeric) The size of the axis labels.  (defaults to 1.2)
-#' @param track.margin (numeric) If snps is a list object, this is the margin between the samples BAF.  (defaults to 0.1)
+#' @param track.margin (numeric) if data for multiple samples is provided, the margin between samples. (defaults to 0.1)
 #' @param data.panel (numeric) (karyoploteR parameter) The identifier of the data panel where the data is to be plotted. The available data panels depend on the plot type selected in the call to \code{\link{plotKaryotype}}. (defaults to 1)
 #' @param ... The ellipsis operator can be used to specify any additional graphical parameters. Any additional parameter will be passed to the internal calls to karyoploteR functions.
 #'
@@ -146,7 +146,7 @@ plotLRR <- function(karyoplot, snps, lrr.column="lrr", labels="LRR", ymin=-4, ym
       karyoploteR::kpPlotDensity(karyoplot, data=snps[below.min], r0=r0, r1=r0+density.height*abs((r1-r0)),
                     window.size = density.window, col=out.of.range.col, border=NULL, ...)
     }
-  } 
+  }
 
   if(line.at.0==TRUE) {
     karyoploteR::kpAbline(karyoplot, h=0, ymin=ymin, ymax=ymax, r0=r0, r1=r1, col=line.at.0.col)
