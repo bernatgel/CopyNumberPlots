@@ -620,14 +620,14 @@ removeNAs <- function(snp.data, lrr.na = TRUE, baf.na = TRUE, id.na = TRUE, verb
 UCSCStyle <- function(x) {
   if(methods::is(x, "list")) {
     if(all(unlist(lapply(x, methods::is, "GRanges")))) {
-      for(i in seq_len(length(x))) {seqlevelsStyle(x[[i]]) <- "UCSC"}
+      for(i in seq_len(length(x))) {GenomeInfoDb::seqlevelsStyle(x[[i]]) <- "UCSC"}
       return(x)
     } else {
       stop("All elements of the list must be GRanges")
     }
   }
   if(methods::is(x, "GenomicRanges_OR_GenomicRangesList")) {
-    seqlevelsStyle(x) <- "UCSC"
+    GenomeInfoDb::seqlevelsStyle(x) <- "UCSC"
     return(x)
   }
   stop("Unknown class. Only GRanges, GRangesLists and lists of GRanges are accepted by UCSCStyle.")
@@ -667,17 +667,17 @@ UCSCStyle <- function(x) {
 EnsemblStyle <- function(x) {
   if(methods::is(x, "list")) {
     if(all(unlist(lapply(x, methods::is, "GRanges")))) {
-      for(i in seq_len(length(x))) {seqlevelsStyle(x[[i]]) <- "Ensembl"}
+      for(i in seq_len(length(x))) {GenomeInfoDb::seqlevelsStyle(x[[i]]) <- "Ensembl"}
       return(x)
     } else {
       stop("All elements of the list must be GRanges")
     }
   }
   if(methods::is(x, "GenomicRanges_OR_GenomicRangesList")) {
-    seqlevelsStyle(x) <- "Ensembl"
+    GenomeInfoDb::seqlevelsStyle(x) <- "Ensembl"
     return(x)
   }
   stop("Unknown class. Only GRanges, GRangesLists and lists of GRanges are accepted by EnsemblStyle.")
 }
 
-
+seqleve
