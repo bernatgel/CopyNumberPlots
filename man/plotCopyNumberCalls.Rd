@@ -68,7 +68,7 @@ based on `autotrack` and the margin between track is controlled by
 \examples{
 
 cncalls.file <- system.file("extdata", "S0001.ASCAT.segments.txt", package = "CopyNumberPlots", mustWork = TRUE)
-cncalls <- loadCopyNumberCalls(s1.calls.file)
+cncalls <- loadCopyNumberCalls(cncalls.file)
 
 kp <- plotKaryotype("hg19")
 plotCopyNumberCalls(kp, cncalls)
