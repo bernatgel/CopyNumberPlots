@@ -30,10 +30,10 @@ Available palettes are: "gree_orange_red" and "red_blue"
 }
 \examples{
 
-#getCopyNumberColors()
+getCopyNumberColors()
 
-#getCopyNumberColors("red_blue")
+getCopyNumberColors("red_blue")
 
-#getCopyNumberColors(c("red", "#FFAAAA", "gray", "#AAAAFF", "#5555FF", "#0000FF"))
+getCopyNumberColors(c("red", "#FFAAAA", "gray", "#AAAAFF", "#5555FF", "#0000FF"))
 
 }
