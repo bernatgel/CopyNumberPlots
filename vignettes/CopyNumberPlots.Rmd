@@ -504,24 +504,24 @@ them all.
   plotCopyNumberCalls(kp, cn.calls, r1=0.3)
 ```
 
-Using the data from more samples (in this case randomly generated) and
-hiding the LOH data (`loh.height=0`) we can get the look of a heatmap usual
-in many papers.
+<!-- Using the data from more samples (in this case randomly generated) and -->
+<!-- hiding the LOH data (`loh.height=0`) we can get the look of a heatmap usual -->
+<!-- in many papers. -->
 
 
-```{r}
-  cn.calls <- createRandomRegions(nregions = 200, length.mean = 40e6,
-                                  length.sd = 10e6, non.overlapping = FALSE,
-                                  genome="hg19", mask=NA)
-  cn.calls$cn <- sample(0:5, size = length(cn.calls), replace = TRUE)
-  cn.calls$sample <- sample(paste0("S", 1:10), size = length(cn.calls), replace = TRUE)
-  cn.calls <- split(cn.calls, f = cn.calls$sample)
+<!-- ```{r} -->
+<!--   cn.calls <- createRandomRegions(nregions = 200, length.mean = 40e6, -->
+<!--                                   length.sd = 10e6, non.overlapping = FALSE, -->
+<!--                                   genome="hg19", mask=NA) -->
+<!--   cn.calls$cn <- sample(0:5, size = length(cn.calls), replace = TRUE) -->
+<!--   cn.calls$sample <- sample(paste0("S", 1:10), size = length(cn.calls), replace = TRUE) -->
+<!--   cn.calls <- split(cn.calls, f = cn.calls$sample) -->
 
-  cn.cols <- getCopyNumberColors(colors = "red_blue")
-  kp <- plotKaryotype(plot.type=4)
-  kpDataBackground(kp, color = cn.cols["2"])
-  plotCopyNumberCalls(kp, cn.calls, loh.height = 0, cn.colors = "red_blue")
-```
+<!--   cn.cols <- getCopyNumberColors(colors = "red_blue") -->
+<!--   kp <- plotKaryotype(plot.type=4) -->
+<!--   kpDataBackground(kp, color = cn.cols["2"]) -->
+<!--   plotCopyNumberCalls(kp, cn.calls, loh.height = 0, cn.colors = "red_blue") -->
+<!-- ``` -->
 
 ### plotCopyNumberCallsAsLines
 
@@ -541,31 +541,31 @@ segments instead of lines using the additional parameter `style`.
   plotCopyNumberCallsAsLines(kp, s1.calls, style = "segments")
 ```
 
-### plotCopyNumberSummary
+<!-- ### plotCopyNumberSummary -->
 
-Finally, to plot a view of the accumulatoion of copy number alterations we can
-use `plotCopyNumberSummary`. It will create a coverage plot of gains and losses
-over all samples in our dataset.
+<!-- Finally, to plot a view of the accumulatoion of copy number alterations we can -->
+<!-- use `plotCopyNumberSummary`. It will create a coverage plot of gains and losses -->
+<!-- over all samples in our dataset. -->
 
-In this case we'll work with the randomly created dataset we built before.
+<!-- In this case we'll work with the randomly created dataset we built before. -->
 
-```{r}
-  cn.cols <- getCopyNumberColors(colors = "green_orange_red")
-  kp <- plotKaryotype(plot.type=4)
-  kpDataBackground(kp, color = cn.cols["2"], r0=0.3)
-  plotCopyNumberCalls(kp, cn.calls, loh.height = 0, r0=0.3)
-  plotCopyNumberSummary(kp, cn.calls, r1=0.25)
-```
+<!-- ```{r} -->
+<!--   cn.cols <- getCopyNumberColors(colors = "green_orange_red") -->
+<!--   kp <- plotKaryotype(plot.type=4) -->
+<!--   kpDataBackground(kp, color = cn.cols["2"], r0=0.3) -->
+<!--   plotCopyNumberCalls(kp, cn.calls, loh.height = 0, r0=0.3) -->
+<!--   plotCopyNumberSummary(kp, cn.calls, r1=0.25) -->
+<!-- ``` -->
 
-And we can change the apparance of the summary using the `direction` parameter.
+<!-- And we can change the appearance of the summary using the `direction` parameter. -->
 
-```{r}
-  cn.cols <- getCopyNumberColors(colors = "green_orange_red")
-  kp <- plotKaryotype(plot.type=4)
-  kpDataBackground(kp, color = cn.cols["2"], r0=0.3)
-  plotCopyNumberCalls(kp, cn.calls, loh.height = 0, r0=0.3)
-  plotCopyNumberSummary(kp, cn.calls, r1=0.25, direction = "out")
-```
+<!-- ```{r} -->
+<!--   cn.cols <- getCopyNumberColors(colors = "green_orange_red") -->
+<!--   kp <- plotKaryotype(plot.type=4) -->
+<!--   kpDataBackground(kp, color = cn.cols["2"], r0=0.3) -->
+<!--   plotCopyNumberCalls(kp, cn.calls, loh.height = 0, r0=0.3) -->
+<!--   plotCopyNumberSummary(kp, cn.calls, r1=0.25, direction = "out") -->
+<!-- ``` -->
 
 # Session Info
 
