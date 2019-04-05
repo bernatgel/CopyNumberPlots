@@ -448,12 +448,6 @@ We can also use the standard customization options with `plotLRR`.
 
 
 
-# Session Info
-
-```{r, sessionInfo}
-sessionInfo()
-```
-
 ## Plot Copy-Number Calls
 
 The final data type we can plot with `r BiocStyle::Biocpkg("CopyNumberPlots")`
