@@ -681,4 +681,54 @@ EnsemblStyle <- function(x) {
   stop("Unknown class. Only GRanges, GRangesLists and lists of GRanges are accepted by EnsemblStyle.")
 }
 
-
+################################# Prepare Labels to plot ###################################
+#' prepareLabels
+#'
+#' @description
+#' Prepare the Labels to plot. 
+#'
+#' @usage prepareLabels(labels, x)
+#'
+#' @param labels (character) labels to plot. (defaults to NULL)
+#' @param x (list or GRangesList) The list or GRangesList where extracting the labels
+#'
+#' @return
+#' prepareLabels return a vector with the same length as the length of x.
+#' If labels is NULL and x have names, it will return the names of x.
+#' If there are not names it will return numbers as labels.
+#' If labes is not NULL, prepareLabels will cut or recycle the names as needed.
+#
+#' @examples
+#' 
+#' #List of GRanges
+#' seg.data <- list(a = regioneR::toGRanges(data.frame(chr = c("chr1", "chr1", "chr2", "chr5"), start = c(0,50000,8014630,14523572), end = c(48953, 7023664,9216331,153245687), lrr = c(NA,0.25,1.5,NA),baf = c(1.5,2.5,NA,6), id = c("rs52456","rs52457","rs52458","rs52459"))),
+#'                     b=regioneR::toGRanges(data.frame(chr = c("chr1", "chr1", "chr2", "chr5"), start = c(0,50000,8014630,14523572), end = c(48953, 7023664,9216331,153245687), lrr = c(2.5,NA,1.5,0.25), baf = c(1.5,2.5,NA,6), id = c("rs52456","rs52457","rs52458","rs52459"))))
+#' prepareLabels(x = seg.data)
+#'
+#' #GRangesList
+#' seg.data <- GRangesList(a = regioneR::toGRanges(data.frame(chr = c("chr1", "chr1", "chr2", "chr5"), start = c(0,50000,8014630,14523572), end = c(48953, 7023664,9216331,153245687), lrr = c(NA,0.25,1.5,NA), baf = c(1.5,2.5,NA,6), id = c("rs52456","rs52457","rs52458","rs52459"))),
+#'                         b = regioneR::toGRanges(data.frame(chr = c("chr1", "chr1", "chr2", "chr5"), start = c(0,50000,8014630,14523572), end = c(48953, 7023664,9216331,153245687), lrr = c(2.5,NA,1.5,0.25), baf = c(1.5,2.5,NA,6), id = c("rs52456","rs52457","rs52458","rs52459"))))
+#' 
+#' prepareLabels(x = seg.data)
+#' 
+#' 
+#' @export prepareLabels
+#'
+#'
+prepareLabels <- function(labels = NULL, x){
+  if(is.null(labels)){
+    if(is.null(names(x))){
+      labels <- seq_len(length(x))
+    }else{
+      labels <- names(x)
+    }
+  } else {
+    if(length(labels)<length(x)){
+      labels <- rep(labels, length.out=length(x))
+    }
+    if(length(labels)>length(x)){
+      labels <- labels[seq_len(length(x))]
+    }
+  }
+  return(labels)
+}
