@@ -68,13 +68,12 @@ plotLRR <- function(karyoplot, snps, lrr.column="lrr", labels="LRR", ymin=-4, ym
 
   #If cn.calls is a list, call this same function with each single element to actually produce the plot. Use autotrack to set the appropiate r0 and r1 values.
   if(methods::is(snps, "list") || methods::is(snps, "CompressedGRangesList")) {
-    if(is.null(labels)) labels <- ifelse(is.null(names(snps)), seq_len(length(snps)), names(snps))
+    labels <- prepareLabels(labels = labels, x = snps)
+    
     for(i in seq_len(length(snps))) {
-      #If there are as many labels as samples, assume each label should be used for one track, else, use the first one
-      lab <- ifelse(length(labels)==length(snps), labels[i], labels[1])
-
+     
       rr <- karyoploteR::autotrack(current.track=i, total.tracks=length(snps), margin = track.margin, r0=r0, r1=r1)
-      plotLRR(karyoplot, snps[[i]], r0=rr$r0, r1=rr$r1, labels=lab,
+      plotLRR(karyoplot, snps[[i]], r0=rr$r0, r1=rr$r1, labels=labels[i],
               lrr.column=lrr.column, ymin=ymin, ymax=ymax,
               out.of.range=out.of.range, out.of.range.col=out.of.range.col,
               density.height=density.height, density.window=density.window,
