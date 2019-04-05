@@ -18,7 +18,8 @@ Imports:
     stats,
     GenomeInfoDb,
     GenomicRanges,
-    cn.mops
+    cn.mops,
+    utils
 Suggests:
     BiocStyle,
     knitr,
