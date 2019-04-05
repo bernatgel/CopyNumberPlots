@@ -198,9 +198,9 @@ It will return a list of GRanges with one GRanges per sample.
   library(DNAcopy)
   data(coriell)
 
-  CNA.object <- CNA(cbind(coriell$Coriell.05296), coriell$Chromosome, coriell$Position,     data.type="logratio")
+  CNA.object <- suppressWarnings(CNA(cbind(coriell$Coriell.05296), coriell$Chromosome, coriell$Position, data.type="logratio"))
   CNA.object <-  smooth.CNA(CNA.object)
-  DNAcopy.results <- segment(CNA.object, verbose=1)
+  DNAcopy.results <- DNAcopy::segment(CNA.object)
   DNAcopy.results
 ```
 
