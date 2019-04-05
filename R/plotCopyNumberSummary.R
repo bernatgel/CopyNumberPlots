@@ -62,6 +62,11 @@
 
 plotCopyNumberSummary <- function(karyoplot, cn.calls, direction="in",  gain.color=NULL, normal.color=NULL, loss.color=NULL, add.grid=FALSE, grid.color="white", labels=NULL, label.cex=1, label.srt=0, pos=2, r0=0, r1=1, ...) {
 
+  if(is.null(labels)) labels <- "CN"
+
+  if(!is.na(labels) && nchar(labels)>0) {
+    karyoploteR::kpAddLabels(karyoplot, labels = labels, r0=r0, r1=r1, cex=label.cex, srt=label.srt, pos=pos, ...)
+  }
 
   direction <- match.arg(direction, c("in", "out"))
 
@@ -91,11 +96,6 @@ plotCopyNumberSummary <- function(karyoplot, cn.calls, direction="in",  gain.col
     }
   }
 
-  if(is.null(labels)) labels <- "CN"
-
-  if(!is.na(labels) && nchar(labels)>0) {
-    karyoploteR::kpAddLabels(karyoplot, labels = labels, r0=r0, r1=r1, cex=label.cex, srt=label.srt, pos=pos, ...)
-  }
 
   invisible(karyoplot)
 }
