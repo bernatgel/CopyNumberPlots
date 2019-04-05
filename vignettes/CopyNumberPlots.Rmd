@@ -87,21 +87,21 @@ on the available plot types at
 [the karyoploteR tutorial](https://bernatgel.github.io/karyoploter_tutorial//Tutorial/PlotTypes/PlotTypes.html).
 
 ```{r, fig.wide=TRUE}
-  kp <- plotKaryotype(plot.type=4, chromosomes="chr17")
+  kp <- plotKaryotype(plot.type=4, chromosomes="chr9")
 ```
 
 And once we have a karyoplot we can start adding out data. We can plot the 
 B-allele frequency using `plotBAF`
 
 ```{r, fig.wide=TRUE}
-  kp <- plotKaryotype(plot.type=4, chromosomes="chr17")
+  kp <- plotKaryotype(plot.type=4, chromosomes="chr9")
   plotBAF(kp, s1)
 ```
 
 We can plot LRR using `plotLRR`
 
 ```{r, fig.wide=TRUE}
-  kp <- plotKaryotype(plot.type=4, chromosomes="chr17")
+  kp <- plotKaryotype(plot.type=4, chromosomes="chr9")
   plotLRR(kp, s1)
 ```
 
@@ -113,7 +113,7 @@ We can also use the
 on the same plot.
 
 ```{r, fig.wide=TRUE}
-  kp <- plotKaryotype(plot.type=4, chromosomes="chr17")
+  kp <- plotKaryotype(plot.type=4, chromosomes="chr9")
   plotBAF(kp, s1, r0=0.55, r1=1)
   plotLRR(kp, s1, r0=0, r1=0.45)
 ```
@@ -134,7 +134,7 @@ create a GRanges object for us.
 And then use `kpPlotCopyNumberCalls` to add them to the previous plot.
 
 ```{r, fig.wide=TRUE}
-  kp <- plotKaryotype(plot.type=4, chromosomes="chr17")
+  kp <- plotKaryotype(plot.type=4, chromosomes="chr9")
   plotBAF(kp, s1, r0=0.6, r1=1)
   plotLRR(kp, s1, r0=0.15, r1=0.55)
   plotCopyNumberCalls(kp, s1.calls, r0=0, r1=0.10)
@@ -350,7 +350,7 @@ otherwise we would get an empty plot.
 
 ```{r}
   s1 <- UCSCStyle(s1)
-  kp <- plotKaryotype(plot.type = 4, chromosomes="chr17")
+  kp <- plotKaryotype(plot.type = 4, chromosomes="chr9")
   plotBAF(kp, snps=s1)
 ```
 
@@ -362,7 +362,7 @@ position of the data](https://bernatgel.github.io/karyoploter_tutorial//Tutorial
 plotting parameters.
 
 ```{r}
-  kp <- plotKaryotype(plot.type = 4, chromosomes="chr17")
+  kp <- plotKaryotype(plot.type = 4, chromosomes="chr9")
   plotBAF(kp, snps=s1, r0=0, r1=0.2, labels = "BAF1", points.col = "orange",
           points.cex = 2, points.pch = 4, axis.cex = 0.3)
   plotBAF(kp, snps=s1, r0=0.3, r1=0.5, labels = "BAF2", points.col = "red",
@@ -381,7 +381,7 @@ we can apply `UCSCStyle` to it to change it.
 ```{r}
   samples <- list("Sample1"=s1, "Sample2"=s2)
   samples <- UCSCStyle(samples)
-  kp <- plotKaryotype(plot.type = 4, chromosomes="chr17")
+  kp <- plotKaryotype(plot.type = 4, chromosomes="chr9")
   plotBAF(kp, snps=samples)
 ```
 
@@ -391,7 +391,7 @@ The function `plotLRR` is equivalent to the `plotBAF` function but will plot the
 data in the "lrr" column.
 
 ```{r}
-  kp <- plotKaryotype(plot.type = 4, chromosomes="chr17")
+  kp <- plotKaryotype(plot.type = 4, chromosomes="chr9")
   plotLRR(kp, snps=s1)
 ```
 
@@ -405,7 +405,7 @@ from an XX individual.
 Changing the values of `ymin` and `ymax` we can see a but different picture
 
 ```{r}
-  kp <- plotKaryotype(plot.type = 4, chromosomes="chr17")
+  kp <- plotKaryotype(plot.type = 4, chromosomes="chr9")
   plotLRR(kp, snps=s1,  ymin=-0.5, ymax=0.5)
 ```
 
@@ -414,7 +414,7 @@ of this points, changing their color, for example, of we can change how they are
 represented, using a density plot instead of raw points.
 
 ```{r}
-  kp <- plotKaryotype(plot.type = 4, chromosomes="chr17")
+  kp <- plotKaryotype(plot.type = 4, chromosomes="chr9")
   plotLRR(kp, snps=s1,  ymin=-0.5, ymax=0.5, out.of.range = "density")
 ```
 
@@ -424,7 +424,7 @@ the density using larger windows. For example, we can set the window to 10
 megabases.
 
 ```{r}
-  kp <- plotKaryotype(plot.type = 4, chromosomes="chr17")
+  kp <- plotKaryotype(plot.type = 4, chromosomes="chr9")
   plotLRR(kp, snps=s1,  ymin=-0.5, ymax=0.5, out.of.range = "density", density.window = 10e6)
 ```
 
@@ -438,7 +438,7 @@ the 0 with the "line.at.0.*" parameters.
 We can also use the standard customization options with `plotLRR`.
 
 ```{r}
-  kp <- plotKaryotype(plot.type = 4, chromosomes="chr17")
+  kp <- plotKaryotype(plot.type = 4, chromosomes="chr9")
   plotLRR(kp, snps=s1, r0=0, r1=0.2, labels = "LRR1", points.col = "orange",
           points.cex = 2, points.pch = 4, axis.cex = 0.3)
   plotLRR(kp, snps=s1, r0=0.3, r1=0.5, labels = "LRR2", points.col = "red",
