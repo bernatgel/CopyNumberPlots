@@ -32,5 +32,5 @@ BugReports: https://github.com/bernatgel/CopyNumberPlots/issues
 Encoding: UTF-8
 VignetteBuilder: knitr
 biocViews: Visualization, CopyNumberVariation, Coverage, OneChannel, DataImport
-LazyData: true
+LazyData: false
 RoxygenNote: 6.1.1
