@@ -211,31 +211,31 @@ And to load it we simply need to call `loadSNPData.DNAcopy`
   snps
 ```
   
-### Special case: BAF from VCF files
+<!-- ### Special case: BAF from VCF files -->
 
-It is also possible to simulate BAF and LRR values from a VCF file, using the 
-variant allele frequency. `r BiocStyle::Biocpkg("CopyNumberPlots")` includes
-a function, `loadSNPDataFromVCF`, that will take a VCF file and build a GRanges
-object with a baf column. If more than one sample is present in the file it
-will return a list of GRanges with one GRanges per sample.
+<!-- It is also possible to simulate BAF and LRR values from a VCF file, using the  -->
+<!-- variant allele frequency. `r BiocStyle::Biocpkg("CopyNumberPlots")` includes -->
+<!-- a function, `loadSNPDataFromVCF`, that will take a VCF file and build a GRanges -->
+<!-- object with a baf column. If more than one sample is present in the file it -->
+<!-- will return a list of GRanges with one GRanges per sample. -->
 
-**Important:** Currently, only VCFs with an AD value. Computation of allele
-frequency using other data is planned in the near future.
+<!-- **Important:** Currently, only VCFs with an AD value. Computation of allele -->
+<!-- frequency using other data is planned in the near future. -->
 
-To load BAF-like data we need to call the function giving it the VCF file
+<!-- To load BAF-like data we need to call the function giving it the VCF file -->
 
-```{r}
- vcf.file <- system.file("extdata", "example.vcf.gz", package = "CopyNumberPlots", mustWork = TRUE)
- snps <- loadSNPDataFromVCF(vcf.file)
- snps
-```
+<!-- ```{r} -->
+<!--  vcf.file <- system.file("extdata", "example.vcf.gz", package = "CopyNumberPlots", mustWork = TRUE) -->
+<!--  snps <- loadSNPDataFromVCF(vcf.file) -->
+<!--  snps -->
+<!-- ``` -->
 
-And we can plot this using the same functions we used for SNP-array data
+<!-- And we can plot this using the same functions we used for SNP-array data -->
 
-```{r}
- kp <- plotKaryotype(plot.type = 4)
- plotBAF(kp, snps = snps, labels = names(snps))
-```
+<!-- ```{r} -->
+<!--  kp <- plotKaryotype(plot.type = 4) -->
+<!--  plotBAF(kp, snps = snps, labels = names(snps)) -->
+<!-- ``` -->
 
 
 
