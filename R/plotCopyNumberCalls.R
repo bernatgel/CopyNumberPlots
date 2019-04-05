@@ -49,26 +49,19 @@
 #'
 #' @examples
 #'
-#'
-#' gg <- filterChromosomes(getGenome("hg19"))
-#'
-#' scnas <- createRandomRegions(40, 10e6, 10e6)
-#' scnas$cn <- floor(runif(40, 0, 4))
-#' normal.regs <- subtractRegions(gg, scnas)
-#' normal.regs$cn <- 2
-#' scnas <- sort(c(scnas, normal.regs))
-#' scnas$loh <- ifelse(scnas$cn<2, TRUE, FALSE)
+#' cncalls.file <- system.file("extdata", "S0001.ASCAT.segments.txt", package = "CopyNumberPlots", mustWork = TRUE)
+#' cncalls <- loadCopyNumberCalls(s1.calls.file)
 #'
 #' kp <- plotKaryotype("hg19")
-#' plotCopyNumberCalls(kp, scnas)
+#' plotCopyNumberCalls(kp, cncalls)
 #'
 #' kp <- plotKaryotype("hg19")
-#' plotCopyNumberCalls(kp, scnas, cn.colors="red_blue")
+#' plotCopyNumberCalls(kp, cncalls, cn.colors="red_blue")
 #' 
 #' #List of GRanges
-#' cn.calls <- list(s1=scnas, s2 =scnas)
+#' cn.calls <- list(s1=cncalls, s2 =cncalls)
 #' 
-#' kp <-plotKaryotype("hg19")
+#' kp <-plotKaryotype("hg19", plot.type=4)
 #' plotCopyNumberCalls(kp, cn.calls, cn.colors="red_blue")
 #'
 #' @export plotCopyNumberCalls
