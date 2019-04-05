@@ -60,8 +60,11 @@ loadSNPData <- function(snp.data,
     
     if(verbose) message("Reading data from ", snp.data)
     
-    #Try to load it using toGRanges
-    snps <- tryCatch(regioneR::toGRanges(snp.data, genome = genome), error = function(e){return(NULL)}, warning = function(w){})
+    #It is problematic with snparray data
+    # #Try to load it using toGRanges
+    # snps <- tryCatch(regioneR::toGRanges(snp.data, genome = genome), error = function(e){return(NULL)}, warning = function(w){})
+    snps <- NULL
+    
     #if the toGRanges failed, try with a series of read.tabe statements
     if(is.null(snps)) snps <- tryCatch(utils::read.table(snp.data, sep = "\t", header = TRUE, stringsAsFactors = FALSE),
                                        error = function(e) return(NULL))
@@ -79,7 +82,8 @@ loadSNPData <- function(snp.data,
   #If it's  not a GRanges, try to convert it into a GRanges
   
   if(!methods::is(snp.data, "GRanges")) {
-    snps <- tryCatch(regioneR::toGRanges(snp.data, genome = genome), error = function(e){return(NULL)}, warning = function(w){})
+    #snps <- tryCatch(regioneR::toGRanges(snp.data, genome = genome), error = function(e){return(NULL)}, warning = function(w){})
+    snps <- NULL
     if(is.null(snps)) { #If toGRanges failed try to identify columns by name
       chr.col <- getChrColumn(col = chr.col, df = snp.data, needed = TRUE,  verbose = verbose)
       start.col <- getStartColumn(col = start.col, df = snp.data, needed = FALSE, verbose = verbose)
