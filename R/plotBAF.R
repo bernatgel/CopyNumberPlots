@@ -88,13 +88,10 @@ plotBAF <- function(karyoplot, snps, baf.column="baf", labels=NULL, points.cex=0
 
   #If snps is a list, call this same function with each single element to actually produce the plot. Use autotrack to set the appropiate r0 and r1 values.
   if(methods::is(snps, "list") || methods::is(snps, "CompressedGRangesList")) {
-    if(is.null(labels)) labels <- ifelse(is.null(names(snps)), seq_len(length(snps)), names(snps))
+    labels <- prepareLabels(labels = labels, x = snps)
     for(i in seq_len(length(snps))) {
-      #If there are as many labels as samples, assume each label should be used for one track, else, use the first one
-      lab <- ifelse(length(labels)==length(snps), labels[i], labels[1])
-
       rr <- karyoploteR::autotrack(current.track=i, total.tracks=length(snps), margin = track.margin, r0=r0, r1=r1)
-      plotBAF(karyoplot, snps[[i]], r0=rr$r0, r1=rr$r1, labels=lab,
+      plotBAF(karyoplot, snps[[i]], r0=rr$r0, r1=rr$r1, labels=labels[i],
               baf.column=baf.column,
               points.cex=points.cex, points.col=points.col, points.pch=points.pch,
               label.cex=label.cex, label.srt=label.srt, label.margin=label.margin,

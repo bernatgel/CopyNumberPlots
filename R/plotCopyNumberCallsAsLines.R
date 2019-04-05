@@ -54,6 +54,11 @@
 #' kp <- plotKaryotype("hg19")
 #' plotCopyNumberCallsAsLines(kp, scnas, r0=0.2, r1=0.4, style="segments", add.axis=FALSE, labels="CopyNumber")
 #'
+#' #List of GRanges
+#' cn.calls <- list(s1=scnas, s2 =scnas)
+#' kp <- plotKaryotype("hg19")
+#' plotCopyNumberCallsAsLines(kp, cn.calls,style="segments", add.axis=FALSE)
+#'
 #' @export plotCopyNumberCallsAsLines
 #'
 #'
@@ -61,13 +66,13 @@ plotCopyNumberCallsAsLines <- function(karyoplot, cn.calls, style="line", cn.col
 
   #If cn.calls is a list, call this same function with each single element to actually produce the plot. Use autotrack to set the appropiate r0 and r1 values.
   if(methods::is(cn.calls, "list") || methods::is(cn.calls, "CompressedGRangesList")) {
-    if(is.null(labels)) labels <- ifelse(is.null(names(cn.calls)), seq_len(length(cn.calls)), names(cn.calls))
+  
+    labels <- prepareLabels(labels = labels, x = cn.calls)
+    
     for(i in seq_len(length(cn.calls))) {
-      #If there are as many labels as samples, assume each label should be used for one track, else, use the first one
-      lab <- ifelse(length(labels)==length(cn.calls), labels[i], labels[1])
       rr <- karyoploteR::autotrack(current.track=i, total.tracks=length(cn.calls), r0=r0, r1=r1)
       plotCopyNumberCallsAsLines(karyoplot, cn.calls[[i]], r0=rr$r0, r1=rr$r1,
-                                 labels = lab, label.cex = label.cex, style=style,
+                                 labels = labels[i], label.cex = label.cex, style=style,
                                  cn.column=cn.column, add.axis=add.axis, axis.cex=axis.cex, numticks=numticks,
                                  col=col, ymin=ymin, ymax=ymax, ...)
     }

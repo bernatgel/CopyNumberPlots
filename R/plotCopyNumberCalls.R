@@ -35,7 +35,7 @@
 #' @param loh.height (numeric) The proportion of r0 and r1 of the vertical space over each chromosome dedicated to loh. It is dedicated the 30\% of the vertical space by default.(defaults to 0.3)
 #' @param labels (character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "CN", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL. (defaults to NULL)
 #' @param label.cex (numeric) The size of tthe label (defaults to 1)
-#' @param label2.cex (numeric) The size of the label 2. If NULL label2.cex will be label.cex. (defaults to NULL)
+#' @param label2.cex (numeric) The size of the label 2. If NULL label2.cex will be lable.cex. (defaults to NULL)
 #' @param track.margin (numeric) If cn.calls is a list object, this is the margin between the samples CN. (deafults to 0.01)
 #' @param r0 (numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to NULL)(defaults to 0)
 #' @param r1 (numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to NULL)(defaults to 1)
@@ -64,7 +64,12 @@
 #'
 #' kp <- plotKaryotype("hg19")
 #' plotCopyNumberCalls(kp, scnas, cn.colors="red_blue")
-#'
+#' 
+#' #List of GRanges
+#' cn.calls <- list(s1=scnas, s2 =scnas)
+#' 
+#' kp <-plotKaryotype("hg19")
+#' plotCopyNumberCalls(kp, cn.calls, cn.colors="red_blue")
 #'
 #' @export plotCopyNumberCalls
 #'
@@ -78,30 +83,28 @@ plotCopyNumberCalls <- function(karyoplot, cn.calls, cn.values=NULL, cn.column="
 
   #If cn.calls is a list, call this same function with each single element to actually produce the plot. Use autotrack to set the appropiate r0 and r1 values.
   if(methods::is(cn.calls, "list") || methods::is(cn.calls, "CompressedGRangesList")) {
-    if(is.null(labels)) labels <- ifelse(is.null(names(cn.calls)), seq_len(length(cn.calls)), names(cn.calls))
+    labels <- prepareLabels(labels = labels, x = cn.calls)
     for(i in seq_len(length(cn.calls))) {
-      #If there are as many labels as samples, assume each label should be used for one track, else, use the first one
-      lab <- ifelse(length(labels)==length(cn.calls), labels[i], labels[1])
       rr <- karyoploteR::autotrack(current.track=i, total.tracks=length(cn.calls), margin = track.margin, r0=r0, r1=r1)
       plotCopyNumberCalls(karyoplot, cn.calls[[i]], r0=rr$r0, r1=rr$r1,
                           cn.values=cn.values, loh.values=loh.values,
                           cn.column=cn.column, loh.column = loh.column,
                           cn.colors = cn.colors, loh.color = loh.color,
-                          labels = lab, label.cex = label.cex, label2.cex = label2.cex,
+                          labels = labels[i], label.cex = label.cex, label2.cex = label2.cex,
                           loh.height = loh.height, ...)
     }
     return(invisible(karyoplot))
   }
-
-
+  
+  
 
   if(is.null(label2.cex)) label2.cex <- label.cex
-
+  
   #use toGRanges to build a GRanges if cn.calls was anything else
   cn.calls <- regioneR::toGRanges(cn.calls)
-
+  
   if(is.null(labels)) labels <- "CN"
-
+  
   if(!is.null(labels) && !is.na(labels) && all(is.character(labels) && length(labels)>0)) {
     if(length(labels)==1) {
       karyoploteR::kpAddLabels(karyoplot, labels = labels[1], r0=r0, r1=r1, cex=label.cex, ...)
@@ -110,7 +113,7 @@ plotCopyNumberCalls <- function(karyoplot, cn.calls, cn.values=NULL, cn.column="
       karyoploteR::kpAddLabels(karyoplot, labels = labels[2], r0=r0, r1=r0+(r1-r0)*loh.height, cex=label2.cex, ...)
     }
   }
-
+  
   segment.colors <- getCopyNumberColors(cn.colors)
 
   #Explicitly filter the segments, since it will use the wrong colors otherwise
@@ -139,7 +142,7 @@ plotCopyNumberCalls <- function(karyoplot, cn.calls, cn.values=NULL, cn.column="
     cn.calls$loh[is.na(cn.calls$loh)] <- FALSE
     karyoploteR::kpRect(karyoplot, data=cn.calls[cn.calls$loh==TRUE], y0=0, y1=loh.height, r0=r0, r1=r1, col=loh.color, border=NA, ...)
   }
-
+  
 
   invisible(karyoplot)
 }
