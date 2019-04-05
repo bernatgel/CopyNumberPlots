@@ -6,7 +6,7 @@ Author: Bernat Gel <bgel@igtp.cat> and Miriam Magallon <mmagallon@igtp.cat>
 Maintainer: Bernat Gel <bgel@igtp.cat>
 Description: CopyNumberPlots have a set of functions extending karyoploteRs functionality to create beautiful, customizable and flexible plots of copy-number related data.
 Depends:
-    R (>= 3.5),
+    R (>= 3.6),
     karyoploteR
 Imports:
     regioneR,
@@ -27,8 +27,10 @@ Suggests:
     BSgenome.Hsapiens.UCSC.hg19.masked,
     DNAcopy
 License: Artistic-2.0
+URL: https://github.com/bernatgel/CopyNumberPlots
+BugReports: https://github.com/bernatgel/CopyNumberPlots/issues
 Encoding: UTF-8
 VignetteBuilder: knitr
-biocViews: Visualization, CopyNumberVariation, Coverage, aCGH, Microarray
+biocViews: Visualization, CopyNumberVariation, Coverage
 LazyData: true
 RoxygenNote: 6.1.1
