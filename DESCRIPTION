@@ -28,5 +28,6 @@ Suggests:
 License: Artistic-2.0
 Encoding: UTF-8
 VignetteBuilder: knitr
+biocViews: Visualization, CopyNumberVariation, Coverage, aCGH, Microarray
 LazyData: true
 RoxygenNote: 6.1.1
