@@ -72,4 +72,9 @@ plotCopyNumberCallsAsLines(kp, scnas, r0=0.65, r1=0.95, style="segments", col="r
 kp <- plotKaryotype("hg19")
 plotCopyNumberCallsAsLines(kp, scnas, r0=0.2, r1=0.4, style="segments", add.axis=FALSE, labels="CopyNumber")
 
+#List of GRanges
+cn.calls <- list(s1=scnas, s2 =scnas)
+kp <- plotKaryotype("hg19")
+plotCopyNumberCallsAsLines(kp, cn.calls,style="segments", add.axis=FALSE)
+
 }
