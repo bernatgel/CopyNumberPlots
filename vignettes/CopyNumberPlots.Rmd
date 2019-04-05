@@ -17,8 +17,8 @@ vignette: >
 library(knitr)
 library(CopyNumberPlots)
 opts_chunk$set(concordance=FALSE)
-knitr::opts_chunk$set(fig.width = 6)
-knitr::opts_chunk$set(fig.height = 4)
+knitr::opts_chunk$set(fig.width = 5)
+knitr::opts_chunk$set(fig.height = 2)
 set.seed(21666641)
 ```
 
@@ -398,57 +398,59 @@ data in the "lrr" column.
 `plotLRR` has a few specifica parameters. Since the range of the data points
 is not limited to [0,1] as in BAF, you can define the `ymin` and `ymax` values
 and any point falling out of the [ymin, ymax] range will be plotted in red 
-within this range. This can help us identify out-of-range data, such as the 
-chrY in the plot above, which is all in red denoting that the sample comes 
-from an XX individual.
+within this range. 
 
-Changing the values of `ymin` and `ymax` we can see a but different picture
+<!-- This can help us identify out-of-range data, such as the  -->
+<!-- chrY in the plot above, which is all in red denoting that the sample comes  -->
+<!-- from an XX individual. -->
 
-```{r}
-  kp <- plotKaryotype(plot.type = 4, chromosomes="chr9")
-  plotLRR(kp, snps=s1,  ymin=-0.5, ymax=0.5)
-```
+<!-- Changing the values of `ymin` and `ymax` we can see a but different picture -->
 
-In this case we see many more points of of range. We can change the appearance 
-of this points, changing their color, for example, of we can change how they are
-represented, using a density plot instead of raw points.
+<!-- ```{r} -->
+<!--   kp <- plotKaryotype(plot.type = 4, chromosomes="chr9") -->
+<!--   plotLRR(kp, snps=s1,  ymin=-0.5, ymax=0.5) -->
+<!-- ``` -->
 
-```{r}
-  kp <- plotKaryotype(plot.type = 4, chromosomes="chr9")
-  plotLRR(kp, snps=s1,  ymin=-0.5, ymax=0.5, out.of.range = "density")
-```
+<!-- In this case we see many more points of of range. We can change the appearance  -->
+<!-- of this points, changing their color, for example, of we can change how they are -->
+<!-- represented, using a density plot instead of raw points. -->
 
-In this case, due to the very few points in the example, the default parameters
-for the density plot are not optimal. We can increase the window size to compute
-the density using larger windows. For example, we can set the window to 10 
-megabases.
+<!-- ```{r} -->
+<!--   kp <- plotKaryotype(plot.type = 4, chromosomes="chr9") -->
+<!--   plotLRR(kp, snps=s1,  ymin=-0.5, ymax=0.5, out.of.range = "density") -->
+<!-- ``` -->
 
-```{r}
-  kp <- plotKaryotype(plot.type = 4, chromosomes="chr9")
-  plotLRR(kp, snps=s1,  ymin=-0.5, ymax=0.5, out.of.range = "density", density.window = 10e6)
-```
+<!-- In this case, due to the very few points in the example, the default parameters -->
+<!-- for the density plot are not optimal. We can increase the window size to compute -->
+<!-- the density using larger windows. For example, we can set the window to 10  -->
+<!-- megabases. -->
 
-And we can see the peaks corresponding to the accumulation of ou-of-range
-points.
+<!-- ```{r} -->
+<!--   kp <- plotKaryotype(plot.type = 4, chromosomes="chr9") -->
+<!--   plotLRR(kp, snps=s1,  ymin=-0.5, ymax=0.5, out.of.range = "density", density.window = 10e6) -->
+<!-- ``` -->
 
-Finally, we can control the presence and color of the horizontal line marking 
-the 0 with the "line.at.0.*" parameters.
+<!-- And we can see the peaks corresponding to the accumulation of ou-of-range -->
+<!-- points. -->
+
+<!-- Finally, we can control the presence and color of the horizontal line marking  -->
+<!-- the 0 with the "line.at.0.*" parameters. -->
 
 
-We can also use the standard customization options with `plotLRR`.
+<!-- We can also use the standard customization options with `plotLRR`. -->
 
-```{r}
-  kp <- plotKaryotype(plot.type = 4, chromosomes="chr9")
-  plotLRR(kp, snps=s1, r0=0, r1=0.2, labels = "LRR1", points.col = "orange",
-          points.cex = 2, points.pch = 4, axis.cex = 0.3)
-  plotLRR(kp, snps=s1, r0=0.3, r1=0.5, labels = "LRR2", points.col = "red",
-          points.cex = 0.5, points.pch = 8, axis.cex = 0.7, ymin=-0.5, ymax=0.5,
-          out.of.range.col = "gold", out.of.range = "density", 
-          density.window = 10e6, density.height = 0.3)
-  plotLRR(kp, snps=s1, r0=0.6, r1=1, labels = "LRR3", 
-          points.col = "#FF552222", points.cex = 1.8, points.pch = 16, 
-          axis.cex = 0.7)
-```
+<!-- ```{r} -->
+<!--   kp <- plotKaryotype(plot.type = 4, chromosomes="chr9") -->
+<!--   plotLRR(kp, snps=s1, r0=0, r1=0.2, labels = "LRR1", points.col = "orange", -->
+<!--           points.cex = 2, points.pch = 4, axis.cex = 0.3) -->
+<!--   plotLRR(kp, snps=s1, r0=0.3, r1=0.5, labels = "LRR2", points.col = "red", -->
+<!--           points.cex = 0.5, points.pch = 8, axis.cex = 0.7, ymin=-0.5, ymax=0.5, -->
+<!--           out.of.range.col = "gold", out.of.range = "density",  -->
+<!--           density.window = 10e6, density.height = 0.3) -->
+<!--   plotLRR(kp, snps=s1, r0=0.6, r1=1, labels = "LRR3",  -->
+<!--           points.col = "#FF552222", points.cex = 1.8, points.pch = 16,  -->
+<!--           axis.cex = 0.7) -->
+<!-- ``` -->
 
 
 
