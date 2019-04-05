@@ -28,12 +28,13 @@
 #'
 #' @examples
 #' # loadCopyNumberCalls.cnmops from cn.mops result class:
-#' require(cn.mops)
-#' data(cn.mops, package = "cn.mops")
+#' #NOT RUN - Example loading data from a results object created by cn.mops
+#' # require(cn.mops)
+#' # data(cn.mops, package = "cn.mops")
 #' 
-#' cn.mops.res <- cn.mops(XRanges)
-#' cn.mops.res <- calcIntegerCopyNumbers(cn.mops.res)
-#' cnv.call <- loadCopyNumberCalls.cnmops(cn.mops.res = cn.mops.res)  
+#' # cn.mops.res <- cn.mops(XRanges)
+#' # cn.mops.res <- calcIntegerCopyNumbers(cn.mops.res)
+#' # cnv.call <- loadCopyNumberCalls.cnmops(cn.mops.res = cn.mops.res)  
 #' 
 #' # loadCopyNumberCalls.cnmops from a file where cn.mops result was saved:
 #' cn.mops.res <- system.file("extdata", "cn.mops.segmentation.csv", package = "CopyNumberPlots", mustWork = TRUE)

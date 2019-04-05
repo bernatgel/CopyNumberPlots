@@ -50,19 +50,12 @@ histogram-like representation.
 2 types of plots. Convergent or divergent barplots
 }
 \examples{
-gg <- filterChromosomes(getGenome("hg19"))
 
-all.scnas <- list()
-for(i in seq_len(10)) {
-  scnas <- createRandomRegions(40, 10e6, 10e6)
-  scnas$cn <- floor(runif(40, 0, 4))
-  scnas$loh <- ifelse(scnas$cn<2, 1, 0)
-  normal.regs <- subtractRegions(gg, scnas)
-  normal.regs$cn <- 2
-  scnas <- sort(c(scnas, normal.regs))
-  all.scnas[[paste0("samp", i)]] <- scnas
-}
-
+all.scnas <- list(
+             loadCopyNumberCalls(system.file("extdata", "S0001.ASCAT.segments.txt", package = "CopyNumberPlots", mustWork = TRUE)),
+             loadCopyNumberCalls(system.file("extdata", "S0002.ASCAT.segments.txt", package = "CopyNumberPlots", mustWork = TRUE))
+             )
+             
 kp <- plotKaryotype("hg19", plot.type=4)
 plotCopyNumberSummary(kp, all.scnas)
 
@@ -72,6 +65,32 @@ plotCopyNumberSummary(kp, all.scnas, direction="out", add.grid=TRUE, r0=0.35, r1
 plotCopyNumberSummary(kp, all.scnas, direction="out", r0=0.7, r1=1)
 kpAxis(kp, ymin=0, ymax=10, r0=0.85, r1=1, tick.pos = c(0,5,10))
 kpAxis(kp, ymin=0, ymax=10, r0=0.85, r1=0.7, tick.pos = c(5,10))
+
+
+#NOT RUN (time constraints in Bioconductor checks): 
+#  Use a random example with more realistic results
+# gg <- filterChromosomes(getGenome("hg19"))
+
+# all.scnas <- list()
+# for(i in seq_len(10)) {
+#   scnas <- createRandomRegions(40, 10e6, 10e6)
+#   scnas$cn <- floor(runif(40, 0, 4))
+#   scnas$loh <- ifelse(scnas$cn<2, 1, 0)
+#   normal.regs <- subtractRegions(gg, scnas)
+#   normal.regs$cn <- 2
+#   scnas <- sort(c(scnas, normal.regs))
+#   all.scnas[[paste0("samp", i)]] <- scnas
+# }
+
+# kp <- plotKaryotype("hg19", plot.type=4)
+# plotCopyNumberSummary(kp, all.scnas)
+
+# kp <- plotKaryotype("hg19", plot.type=4)
+# plotCopyNumberSummary(kp, all.scnas, gain.col="blue", loss.col="red", labels="Copy Number", r0=0, r1=0.3, label.srt=90, pos=3)
+# plotCopyNumberSummary(kp, all.scnas, direction="out", add.grid=TRUE, r0=0.35, r1=0.65)
+# plotCopyNumberSummary(kp, all.scnas, direction="out", r0=0.7, r1=1)
+# kpAxis(kp, ymin=0, ymax=10, r0=0.85, r1=1, tick.pos = c(0,5,10))
+# kpAxis(kp, ymin=0, ymax=10, r0=0.85, r1=0.7, tick.pos = c(5,10))
 
 
 }

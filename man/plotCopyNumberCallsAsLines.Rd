@@ -50,31 +50,23 @@ Plots the segments
 }
 \examples{
 
-set.seed(1234)
-gg <- filterChromosomes(getGenome("hg19"))
-
-scnas <- createRandomRegions(40, 10e6, 10e6, non.overlapping=TRUE)
-scnas$cn <- floor(runif(40, 0, 4))
-scnas$loh <- ifelse(scnas$cn<2, 1, 0)
-normal.regs <- subtractRegions(gg, scnas)
-normal.regs$cn <- 2
-normal.regs$loh <- 0
-scnas <- sort(c(scnas, normal.regs))
+cncalls.file <- system.file("extdata", "S0001.ASCAT.segments.txt", package = "CopyNumberPlots", mustWork = TRUE)
+cncalls <- loadCopyNumberCalls(cncalls.file)
 
 kp <- plotKaryotype("hg19")
-plotCopyNumberCallsAsLines(kp, scnas)
+plotCopyNumberCallsAsLines(kp, cncalls)
 
 kp <- plotKaryotype("hg19", chromosomes="chr3")
-plotCopyNumberCalls(kp, scnas, r0=0, r1=0.2)
-plotCopyNumberCallsAsLines(kp, scnas, r0=0.25, r1=0.55)
-plotCopyNumberCallsAsLines(kp, scnas, r0=0.65, r1=0.95, style="segments", col="red", ymin=0, ymax=4, numticks=3)
+plotCopyNumberCalls(kp, cncalls, r0=0, r1=0.2)
+plotCopyNumberCallsAsLines(kp, cncalls, r0=0.25, r1=0.55)
+plotCopyNumberCallsAsLines(kp, cncalls, r0=0.65, r1=0.95, style="segments", col="red", ymin=0, ymax=4, numticks=3)
 
 kp <- plotKaryotype("hg19")
-plotCopyNumberCallsAsLines(kp, scnas, r0=0.2, r1=0.4, style="segments", add.axis=FALSE, labels="CopyNumber")
+plotCopyNumberCallsAsLines(kp, cncalls, r0=0.2, r1=0.4, style="segments", add.axis=FALSE, labels="CopyNumber")
 
 #List of GRanges
-cn.calls <- list(s1=scnas, s2 =scnas)
+cncalls.list <- list(s1=cncalls, s2 =cncalls)
 kp <- plotKaryotype("hg19")
-plotCopyNumberCallsAsLines(kp, cn.calls,style="segments", add.axis=FALSE)
+plotCopyNumberCallsAsLines(kp, cncalls.list,style="segments", add.axis=FALSE)
 
 }
