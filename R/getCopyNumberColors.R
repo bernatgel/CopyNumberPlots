@@ -25,11 +25,11 @@
 #'
 #' @examples
 #'
-#' #getCopyNumberColors()
+#' getCopyNumberColors()
 #'
-#' #getCopyNumberColors("red_blue")
+#' getCopyNumberColors("red_blue")
 #'
-#' #getCopyNumberColors(c("red", "#FFAAAA", "gray", "#AAAAFF", "#5555FF", "#0000FF"))
+#' getCopyNumberColors(c("red", "#FFAAAA", "gray", "#AAAAFF", "#5555FF", "#0000FF"))
 #'
 #' @export getCopyNumberColors
 #'
