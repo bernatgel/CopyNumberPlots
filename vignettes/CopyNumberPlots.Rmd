@@ -55,72 +55,69 @@ or genome version, etc... you can take a look at the
 specifically at the section on 
 [how to plot ideograms](https://bernatgel.github.io/karyoploter_tutorial//Tutorial/CreateIdeogram/CreateIdeogram.html).
 
-For this quick start example we'll plot SNP-array data from a cancer cell line.
-The data is in a file included with the package and in a format very similar
-to the Final Report file you would get from Illumina's Genome Studio. In this
-case we have subsampled the original data and kept only a small fraction of 
-SNPs in the chromsome 17.
+For this quick start example we'll plot SNP-array data simulating a cancer 
+genome. The data is in a file included with the package. You can use almost
+any table-like file format, including the Final Report file you would get from
+Illumina's Genome Studio. In this case, to keep the example small, we have 
+data only for chomosome 1.
 
 To load the data we'll use `loadSNPData` which will detect the right columns, 
 read the data and build a GRanges object for us. 
 
-Since this data uses Ensembl-style chromosome names (1,2,3,...,X,Y) and by 
-default karyoploteR uses UCSC chromosome names (chr1,chr2,chr3,...,chrX,chrY)
-we'll change the chromosome style to UCSC.
+If data uses Ensembl-style chromosome names (1,2,3,...,X,Y) instead of 
+default karyoploteR UCSC chromosome names (chr1,chr2,chr3,...,chrX,chrY)
+we could change the chromosome style to UCSC with the function `UCSCStyle`.
 
 ```{r}
 
-  s1.file <- system.file("extdata", "S0001.snparray.txt", package = "CopyNumberPlots", mustWork = TRUE)
+  s1.file <- system.file("extdata", "S1.rawdata.txt", package = "CopyNumberPlots", mustWork = TRUE)
   s1 <- loadSNPData(s1.file)
-  seqlevelsStyle(s1) <- "UCSC"
-  
-  head(s1)
+  s1
 ```
 
 
 
 
 Once we have our data loaded we can start plotting. We'll start by creating 
-a karyoplot using `plotKaryotype`. We'll use `plot.type=4` to get all 
-chromosomes in a single line one next to the other. You can get more information
-on the available plot types at 
+a karyoplot using `plotKaryotype`. If we were plotting more than one 
+chromosome, we could use `plot.type=4` to get all chromosomes in a single line 
+one next to the other. You can get more information on the available plot types
+at 
 [the karyoploteR tutorial](https://bernatgel.github.io/karyoploter_tutorial//Tutorial/PlotTypes/PlotTypes.html).
 
 ```{r, fig.wide=TRUE}
-  kp <- plotKaryotype(plot.type=4, chromosomes="chr9")
+  kp <- plotKaryotype(chromosomes="chr1")
 ```
 
 And once we have a karyoplot we can start adding out data. We can plot the 
 B-allele frequency using `plotBAF`
 
 ```{r, fig.wide=TRUE}
-  kp <- plotKaryotype(plot.type=4, chromosomes="chr9")
+  kp <- plotKaryotype(chromosomes="chr1")
   plotBAF(kp, s1)
 ```
 
 We can plot LRR using `plotLRR`
 
 ```{r, fig.wide=TRUE}
-  kp <- plotKaryotype(plot.type=4, chromosomes="chr9")
+  kp <- plotKaryotype(chromosomes="chr1")
   plotLRR(kp, s1)
 ```
 
-And we can see in this plot that points with a LRR below -4 in the Y chromosome
-are plotted in red at -4 so we don't lose them.
+And we can see in this plot that points with a LRR below -4 (and above 2) are 
+plotted in red at -4 (and at 2) so we don't lose them. 
 
 We can also use the 
 [data positioning](https://bernatgel.github.io/karyoploter_tutorial//Tutorial/DataPositioning/DataPositioning.html) parameters `r0` and `r1` to add more than one data type 
 on the same plot.
 
 ```{r, fig.wide=TRUE}
-  kp <- plotKaryotype(plot.type=4, chromosomes="chr9")
+  kp <- plotKaryotype(chromosomes="chr1")
   plotBAF(kp, s1, r0=0.55, r1=1)
   plotLRR(kp, s1, r0=0, r1=0.45)
 ```
 
 Finally, we can load a copy number calling made on this data and plot it.
-As an example, we have the calls made by 
-[ASCAT](https://github.com/Crick-CancerGenomics/ascat) included in the package.
 To load the copy number calls in this file we can use the function
 `loadCopyNumberCalls` that will read the data, identify the correct columns and 
 create a GRanges object for us.
@@ -134,7 +131,7 @@ create a GRanges object for us.
 And then use `kpPlotCopyNumberCalls` to add them to the previous plot.
 
 ```{r, fig.wide=TRUE}
-  kp <- plotKaryotype(plot.type=4, chromosomes="chr9")
+  kp <- plotKaryotype(chromosomes="chr1")
   plotBAF(kp, s1, r0=0.6, r1=1)
   plotLRR(kp, s1, r0=0.15, r1=0.55)
   plotCopyNumberCalls(kp, s1.calls, r0=0, r1=0.10)
@@ -341,16 +338,12 @@ functions to plot the copy-number calls (`plotCopyNumberCalls`,
 ## plotBAF
 
 To plot the B-Allele frequency (BAF) we'll use `plotBAF`. We'll start creating 
-a karyoplot using [karyoploteR's plotKaryotype](https://bernatgel.github.io/karyoploter_tutorial//Tutorial/CreateIdeogram/CreateIdeogram.html) and then add the BAF values into it.
+a karyoplot using
+[karyoploteR's plotKaryotype](https://bernatgel.github.io/karyoploter_tutorial//Tutorial/CreateIdeogram/CreateIdeogram.html) and then add the BAF values into it.
 
-Since the chromosome names in s1 and s2 are in Ensembl style (1,2,3...) and
-the default chromosome names in karyoploteR are in UCSC style (chr1, chr2, chr3,
-...) we'll use the function `UCSCStyle` to change them prior to plotting, 
-otherwise we would get an empty plot.
 
 ```{r}
-  s1 <- UCSCStyle(s1)
-  kp <- plotKaryotype(plot.type = 4, chromosomes="chr9")
+  kp <- plotKaryotype(chromosomes="chr1")
   plotBAF(kp, snps=s1)
 ```
 
@@ -362,7 +355,7 @@ position of the data](https://bernatgel.github.io/karyoploter_tutorial//Tutorial
 plotting parameters.
 
 ```{r}
-  kp <- plotKaryotype(plot.type = 4, chromosomes="chr9")
+  kp <- plotKaryotype(chromosomes="chr1")
   plotBAF(kp, snps=s1, r0=0, r1=0.2, labels = "BAF1", points.col = "orange",
           points.cex = 2, points.pch = 4, axis.cex = 0.3)
   plotBAF(kp, snps=s1, r0=0.3, r1=0.5, labels = "BAF2", points.col = "red",
@@ -375,13 +368,11 @@ plotting parameters.
 If we want to plot more than one sample, if we have  the data in a list of 
 GRanges or in a GRanges list, `plotBAF` will take care of it and plot the 
 different samples one below the other. It will also use the names of the list
-as labels to identify the different samples. Since s2 was still in Ensembl style
-we can apply `UCSCStyle` to it to change it.
+as labels to identify the different samples. 
 
 ```{r}
   samples <- list("Sample1"=s1, "Sample2"=s2)
-  samples <- UCSCStyle(samples)
-  kp <- plotKaryotype(plot.type = 4, chromosomes="chr9")
+  kp <- plotKaryotype(chromosomes="chr1")
   plotBAF(kp, snps=samples)
 ```
 
