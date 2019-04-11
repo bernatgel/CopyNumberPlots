@@ -382,7 +382,8 @@ The function `plotLRR` is equivalent to the `plotBAF` function but will plot the
 data in the "lrr" column.
 
 ```{r}
-  kp <- plotKaryotype(plot.type = 4, chromosomes="chr9")
+  kp <- plotKaryotype(chromosomes="chr1")
+  kpAddBaseNumbers(kp)
   plotLRR(kp, snps=s1)
 ```
 
@@ -391,57 +392,58 @@ is not limited to [0,1] as in BAF, you can define the `ymin` and `ymax` values
 and any point falling out of the [ymin, ymax] range will be plotted in red 
 within this range. 
 
-<!-- This can help us identify out-of-range data, such as the  -->
-<!-- chrY in the plot above, which is all in red denoting that the sample comes  -->
-<!-- from an XX individual. -->
+This can help us identify out-of-range data, such as the
+deletion arround 50Mb in the plot above or the gained region at ~220Mb.
 
-<!-- Changing the values of `ymin` and `ymax` we can see a but different picture -->
+Changing the values of `ymin` and `ymax` we can see a bit different picture
 
-<!-- ```{r} -->
-<!--   kp <- plotKaryotype(plot.type = 4, chromosomes="chr9") -->
-<!--   plotLRR(kp, snps=s1,  ymin=-0.5, ymax=0.5) -->
-<!-- ``` -->
+```{r}
+  kp <- plotKaryotype(chromosomes="chr1")
+  kpAddBaseNumbers(kp)
+  plotLRR(kp, snps=s1,  ymin=-1.5, ymax=1.5)
+```
 
-<!-- In this case we see many more points of of range. We can change the appearance  -->
-<!-- of this points, changing their color, for example, of we can change how they are -->
-<!-- represented, using a density plot instead of raw points. -->
+In this case we see many more points out-of-range. We can change the appearance
+of this points, changing their color, for example, of we can change how they are
+represented, using a density plot instead of raw points.
 
-<!-- ```{r} -->
-<!--   kp <- plotKaryotype(plot.type = 4, chromosomes="chr9") -->
-<!--   plotLRR(kp, snps=s1,  ymin=-0.5, ymax=0.5, out.of.range = "density") -->
-<!-- ``` -->
+```{r}
+  kp <- plotKaryotype(chromosomes="chr1")
+  kpAddBaseNumbers(kp)
+  plotLRR(kp, snps=s1,  ymin=-1.5, ymax=1.5, out.of.range = "density")
+```
 
-<!-- In this case, due to the very few points in the example, the default parameters -->
-<!-- for the density plot are not optimal. We can increase the window size to compute -->
-<!-- the density using larger windows. For example, we can set the window to 10  -->
-<!-- megabases. -->
+In this case, due to the very few points in the example, the default parameters
+for the density plot are not optimal. We can increase the window size to compute
+the density using larger windows. For example, we can set the window to 1
+megabase.
 
-<!-- ```{r} -->
-<!--   kp <- plotKaryotype(plot.type = 4, chromosomes="chr9") -->
-<!--   plotLRR(kp, snps=s1,  ymin=-0.5, ymax=0.5, out.of.range = "density", density.window = 10e6) -->
-<!-- ``` -->
+```{r}
+  kp <- plotKaryotype(chromosomes="chr1")
+  plotLRR(kp, snps=s1,  ymin=-1.5, ymax=1.5, out.of.range = "density", density.window = 1e6)
+```
 
-<!-- And we can see the peaks corresponding to the accumulation of ou-of-range -->
-<!-- points. -->
+And we can see the peaks corresponding to the accumulation of out-of-range
+points.
 
-<!-- Finally, we can control the presence and color of the horizontal line marking  -->
-<!-- the 0 with the "line.at.0.*" parameters. -->
+Finally, we can control the presence and color of the horizontal line marking
+the 0 with the "line.at.0.*" parameters.
 
 
-<!-- We can also use the standard customization options with `plotLRR`. -->
+We can also use the standard customization options with `plotLRR`.
 
-<!-- ```{r} -->
-<!--   kp <- plotKaryotype(plot.type = 4, chromosomes="chr9") -->
-<!--   plotLRR(kp, snps=s1, r0=0, r1=0.2, labels = "LRR1", points.col = "orange", -->
-<!--           points.cex = 2, points.pch = 4, axis.cex = 0.3) -->
-<!--   plotLRR(kp, snps=s1, r0=0.3, r1=0.5, labels = "LRR2", points.col = "red", -->
-<!--           points.cex = 0.5, points.pch = 8, axis.cex = 0.7, ymin=-0.5, ymax=0.5, -->
-<!--           out.of.range.col = "gold", out.of.range = "density",  -->
-<!--           density.window = 10e6, density.height = 0.3) -->
-<!--   plotLRR(kp, snps=s1, r0=0.6, r1=1, labels = "LRR3",  -->
-<!--           points.col = "#FF552222", points.cex = 1.8, points.pch = 16,  -->
-<!--           axis.cex = 0.7) -->
-<!-- ``` -->
+```{r}
+  kp <- plotKaryotype(chromosomes="chr1")
+  plotLRR(kp, snps=s1, r0=0, r1=0.2, labels = "LRR1", points.col = "orange",
+          points.cex = 2, points.pch = 4, axis.cex = 0.3)
+  plotLRR(kp, snps=s1, r0=0.3, r1=0.5, labels = "LRR2", points.col = "red",
+          points.cex = 0.5, points.pch = 8, axis.cex = 0.7, ymin=-1.5, ymax=1.5,
+          out.of.range.col = "gold", out.of.range = "density",
+          density.window = 10e6, density.height = 0.3)
+  plotLRR(kp, snps=s1, r0=0.6, r1=1, labels = "LRR3",
+          points.col = "#FF552222", points.cex = 1.8, points.pch = 16,
+          axis.cex = 0.7)
+```
 
 
 
@@ -457,12 +459,11 @@ To plot that we need a GRanges object with a at least one column of:
 As an example we'll use the data generated by ASCAT in a cancer cell line.
 
 ```{r}
-  s1.calls.file <- system.file("extdata", "S0001.ASCAT.segments.txt", package = "CopyNumberPlots", mustWork = TRUE)
+  s1.calls.file <- system.file("extdata", "S1.segments.txt", package = "CopyNumberPlots", mustWork = TRUE)
   s1.calls <- loadCopyNumberCalls(s1.calls.file)
+  s2.calls <- loadCopyNumberCalls(system.file("extdata", "S2.segments.txt", package = "CopyNumberPlots", mustWork = TRUE))
+  s3.calls <- loadCopyNumberCalls(system.file("extdata", "S3.segments.txt", package = "CopyNumberPlots", mustWork = TRUE))
   s1.calls
-  s2.calls.file <- system.file("extdata", "S0002.ASCAT.segments.txt", package = "CopyNumberPlots", mustWork = TRUE)
-  s2.calls <- loadCopyNumberCalls(s2.calls.file)
-  s2.calls
 ```
 
 ### plotCopyNumberCalls
@@ -473,17 +474,19 @@ which will plot them as colored rectangles over the genome. It will create
 with loss-of-heterozygosity in blue.
 
 ```{r, fig.wide=TRUE}
-  kp <- plotKaryotype(plot.type=4)
+  kp <- plotKaryotype(chromosomes = "chr1")
   plotCopyNumberCalls(kp, s1.calls)
 ```
 
+By default we'll see losses in green, 2n regions in gray and gains in 
+yellow-orange-red. And the LOH regions as a blue line below the CN data.
 We can change the colors used with `cn.colors`. This parameter will take
 any value accepted by `getCopyNumberColors`, including the predefined 
 palletes. You can find them all in the documentation of `getCopyNumberColors`.
 This fuction can also help us creating a legend.
 
 ```{r, fig.wide=TRUE}
-  kp <- plotKaryotype(plot.type=4)
+  kp <- plotKaryotype(chromosomes="chr1")
   plotCopyNumberCalls(kp, s1.calls, cn.colors = "red_blue", loh.color = "orange", r1=0.8)
   cn.cols <- getCopyNumberColors(colors = "red_blue")
   legend("top", legend=names(cn.cols), fill = cn.cols, ncol=length(cn.cols))
@@ -493,8 +496,8 @@ As with the other plotting functions, giving it a list of GRanges will plot
 them all.
 
 ```{r, fig.wide=TRUE}
-  cn.calls <- list("Sample1"=s1.calls, "Sample2"=s2.calls)
-  kp <- plotKaryotype(plot.type=4)
+  cn.calls <- list("Sample1"=s1.calls, "Sample2"=s2.calls, "Sample3"=s3.calls)
+  kp <- plotKaryotype(chromosomes="chr1")
   plotCopyNumberCalls(kp, cn.calls, r1=0.3)
 ```
 
@@ -523,7 +526,7 @@ Another option is to plot the copy-number calls as lines using the function
 `plotCopyNumberCallsAsLines`. We'll show a single chromosome in this case.
 
 ```{r, fig.wide=TRUE}
-  kp <- plotKaryotype(chr="chr11")
+  kp <- plotKaryotype(chr="chr1")
   plotCopyNumberCallsAsLines(kp, s1.calls)
 ```
 
@@ -531,35 +534,34 @@ In this case we can change the standard customization options and make it use
 segments instead of lines using the additional parameter `style`. 
 
 ```{r, fig.wide=TRUE}
-  kp <- plotKaryotype(chr="chr11")
+  kp <- plotKaryotype(chr="chr1")
   plotCopyNumberCallsAsLines(kp, s1.calls, style = "segments")
 ```
 
-<!-- ### plotCopyNumberSummary -->
+### plotCopyNumberSummary
 
-<!-- Finally, to plot a view of the accumulatoion of copy number alterations we can -->
-<!-- use `plotCopyNumberSummary`. It will create a coverage plot of gains and losses -->
-<!-- over all samples in our dataset. -->
+Finally, to plot a view of the accumulatoion of copy number alterations we can
+use `plotCopyNumberSummary`. It will create a coverage plot of gains and losses
+over all samples in our dataset.
 
-<!-- In this case we'll work with the randomly created dataset we built before. -->
 
-<!-- ```{r} -->
-<!--   cn.cols <- getCopyNumberColors(colors = "green_orange_red") -->
-<!--   kp <- plotKaryotype(plot.type=4) -->
-<!--   kpDataBackground(kp, color = cn.cols["2"], r0=0.3) -->
-<!--   plotCopyNumberCalls(kp, cn.calls, loh.height = 0, r0=0.3) -->
-<!--   plotCopyNumberSummary(kp, cn.calls, r1=0.25) -->
-<!-- ``` -->
+```{r}
+  cn.cols <- getCopyNumberColors(colors = "green_orange_red")
+  kp <- plotKaryotype(chromosomes="chr1")
+  kpDataBackground(kp, color = cn.cols["2"], r0=0.3)
+  plotCopyNumberCalls(kp, cn.calls, loh.height = 0, r0=0.3)
+  plotCopyNumberSummary(kp, cn.calls, r1=0.25)
+```
 
-<!-- And we can change the appearance of the summary using the `direction` parameter. -->
+And we can change the appearance of the summary using the `direction` parameter.
 
-<!-- ```{r} -->
-<!--   cn.cols <- getCopyNumberColors(colors = "green_orange_red") -->
-<!--   kp <- plotKaryotype(plot.type=4) -->
-<!--   kpDataBackground(kp, color = cn.cols["2"], r0=0.3) -->
-<!--   plotCopyNumberCalls(kp, cn.calls, loh.height = 0, r0=0.3) -->
-<!--   plotCopyNumberSummary(kp, cn.calls, r1=0.25, direction = "out") -->
-<!-- ``` -->
+```{r}
+  cn.cols <- getCopyNumberColors(colors = "green_orange_red")
+  kp <- plotKaryotype(chromosomes="chr1")
+  kpDataBackground(kp, color = cn.cols["2"], r0=0.3)
+  plotCopyNumberCalls(kp, cn.calls, loh.height = 0, r0=0.3)
+  plotCopyNumberSummary(kp, cn.calls, r1=0.25, direction = "out")
+```
 
 # Session Info
 
