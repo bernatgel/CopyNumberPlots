@@ -67,19 +67,22 @@ based on `autotrack` and the margin between track is controlled by
 }
 \examples{
 
-cncalls.file <- system.file("extdata", "S0001.ASCAT.segments.txt", package = "CopyNumberPlots", mustWork = TRUE)
-cncalls <- loadCopyNumberCalls(cncalls.file)
+s1.calls.file <- system.file("extdata", "S1.segments.txt", package = "CopyNumberPlots", mustWork = TRUE)
+s1.calls <- loadCopyNumberCalls(s1.calls.file)
 
-kp <- plotKaryotype("hg19")
-plotCopyNumberCalls(kp, cncalls)
+s2.calls.file <- system.file("extdata", "S2.segments.txt", package = "CopyNumberPlots", mustWork = TRUE)
+s2.calls <- loadCopyNumberCalls(s2.calls.file)
 
-kp <- plotKaryotype("hg19")
-plotCopyNumberCalls(kp, cncalls, cn.colors="red_blue")
+kp <- plotKaryotype(chromosomes="chr1")
+plotCopyNumberCalls(kp, s1.calls)
+
+kp <- plotKaryotype(chromosomes="chr1")
+plotCopyNumberCalls(kp, s1.calls, cn.colors="red_blue")
 
 #List of GRanges
-cn.calls <- list(s1=cncalls, s2 =cncalls)
+cn.calls <- list(s1=s1.calls, s2 =s2.calls)
 
-kp <-plotKaryotype("hg19", plot.type=4)
+kp <-plotKaryotype(chromosomes="chr1")
 plotCopyNumberCalls(kp, cn.calls, cn.colors="red_blue")
 
 }

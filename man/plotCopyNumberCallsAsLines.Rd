@@ -50,7 +50,7 @@ Plots the segments
 }
 \examples{
 
-cncalls.file <- system.file("extdata", "S0001.ASCAT.segments.txt", package = "CopyNumberPlots", mustWork = TRUE)
+cncalls.file <- system.file("extdata", "S1.segments.txt", package = "CopyNumberPlots", mustWork = TRUE)
 cncalls <- loadCopyNumberCalls(cncalls.file)
 
 kp <- plotKaryotype("hg19")

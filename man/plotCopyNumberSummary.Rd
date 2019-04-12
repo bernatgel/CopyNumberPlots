@@ -52,14 +52,16 @@ histogram-like representation.
 \examples{
 
 all.scnas <- list(
-             loadCopyNumberCalls(system.file("extdata", "S0001.ASCAT.segments.txt", package = "CopyNumberPlots", mustWork = TRUE)),
-             loadCopyNumberCalls(system.file("extdata", "S0002.ASCAT.segments.txt", package = "CopyNumberPlots", mustWork = TRUE))
+             loadCopyNumberCalls(system.file("extdata", "S1.segments.txt", package = "CopyNumberPlots", mustWork = TRUE)),
+             loadCopyNumberCalls(system.file("extdata", "S2.segments.txt", package = "CopyNumberPlots", mustWork = TRUE)),
+             loadCopyNumberCalls(system.file("extdata", "S3.segments.txt", package = "CopyNumberPlots", mustWork = TRUE))
              )
              
-kp <- plotKaryotype("hg19", plot.type=4)
-plotCopyNumberSummary(kp, all.scnas)
+kp <- plotKaryotype(chromosomes="chr1")
+plotCopyNumberCalls(kp, all.scnas, r0=0.4, r1=1)
+plotCopyNumberSummary(kp, all.scnas, r0=0, r1=0.35)
 
-kp <- plotKaryotype("hg19", plot.type=4)
+kp <- plotKaryotype(chromosomes="chr1")
 plotCopyNumberSummary(kp, all.scnas, gain.col="blue", loss.col="red", labels="Copy Number", r0=0, r1=0.3, label.srt=90, pos=3)
 plotCopyNumberSummary(kp, all.scnas, direction="out", add.grid=TRUE, r0=0.35, r1=0.65)
 plotCopyNumberSummary(kp, all.scnas, direction="out", r0=0.7, r1=1)
@@ -68,7 +70,7 @@ kpAxis(kp, ymin=0, ymax=10, r0=0.85, r1=0.7, tick.pos = c(5,10))
 
 
 #NOT RUN (time constraints in Bioconductor checks): 
-#  Use a random example with more realistic results
+# Use a random example with more realistic results
 # gg <- filterChromosomes(getGenome("hg19"))
 
 # all.scnas <- list()
