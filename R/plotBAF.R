@@ -14,7 +14,7 @@
 #' object valid to \code{\link[regioneR]{toGRanges}}. This object can be created
 #' with \code{\link{loadSNPData}}.
 #'
-#' @usage plotBAF(karyoplot, snps, baf.column="baf", labels=NULL, points.cex=0.3, points.col="#333333", points.pch=16, label.cex=1.5, label.srt=90, label.margin=0.03, add.axis=TRUE, axis.cex=1.2, r0=0, r1=1, track.margin=0.1, data.panel=1, ...)
+#' @usage plotBAF(karyoplot, snps, baf.column="baf", labels=NULL, points.cex=0.3, points.col="#333333", points.pch=16, label.cex=1.5, label.srt=90, label.margin=0.03, add.axis=TRUE, axis.cex=1.2, r0=0, r1=1, track.margin=0.1, data.panel=1, verbose=FALSE, ...)
 #'
 #'
 #' @param karyoplot  (a KaryoPlot object) The object returned by the \code{\link[karyoploteR]{plotKaryotype}} function and representing the current active plot.
@@ -33,6 +33,7 @@
 #' @param data.panel    (numeric) (karyoploteR parameter) The identifier of the data panel where the data is to be plotted. The available data panels depend on the plot type selected in the call to \code{\link{plotKaryotype}}. (defaults to 1)
 #' @param r0    (numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to NULL)
 #' @param r1    (numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to NULL)
+#' @param verbose (logical) Wether messages with information on the processing should be generated (defaults to FALSE)
 #' @param ... The ellipsis operator can be used to specify any additional graphical parameters. Any additional parameter will be passed to the internal calls to karyoploteR functions.
 #'
 #'
@@ -81,7 +82,7 @@
 
 
 
-plotBAF <- function(karyoplot, snps, baf.column="baf", labels=NULL, points.cex=0.3, points.col="#333333", points.pch=16, label.cex=1.5, label.srt=90, label.margin=0.03, add.axis=TRUE, axis.cex=1.2, r0=0, r1=1, track.margin=0.1, data.panel=1, ...) {
+plotBAF <- function(karyoplot, snps, baf.column="baf", labels=NULL, points.cex=0.3, points.col="#333333", points.pch=16, label.cex=1.5, label.srt=90, label.margin=0.03, add.axis=TRUE, axis.cex=1.2, r0=0, r1=1, track.margin=0.1, data.panel=1, verbose=FALSE, ...) {
 
   if(!methods::is(karyoplot, "KaryoPlot")) stop("karyoplot must be a KaryoPlot object")
 
@@ -102,20 +103,32 @@ plotBAF <- function(karyoplot, snps, baf.column="baf", labels=NULL, points.cex=0
   }
 
   #use toGRanges to build a GRanges if snps was anything else
-  snps <- regioneR::toGRanges(snps)
+  if(!methods::is(snps, "GRanges")) {
+    if(karyoplot$genome.name!="custom") {
+      kp.genome <- karyoplot$genome.name
+    } else {
+      kp.genome <- NULL
+    }
+    snps <- loadSNPData(snps, genome=kp.genome, verbose = verbose)
+  }
+  
+  #Assert that snps is a GRanges
+  if(!methods::is(snps, "GRanges")) stop("At this point, snps should have been transformed into a GRanges")
 
+  #Start Plotting
+  #Labels
   if(is.null(labels)) labels <- "BAF"
-
   if(!is.na(labels) && nchar(labels)>0) {
     karyoploteR::kpAddLabels(karyoplot, r0=r0, r1=r1, labels = labels, srt=label.srt, pos = 3, cex=label.cex, label.margin = label.margin, data.panel=data.panel, ...)
   }
 
+  #Axis
   if(add.axis==TRUE) {
     karyoploteR::kpAxis(karyoplot, r0=r0, r1=r1, ymin=0, ymax=1, cex=axis.cex, data.panel=data.panel, ...)
   }
 
+  #Points
   karyoploteR::kpPoints(karyoplot, data=snps, y=GenomicRanges::mcols(snps)[,baf.column], ymin=0, ymax=1, r0=r0, r1=r1, col=points.col, pch=points.pch, cex=points.cex, data.panel=data.panel, ...)
 
   invisible(karyoplot)
-
 }
