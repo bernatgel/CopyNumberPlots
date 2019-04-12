@@ -123,7 +123,7 @@ To load the copy number calls in this file we can use the function
 create a GRanges object for us.
 
 ```{r}
-  s1.calls.file <- system.file("extdata", "S0001.ASCAT.segments.txt", package = "CopyNumberPlots", mustWork = TRUE)
+  s1.calls.file <- system.file("extdata", "S1.segments.txt", package = "CopyNumberPlots", mustWork = TRUE)
   s1.calls <- loadCopyNumberCalls(s1.calls.file)
   s1.calls
 ```
@@ -326,11 +326,11 @@ functions to plot the copy-number calls (`plotCopyNumberCalls`,
   files included with the package
   
 ```{r}
-  s1.file <- system.file("extdata", "S0001.snparray.txt", package = "CopyNumberPlots", mustWork = TRUE)
+  s1.file <- system.file("extdata", "S1.rawdata.txt", package = "CopyNumberPlots", mustWork = TRUE)
   s1 <- loadSNPData(s1.file)
   head(s1)
   
-  s2.file <- system.file("extdata", "S0002.snparray.txt", package = "CopyNumberPlots", mustWork = TRUE)
+  s2.file <- system.file("extdata", "S2.rawdata.txt", package = "CopyNumberPlots", mustWork = TRUE)
   s2 <- loadSNPData(s2.file)
   head(s2)
 ```  
