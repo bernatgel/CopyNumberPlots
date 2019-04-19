@@ -31,6 +31,6 @@ URL: https://github.com/bernatgel/CopyNumberPlots
 BugReports: https://github.com/bernatgel/CopyNumberPlots/issues
 Encoding: UTF-8
 VignetteBuilder: knitr
-biocViews: Visualization, CopyNumberVariation, Coverage, OneChannel, DataImport
+biocViews: Visualization, CopyNumberVariation, Coverage, OneChannel, DataImport, Sequencing, DNASeq
 LazyData: false
 RoxygenNote: 6.1.1
