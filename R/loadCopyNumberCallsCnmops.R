@@ -1,4 +1,4 @@
-#' loadCopyNumberCalls.cnmops
+#' loadCopyNumberCallsCnmops
 #'
 #' @description
 #' Loads copy number calls from either cn.mops result class or in a tabular format
@@ -12,7 +12,7 @@
 #' if no column names are specified, it will use simple heuristics to try to
 #' identify the relevant data columns.
 #'
-#' @usage loadCopyNumberCalls.cnmops(cn.mops.res, chr.col = NULL, start.col = NULL, end.col = NULL, cn.col = "CN", segment.value.col = "median", genome = NULL, verbose = TRUE)
+#' @usage loadCopyNumberCallsCnmops(cn.mops.res, chr.col = NULL, start.col = NULL, end.col = NULL, cn.col = "CN", segment.value.col = "median", genome = NULL, verbose = TRUE)
 #'
 #' @param cn.mops.res The name of the file with the data or the name of the variable with the data
 #' @param chr.col (number or character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to NULL)
@@ -27,25 +27,25 @@
 #' A GRanges with a range per copy number segment or a list of GRanges with a GRanges per sample.
 #'
 #' @examples
-#' # loadCopyNumberCalls.cnmops from cn.mops result class:
+#' # loadCopyNumberCallsCnmops from cn.mops result class:
 #' #NOT RUN - Example loading data from a results object created by cn.mops
 #' # require(cn.mops)
 #' # data(cn.mops, package = "cn.mops")
 #' 
 #' # cn.mops.res <- cn.mops(XRanges)
 #' # cn.mops.res <- calcIntegerCopyNumbers(cn.mops.res)
-#' # cnv.call <- loadCopyNumberCalls.cnmops(cn.mops.res = cn.mops.res)  
+#' # cnv.call <- loadCopyNumberCallsCnmops(cn.mops.res = cn.mops.res)  
 #' 
-#' # loadCopyNumberCalls.cnmops from a file where cn.mops result was saved:
+#' # loadCopyNumberCallsCnmops from a file where cn.mops result was saved:
 #' cn.mops.res <- system.file("extdata", "cn.mops.segmentation.csv", package = "CopyNumberPlots", mustWork = TRUE)
-#' cnv.call <- loadCopyNumberCalls.cnmops(cn.mops.res = cn.mops.res) 
+#' cnv.call <- loadCopyNumberCallsCnmops(cn.mops.res = cn.mops.res) 
 #'
-#' @export loadCopyNumberCalls.cnmops
+#' @export loadCopyNumberCallsCnmops
 #'
 #' @importFrom cn.mops segmentation
 #' 
 
-loadCopyNumberCalls.cnmops<- function(cn.mops.res, 
+loadCopyNumberCallsCnmops<- function(cn.mops.res, 
                                       chr.col = NULL, 
                                       start.col = NULL,
                                       end.col = NULL, 

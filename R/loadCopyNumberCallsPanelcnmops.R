@@ -1,4 +1,4 @@
-#' loadCopyNumberCalls.panelcnmops
+#' loadCopyNumberCallsPanelcnmops
 #' 
 #' @description
 #' Loads copy number calls from either cn.mops result class or in a tabular format
@@ -11,7 +11,7 @@
 #' If no column names are specified, it will use simple heuristics to try to
 #' identify the relevant data columns.
 #'
-#' @usage loadCopyNumberCalls.panelcnmops(panelcn.mops.res, chr.col = NULL, start.col = NULL, end.col = NULL, cn.col = NULL, segment.value.col = NULL, genome = NULL, verbose = TRUE)
+#' @usage loadCopyNumberCallsPanelcnmops(panelcn.mops.res, chr.col = NULL, start.col = NULL, end.col = NULL, cn.col = NULL, segment.value.col = NULL, genome = NULL, verbose = TRUE)
 #' 
 #' @param panelcn.mops.res The name of the file with the data or the name of the variable with the data
 #' @param chr.col (number or character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to NULL)
@@ -26,7 +26,7 @@
 #' A GRanges with a range per copy number segment or a list of GRanges with a GRanges per sample.
 #'
 #' @examples
-#' ## loadCopyNumberCalls.panelcnmops from panelcn.mops resulttable:
+#' ## loadCopyNumberCallsPanelcnmops from panelcn.mops resulttable:
 #' library(panelcn.mops)
 #' data(panelcn.mops, package = "panelcn.mops")
 #' XandCB <- test
@@ -35,12 +35,12 @@
 #' 
 #' resulttable <- createResultTable(resultlist = resultlist, XandCB = XandCB, countWindows = countWindows, sampleNames = sampleNames)
 #' panelcn.mops.res <- resulttable[[1]]
-#' cnv.call <- loadCopyNumberCalls.panelcnmops(panelcn.mops.res = panelcn.mops.res)
+#' cnv.call <- loadCopyNumberCallsPanelcnmops(panelcn.mops.res = panelcn.mops.res)
 #' 
-#' @export loadCopyNumberCalls.panelcnmops
+#' @export loadCopyNumberCallsPanelcnmops
 #'
 
-loadCopyNumberCalls.panelcnmops <- function(panelcn.mops.res, 
+loadCopyNumberCallsPanelcnmops <- function(panelcn.mops.res, 
                                             chr.col = NULL, 
                                             start.col = NULL,
                                             end.col = NULL, 

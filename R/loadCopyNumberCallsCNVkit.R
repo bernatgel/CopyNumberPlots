@@ -1,4 +1,4 @@
-#' loadCopyNumberCalls.CNVkit
+#' loadCopyNumberCallsCNVkit
 #'
 #' @description
 #' Loads copy number calls from CNVkit.cns file format
@@ -11,7 +11,7 @@
 #' If no column names are specified, it will use simple heuristics to try to
 #' identify the relevant data columns.
 #'
-#' @usage loadCopyNumberCalls.CNVkit(cnvkit.file, chr.col = "chromosome", start.col = "start", end.col = "end", segment.value.col = "log2", cn.col = NULL, genome = NULL, verbose = TRUE)
+#' @usage loadCopyNumberCallsCNVkit(cnvkit.file, chr.col = "chromosome", start.col = "start", end.col = "end", segment.value.col = "log2", cn.col = NULL, genome = NULL, verbose = TRUE)
 #' 
 #' @param cnvkit.file The name of the file with the data
 #' @param chr.col (number or character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to "chromosome")
@@ -26,16 +26,16 @@
 #' A GRanges with a range per copy number segment. 
 #'
 #' @examples
-#' ## loadCopyNumberCalls.CNVkit from .cns file format:
+#' ## loadCopyNumberCallsCNVkit from .cns file format:
 #' ## An example of .cns file format is found at https://github.com/etal/cnvkit/blob/master/test/formats/cl_seq.cns.
 #' 
 #' cnvkit.file <- system.file("extdata", "CNVkit_output.cns", package = "CopyNumberPlots", mustWork = TRUE)
-#' cnv.call <- loadCopyNumberCalls.CNVkit(cnvkit.file)
+#' cnv.call <- loadCopyNumberCallsCNVkit(cnvkit.file)
 #'
-#' @export loadCopyNumberCalls.CNVkit
+#' @export loadCopyNumberCallsCNVkit
 #'
 
-loadCopyNumberCalls.CNVkit <- function(cnvkit.file, 
+loadCopyNumberCallsCNVkit <- function(cnvkit.file, 
                                        chr.col = "chromosome", 
                                        start.col = "start",
                                        end.col = "end", 

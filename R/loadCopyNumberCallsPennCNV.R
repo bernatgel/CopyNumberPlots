@@ -1,4 +1,4 @@
-#' loadCopyNumberCalls.pennCNV
+#' loadCopyNumberCallspennCNV
 #'
 #' @description
 #' Loads copy number calls from pennCNV.rawcnv file format 
@@ -11,7 +11,7 @@
 #' If no column names are specified, it will use simple heuristics to try to
 #' identify the relevant data columns.
 #'
-#' @usage loadCopyNumberCalls.pennCNV (pennCNV.file, chr.col = NULL, start.col = NULL, end.col = NULL, cn.col = NULL, segment.value.col = NULL, genome = NULL, verbose=TRUE)
+#' @usage loadCopyNumberCallspennCNV (pennCNV.file, chr.col = NULL, start.col = NULL, end.col = NULL, cn.col = NULL, segment.value.col = NULL, genome = NULL, verbose=TRUE)
 #'
 #' @param pennCNV.file The name of the file with the data
 #' @param chr.col (number or character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to NULL)
@@ -26,16 +26,16 @@
 #' A GRanges with a range per copy number segment or a list of GRanges with a GRanges per sample.
 #'
 #' @examples
-#' ## loadCopyNumberCalls.pennCNV from .rawcnv file format: 
+#' ## loadCopyNumberCallspennCNV from .rawcnv file format: 
 #' ## The file to run the example can be found in: http://penncnv.openbioinformatics.org/en/latest/user-guide/test/
 #' 
 #' pennCNV.file <- system.file("extdata", "pennCNV.rawcnv", package = "CopyNumberPlots", mustWork = TRUE)
-#' cnv.call <- loadCopyNumberCalls.pennCNV(pennCNV.file = pennCNV.file)
+#' cnv.call <- loadCopyNumberCallspennCNV(pennCNV.file = pennCNV.file)
 #'
-#' @export loadCopyNumberCalls.pennCNV
+#' @export loadCopyNumberCallspennCNV
 #'
 
-loadCopyNumberCalls.pennCNV <- function(pennCNV.file,
+loadCopyNumberCallspennCNV <- function(pennCNV.file,
                                         chr.col = NULL, 
                                         start.col = NULL,
                                         end.col = NULL, 

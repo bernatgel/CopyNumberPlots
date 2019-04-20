@@ -1,4 +1,4 @@
-#' loadCopyNumberCalls.seg
+#' loadCopyNumberCallsSeg
 #'
 #' @description
 #' Loads copy number calls from .seg file format
@@ -11,7 +11,7 @@
 #' If no column names are specified, it will use simple heuristics to try to
 #' identify the relevant data columns.
 #'
-#' @usage loadCopyNumberCalls.seg (seg.file, chr.col = "chrom", start.col = "loc.start", end.col = "loc.end", segment.value.col = "seg.mean", cn.col = NULL, genome = NULL, chr.transformation = "23:X,24:Y,25:MT", verbose = TRUE)
+#' @usage loadCopyNumberCallsSeg (seg.file, chr.col = "chrom", start.col = "loc.start", end.col = "loc.end", segment.value.col = "seg.mean", cn.col = NULL, genome = NULL, chr.transformation = "23:X,24:Y,25:MT", verbose = TRUE)
 #'
 #' @param seg.file The name of the file with the data
 #' @param chr.col (number or character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to "chrom")
@@ -27,18 +27,18 @@
 #' A GRanges with a range per copy number segment
 #'
 #' @examples
-#' ## loadCopyNumberCalls.seg from .seg file format: 
+#' ## loadCopyNumberCallsSeg from .seg file format: 
 #' ## the file to run in the example can be found in:
 #' ## https://software.broadinstitute.org/software/igv/SEG
 #' ## under example.seg file name.
 #' 
 #' seg.file <- system.file("extdata", "DNACopy_output.seg", package = "CopyNumberPlots", mustWork = TRUE)
-#' cnv.call <- loadCopyNumberCalls.seg(seg.file = seg.file)
+#' cnv.call <- loadCopyNumberCallsSeg(seg.file = seg.file)
 #'
-#' @export loadCopyNumberCalls.seg
+#' @export loadCopyNumberCallsSeg
 #'
 
-loadCopyNumberCalls.seg <- function(seg.file, 
+loadCopyNumberCallsSeg <- function(seg.file, 
                                     chr.col = "chrom", 
                                     start.col = "loc.start",
                                     end.col = "loc.end", 

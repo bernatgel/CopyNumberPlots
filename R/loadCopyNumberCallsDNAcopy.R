@@ -1,4 +1,4 @@
-#' loadCopyNumberCalls.DNAcopy
+#' loadCopyNumberCallsDNAcopy
 #'
 #' @description
 #' Loads copy number calls from DNACopy results.
@@ -11,7 +11,7 @@
 #' If no column names are specified, it will use simple heuristics to try to
 #' identify the relevant data columns.
 #'
-#' @usage loadCopyNumberCalls.DNAcopy(DNAcopy.data, chr.col = "chrom", start.col = "loc.start", end.col = "loc.end", segment.value.col = "seg.mean", cn.col = NULL, chr.transformation = "23:X,24:Y,25:MT", genome = NULL, verbose = TRUE)
+#' @usage loadCopyNumberCallsDNAcopy(DNAcopy.data, chr.col = "chrom", start.col = "loc.start", end.col = "loc.end", segment.value.col = "seg.mean", cn.col = NULL, chr.transformation = "23:X,24:Y,25:MT", genome = NULL, verbose = TRUE)
 #'
 #' @param DNAcopy.data The name of the file with the data
 #' @param chr.col (number or character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to "chrom")
@@ -36,18 +36,18 @@
 #' smoothed.CNA.object <- smooth.CNA(CNA.object)
 #' DNAcopy.data <- segment(smoothed.CNA.object, verbose=1)
 #'
-#' cnv.call <- loadCopyNumberCalls.DNAcopy(DNAcopy.data = DNAcopy.data)
+#' cnv.call <- loadCopyNumberCallsDNAcopy(DNAcopy.data = DNAcopy.data)
 #'
 #' # more than 1 sample
 #' CNA.object <- CNA(genomdat = cbind(coriell$Coriell.05296, coriell$Coriell.13330), chrom = coriell$Chromosome, maploc = coriell$Position, data.type = "logratio", sampleid = c("c05296", "c13330"))
 #' smoothed.CNA.object <- smooth.CNA(CNA.object)
 #' DNAcopy.data <- segment(smoothed.CNA.object, verbose=1)
 #'
-#' cnv.call <- loadCopyNumberCalls.DNAcopy(DNAcopy.data = DNAcopy.data)
+#' cnv.call <- loadCopyNumberCallsDNAcopy(DNAcopy.data = DNAcopy.data)
 #'
-#' @export loadCopyNumberCalls.DNAcopy
+#' @export loadCopyNumberCallsDNAcopy
 #'
-loadCopyNumberCalls.DNAcopy <- function(DNAcopy.data,
+loadCopyNumberCallsDNAcopy <- function(DNAcopy.data,
                                         chr.col = "chrom",
                                         start.col = "loc.start",
                                         end.col = "loc.end",

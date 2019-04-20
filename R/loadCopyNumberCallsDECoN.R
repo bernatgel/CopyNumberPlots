@@ -1,4 +1,4 @@
-#' loadCopyNumberCalls.DECoN
+#' loadCopyNumberCallsDECoN
 #'
 #' @description
 #' Loads copy number calls from DECoN  output file
@@ -11,7 +11,7 @@
 #' If no column names are specified, it will use simple heuristics to try to
 #' identify the relevant data columns.
 #'
-#' @usage loadCopyNumberCalls.DECoN(decon.file, chr.col = NULL, start.col = "Start", end.col = "End", cn.col = NULL, segment.value.col = NULL, genome = NULL, verbose = TRUE)
+#' @usage loadCopyNumberCallsDECoN(decon.file, chr.col = NULL, start.col = "Start", end.col = "End", cn.col = NULL, segment.value.col = NULL, genome = NULL, verbose = TRUE)
 #'
 #' @param decon.file The name of the file with the data
 #' @param chr.col (number or character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to NULL)
@@ -27,14 +27,14 @@
 #'
 #' @examples
 #' decon.file <- system.file("extdata", "DECoN_output.txt", package = "CopyNumberPlots", mustWork = TRUE)
-#' cn.calls <- loadCopyNumberCalls.DECoN(decon.file = decon.file)
+#' cn.calls <- loadCopyNumberCallsDECoN(decon.file = decon.file)
 #'
-#' @export loadCopyNumberCalls.DECoN
+#' @export loadCopyNumberCallsDECoN
 #'
 #' @importFrom GenomicRanges mcols
 #' @importFrom GenomeInfoDb seqlevelsStyle
 
-loadCopyNumberCalls.DECoN <- function(decon.file, 
+loadCopyNumberCallsDECoN <- function(decon.file, 
                                       chr.col = NULL, 
                                       start.col = "Start",
                                       end.col = "End",

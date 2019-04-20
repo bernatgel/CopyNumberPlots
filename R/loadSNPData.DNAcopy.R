@@ -1,4 +1,4 @@
-#' loadSNPData.DNAcopy
+#' loadSNPDataDNAcopy
 #'
 #' @description
 #' Loads SNP array data in a tabular format using data from DNAcopy rawdata or DNAcopy results
@@ -11,7 +11,7 @@
 #' supplied by the user, if any. It will convert the tabular data into a
 #' GRanges, with one range per SNP in the table.
 #'
-#' @usage loadSNPData.DNAcopy (snp.data, chr.col = "chrom", start.col = NULL, end.col = NULL, pos.col = "maploc", lrr.col = NULL, chr.transformation = "23:X,24:Y,25:MT", genome = NULL, na.rm = FALSE, verbose = TRUE)
+#' @usage loadSNPDataDNAcopy (snp.data, chr.col = "chrom", start.col = NULL, end.col = NULL, pos.col = "maploc", lrr.col = NULL, chr.transformation = "23:X,24:Y,25:MT", genome = NULL, na.rm = FALSE, verbose = TRUE)
 #' 
 #' @inheritParams loadSNPData
 #' @param chr.transformation (character) The transformation of the chromosome 
@@ -27,21 +27,21 @@
 #' #one sample
 #' CNA.object <- CNA(cbind(coriell$Coriell.05296), coriell$Chromosome, coriell$Position, data.type="logratio")
 #' CNA.object <-  smooth.CNA(CNA.object)
-#' snps <- loadSNPData.DNAcopy(snp.data = CNA.object, na.rm = TRUE) 
+#' snps <- loadSNPDataDNAcopy(snp.data = CNA.object, na.rm = TRUE) 
 #' 
 #' # more than 1 sample
 #' CNA.object <- CNA(genomdat = cbind(coriell$Coriell.05296, coriell$Coriell.13330), chrom = coriell$Chromosome, maploc = coriell$Position, data.type = "logratio", sampleid = c("c05296", "c13330"))
 #' CNA.object <-  smooth.CNA(CNA.object)
-#' snps <- loadSNPData.DNAcopy(snp.data = CNA.object, na.rm = TRUE)
+#' snps <- loadSNPDataDNAcopy(snp.data = CNA.object, na.rm = TRUE)
 #' 
 #' #If the data come from DNAcopy results
 #' DNAcopy.object <- segment(CNA.object, verbose=1)
-#' snps <- loadSNPData.DNAcopy(snp.data = DNAcopy.object)
+#' snps <- loadSNPDataDNAcopy(snp.data = DNAcopy.object)
 #'
-#' @export loadSNPData.DNAcopy
+#' @export loadSNPDataDNAcopy
 #'
 
-loadSNPData.DNAcopy <- function(snp.data,
+loadSNPDataDNAcopy <- function(snp.data,
                                 chr.col = "chrom",
                                 start.col = NULL,
                                 end.col = NULL,
