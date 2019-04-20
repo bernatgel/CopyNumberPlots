@@ -13,8 +13,8 @@
 #' @param snps (a GRanges, a list of GRanges or a GRangesList) An object with the positions of the SNPs and a column with the LRR values. Other columns are ignored. If it's a list of GRanges with different samples, all samples will be plotted, splitting the total plot space between them.
 #' @param lrr.column (number or character) The name or number of the column with LRR information. (defaults to "lrr")
 #' @param labels (character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "LRR", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL.(defaults to "LRR")
-# #' @param ymin (numeric) (karyoploteR parameter) The minimum value of y to be plotted. If NULL, it is set to the min value of the selected data panel. (defaults to -4)
-# #' @param ymax (numeric) (karyoploteR parameter) (numeric) The maximum value of y to be plotted. If NULL, it is set to the max value of the selected data panel. (defaults to 2)
+#' @param ymin (numeric) (karyoploteR parameter) The minimum value of y to be plotted. If NULL, it is set to the min value of the selected data panel. (defaults to -4)
+#' @param ymax (numeric) (karyoploteR parameter) (numeric) The maximum value of y to be plotted. If NULL, it is set to the max value of the selected data panel. (defaults to 2)
 #' @param out.of.range (a character) Either to plot "points" or "density" (defaults to  "points")
 #' @param out.of.range.col The color the out-of-range points should be plotted (defaults to "red")
 #' @param density.height The height of the maximum density peak if out.of.range is "density" (defaults to 0.05)
