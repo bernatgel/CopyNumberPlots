@@ -15,7 +15,6 @@ vignette: >
 
 ```{r, include=FALSE}
 library(knitr)
-library(CopyNumberPlots)
 opts_chunk$set(concordance=FALSE)
 knitr::opts_chunk$set(fig.width = 5)
 knitr::opts_chunk$set(fig.height = 2)
@@ -45,6 +44,28 @@ functionality of `r BiocStyle::Biocpkg("karyoploteR")`, it is possible
 to combine the plotting functions of both packages to get the perfect
 figure for your data.
 
+# Installation
+
+`r BiocStyle::Biocpkg("CopyNumberPlots")` is a 
+[Bioconductor](http://bioconductor.org) package and to install it we have
+to use `r BiocStyle::Biocpkg("BiocManager")`.
+
+```{r getPackage, eval=FALSE}
+  if (!requireNamespace("BiocManager", quietly = TRUE))
+      install.packages("BiocManager")
+  BiocManager::install("pkgName")
+```
+
+We can also install the package from github to get the latest devel version,
+but beware that it might be incompatible with the release version of 
+Bioconductor!
+
+```` {r, eval = FALSE}
+  BiocManager::install(“githubUserName/pkgname”)
+```
+
+
+
 # Quick Start
 
 To start working with `r BiocStyle::Biocpkg("CopyNumberPlots")` we will need
@@ -69,6 +90,7 @@ default karyoploteR UCSC chromosome names (chr1,chr2,chr3,...,chrX,chrY)
 we could change the chromosome style to UCSC with the function `UCSCStyle`.
 
 ```{r}
+  library(CopyNumberPlots)
 
   s1.file <- system.file("extdata", "S1.rawdata.txt", package = "CopyNumberPlots", mustWork = TRUE)
   s1 <- loadSNPData(s1.file)
