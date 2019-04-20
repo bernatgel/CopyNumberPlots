@@ -9,15 +9,11 @@ plotLRR(karyoplot, snps, lrr.column="lrr", labels="LRR", ymin=-4, ymax=2, out.of
 \arguments{
 \item{karyoplot}{(a KaryoPlot object) The object returned by the \code{\link[karyoploteR]{plotKaryotype}} function and representing the current active plot.}
 
-\item{snps}{(a GRanges, a list of GRanges or a GRangesList) An object with the positions of the SNPs and a column with the BAF values. Other columns are ignored. If it's a list of GRanges with different samples, all samples will be plotted, splitting the total plot space between them.}
+\item{snps}{(a GRanges, a list of GRanges or a GRangesList) An object with the positions of the SNPs and a column with the LRR values. Other columns are ignored. If it's a list of GRanges with different samples, all samples will be plotted, splitting the total plot space between them.}
 
 \item{lrr.column}{(number or character) The name or number of the column with LRR information. (defaults to "lrr")}
 
-\item{labels}{(character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "BAF", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL.(defaults to "LRR")}
-
-\item{ymin}{(numeric) (karyoploteR parameter) The minimum value of y to be plotted. If NULL, it is set to the min value of the selected data panel. (defaults to -4)}
-
-\item{ymax}{(numeric) (karyoploteR parameter) (numeric) The maximum value of y to be plotted. If NULL, it is set to the max value of the selected data panel. (defaults to 2)}
+\item{labels}{(character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "LRR", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL.(defaults to "LRR")}
 
 \item{out.of.range}{(a character) Either to plot "points" or "density" (defaults to  "points")}
 
@@ -31,19 +27,19 @@ plotLRR(karyoplot, snps, lrr.column="lrr", labels="LRR", ymin=-4, ymax=2, out.of
 
 \item{line.at.0.col}{(color) The color of the horizontal line plotted at 0. (defaults to "blue")}
 
-\item{r0}{(numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to 0)}
+\item{r0}{(numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to NULL)}
 
-\item{r1}{(numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to 1)}
+\item{r1}{(numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to NULL)}
 
 \item{points.cex}{(numeric) The size of the points. (defaults to 0.3)}
 
-\item{points.col}{(a color) The color of the points(defaults to "#333333")}
+\item{points.col}{(a color) The color of the points (defaults to "#333333")}
 
 \item{points.pch}{(numeric) The shape of the points. (defaults to 16, a filled circle)}
 
-\item{label.cex}{(numeric) The size of the label. (defaults to 1.5)}
+\item{label.cex}{(numeric) The size of the label (defaults to 1.5)}
 
-\item{label.srt}{(numeric) The rotation of the label. (defaults to 90)}
+\item{label.srt}{(numeric) The rotation of the label (defaults to 90, vertical text)}
 
 \item{label.margin}{(numeric) The margin between the label and the origin of the plot in plot coordinates (the width of the plot is 1). (defaults to 0.03)}
 
@@ -51,7 +47,7 @@ plotLRR(karyoplot, snps, lrr.column="lrr", labels="LRR", ymin=-4, ymax=2, out.of
 
 \item{axis.cex}{(numeric) The size of the axis labels.  (defaults to 1.2)}
 
-\item{track.margin}{(numeric) if data for multiple samples is provided, the margin between samples. (defaults to 0.1)}
+\item{track.margin}{(numeric) If snps is a list object, this is the margin between the samples BAF. (deafults to 0.1)}
 
 \item{data.panel}{(numeric) (karyoploteR parameter) The identifier of the data panel where the data is to be plotted. The available data panels depend on the plot type selected in the call to \code{\link{plotKaryotype}}. (defaults to 1)}
 
