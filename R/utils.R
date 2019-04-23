@@ -53,16 +53,22 @@ getColumn <- function(df, col = NULL, pattern = NULL, avoid.pattern = NULL, msg.
   if(!is.null(col)) {
     if (is.character(col)| is.numeric(col)){
       if(length(col)!=1){
-        stop("col parameter must be either NULL, a character of length 1 or a numeric of length 1")
+        stop("col parameter must be either NULL, a character of length 1 or a integer of length 1")
       }
     }else{
       stop("col parameter must be either NULL, a character of length 1 or a numeric of length 1")
     }
   }
 
-
-  # If col is numeric it must be a number between one and the length of names of df
+  # If col is numeric transform it to an integer which must be a number between one
+  # and the length of names of df
   if(!is.null(col) && is.numeric(col)){
+    if(col == round(col)){
+      col <- as.integer(col)
+    } else {
+       stop("col must be an integer")
+    }
+    
     if(col < 1 || col > length(col.names)){
       stop("col must be a number between one and length of names of df")
     }
