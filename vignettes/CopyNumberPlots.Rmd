@@ -53,7 +53,7 @@ to use `r BiocStyle::Biocpkg("BiocManager")`.
 ```{r getPackage, eval=FALSE}
   if (!requireNamespace("BiocManager", quietly = TRUE))
       install.packages("BiocManager")
-  BiocManager::install("pkgName")
+  BiocManager::install("CopyNumberPlots")
 ```
 
 We can also install the package from github to get the latest devel version,
@@ -61,7 +61,7 @@ but beware that it might be incompatible with the release version of
 Bioconductor!
 
 ```` {r, eval = FALSE}
-  BiocManager::install(“githubUserName/pkgname”)
+  BiocManager::install("bernatgel/CopyNumberPlots")
 ```
 
 
