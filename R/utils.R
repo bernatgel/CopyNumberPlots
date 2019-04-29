@@ -479,6 +479,21 @@ getIDColumn <- function(df, col = NULL, avoid.pattern = NULL, needed = TRUE, ver
 #' @export transformChr
 #'
 transformChr <- function(chr, chr.transformation = "23:X,24:Y,25:MT"){
+  if(!is.null(chr.transformation)){
+    
+    if(is.character(chr.transformation)){
+      
+      if(nchar(chr.transformation) == 0){
+        stop("chr.transformation parameter must be a character \"key:value\" of length one")
+      }
+      
+    } else{
+      stop("chr.transformation must be a character")
+    }
+  }else{
+    stop("chr.transformation parameter must be a character \"key:value\" of length one")
+  }
+  
   chr.transformation <- unlist(strsplit(x = chr.transformation, split = ","))
   chr.transformation <- do.call(rbind,strsplit(x = chr.transformation, split = ":"))
   chr.trans <- chr.transformation[,2]
