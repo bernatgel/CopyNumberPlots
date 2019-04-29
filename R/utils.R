@@ -120,7 +120,14 @@ getColumn <- function(df, col = NULL, pattern = NULL, avoid.pattern = NULL, msg.
     }
   }
 
-  if(verbose == TRUE & !is.null(col.num)) message("The column identified as ", msg.col.name," is: ", col.names[col.num])
+  if(verbose == TRUE & !is.null(col.num)){
+    if (nchar(msg.col.name)>0){
+      message("The column identified as ", msg.col.name," is: ", col.names[col.num])
+    }else{
+      message("The column identified is: ", col.names[col.num])
+    }
+    
+  } 
 
   return(col.num)
 }
