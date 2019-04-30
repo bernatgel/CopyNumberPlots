@@ -577,8 +577,12 @@ removeNAs <- function(snp.data, lrr.na = TRUE, baf.na = TRUE, id.na = TRUE, verb
   }
 
 
+  if(!(is.logical(lrr.na) &&is.logical(baf.na) && is.logical(id.na) && is.logical(verbose))){
+    stop("lrr.na, baf.na, id.na and verbose must be either TRUE or FALSE")
+  }
+  
 
-  # We know snp.data is a GRanges
+  # We know snp.data is a GRanges and the other parameters are logical
 
   #Remove na from lrr
   if(lrr.na == TRUE){
@@ -588,7 +592,7 @@ removeNAs <- function(snp.data, lrr.na = TRUE, baf.na = TRUE, id.na = TRUE, verb
       if(verbose==TRUE) message("The number of NAs removed in LRR are : ", length(which(na.values)))
 
     }else{
-      message("lrr column not found in snp.data")
+      if(verbose==TRUE) message("lrr column not found in snp.data")
     }
   }
 
@@ -601,7 +605,7 @@ removeNAs <- function(snp.data, lrr.na = TRUE, baf.na = TRUE, id.na = TRUE, verb
 
 
     }else{
-      message("baf column not found in snp.data")
+      if(verbose==TRUE) message("baf column not found in snp.data")
     }
   }
 
@@ -614,7 +618,7 @@ removeNAs <- function(snp.data, lrr.na = TRUE, baf.na = TRUE, id.na = TRUE, verb
 
 
     }else{
-      message("id column not found in snp.data")
+      if(verbose==TRUE) message("id column not found in snp.data")
     }
   }
 
