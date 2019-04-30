@@ -93,7 +93,7 @@ getColumn <- function(df, col = NULL, pattern = NULL, avoid.pattern = NULL, msg.
       stop("Either col or pattern must be provided")
 
     } else{
-      if(is.null(avoid.pattern)){
+      if(is.null(avoid.pattern) || is.na(avoid.pattern)){
         col.num <- which(grepl(col.names, pattern = pattern, ignore.case = TRUE))[1]
       }else{
         col.num <- which(!grepl(col.names, pattern = avoid.pattern, ignore.case = TRUE) &
