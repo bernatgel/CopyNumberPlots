@@ -87,6 +87,18 @@ getColumn <- function(df, col = NULL, pattern = NULL, avoid.pattern = NULL, msg.
 
   #END check parameters
 
+  if(is.numeric(col)){
+    return(col)
+  }
+  
+  #Now we assume col is a character or NULL
+  
+  
+  if(is.null(col.names)){
+    stop("col.names cannot be NULL if we look for a pattern or column name.")
+  }
+  
+  
   col.num <- integer(0)
   if(is.null(col)) {
     if(is.null(pattern)){
