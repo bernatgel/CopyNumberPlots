@@ -16,8 +16,8 @@ vignette: >
 ```{r, include=FALSE}
 library(knitr)
 opts_chunk$set(concordance=FALSE)
-knitr::opts_chunk$set(fig.width = 5)
-knitr::opts_chunk$set(fig.height = 2)
+knitr::opts_chunk$set(fig.width = 18)
+knitr::opts_chunk$set(fig.height = 12)
 set.seed(21666641)
 ```
 
