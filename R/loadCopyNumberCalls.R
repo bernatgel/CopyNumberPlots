@@ -109,7 +109,7 @@ loadCopyNumberCalls <- function(cnv.data,
     if(!is.null(loh.col)) names(GenomicRanges::mcols(segs))[loh.col] <- "loh"
 
     #Segment Value
-    segment.value.col <- getSegmentValueColumn(df = GenomicRanges::mcols(segs), col = segment.value.col, needed = FALSE)
+    segment.value.col <- getSegmentValueColumn(df = GenomicRanges::mcols(segs), col = segment.value.col, needed = FALSE, verbose = verbose)
     if(!is.null(segment.value.col)) names(GenomicRanges::mcols(segs))[segment.value.col] <- "segment.value"
 
   

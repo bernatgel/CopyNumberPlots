@@ -53,18 +53,22 @@ getColumn <- function(df, col = NULL, pattern = NULL, avoid.pattern = NULL, msg.
   if(!is.null(col)) {
     if (is.character(col)| is.numeric(col)){
       if(length(col)!=1){
-        stop("col parameter must be either NULL, a character of length 1 or a numeric of length 1")
+        stop("col parameter must be either NULL, a character of length 1 or a integer of length 1")
       }
+      if(is.numeric(col)){
+        if(col == round(col)){
+          col <- as.integer(col)
+        } else {
+          stop("If col is numeric it must be an integer")
+        }
+        
+        if(col < 1 || col > length(col.names)){
+          stop("col must be a single integer between one and length of names of df")
+        }
+      }
+   
     }else{
-      stop("col parameter must be either NULL, a character of length 1 or a numeric of length 1")
-    }
-  }
-
-
-  # If col is numeric it must be a number between one and the length of names of df
-  if(!is.null(col) && is.numeric(col)){
-    if(col < 1 || col > length(col.names)){
-      stop("col must be a number between one and length of names of df")
+      stop("col parameter must be either NULL, a character of length 1 or a integer of length 1")
     }
   }
 
@@ -83,13 +87,25 @@ getColumn <- function(df, col = NULL, pattern = NULL, avoid.pattern = NULL, msg.
 
   #END check parameters
 
+  if(is.numeric(col)){
+    return(col)
+  }
+  
+  #Now we assume col is a character or NULL
+  
+  
+  if(is.null(col.names)){
+    stop("col.names cannot be NULL if we look for a pattern or column name.")
+  }
+  
+  
   col.num <- integer(0)
   if(is.null(col)) {
     if(is.null(pattern)){
       stop("Either col or pattern must be provided")
 
     } else{
-      if(is.null(avoid.pattern)){
+      if(is.null(avoid.pattern) || is.na(avoid.pattern)){
         col.num <- which(grepl(col.names, pattern = pattern, ignore.case = TRUE))[1]
       }else{
         col.num <- which(!grepl(col.names, pattern = avoid.pattern, ignore.case = TRUE) &
@@ -114,7 +130,14 @@ getColumn <- function(df, col = NULL, pattern = NULL, avoid.pattern = NULL, msg.
     }
   }
 
-  if(verbose == TRUE & !is.null(col.num)) message("The column identified as ", msg.col.name," is: ", col.names[col.num])
+  if(verbose == TRUE & !is.null(col.num)){
+    if (nchar(msg.col.name)>0){
+      message("The column identified as ", msg.col.name," is: ", col.names[col.num])
+    }else{
+      message("The column identified is: ", col.names[col.num])
+    }
+    
+  } 
 
   return(col.num)
 }
@@ -466,6 +489,21 @@ getIDColumn <- function(df, col = NULL, avoid.pattern = NULL, needed = TRUE, ver
 #' @export transformChr
 #'
 transformChr <- function(chr, chr.transformation = "23:X,24:Y,25:MT"){
+  if(!is.null(chr.transformation)){
+    
+    if(is.character(chr.transformation)){
+      
+      if(nchar(chr.transformation) == 0){
+        stop("chr.transformation parameter must be a character \"key:value\" of length one")
+      }
+      
+    } else{
+      stop("chr.transformation must be a character")
+    }
+  }else{
+    stop("chr.transformation parameter must be a character \"key:value\" of length one")
+  }
+  
   chr.transformation <- unlist(strsplit(x = chr.transformation, split = ","))
   chr.transformation <- do.call(rbind,strsplit(x = chr.transformation, split = ":"))
   chr.trans <- chr.transformation[,2]
@@ -539,8 +577,12 @@ removeNAs <- function(snp.data, lrr.na = TRUE, baf.na = TRUE, id.na = TRUE, verb
   }
 
 
+  if(!(is.logical(lrr.na) &&is.logical(baf.na) && is.logical(id.na) && is.logical(verbose))){
+    stop("lrr.na, baf.na, id.na and verbose must be either TRUE or FALSE")
+  }
+  
 
-  # We know snp.data is a GRanges
+  # We know snp.data is a GRanges and the other parameters are logical
 
   #Remove na from lrr
   if(lrr.na == TRUE){
@@ -550,7 +592,7 @@ removeNAs <- function(snp.data, lrr.na = TRUE, baf.na = TRUE, id.na = TRUE, verb
       if(verbose==TRUE) message("The number of NAs removed in LRR are : ", length(which(na.values)))
 
     }else{
-      message("lrr column not found in snp.data")
+      if(verbose==TRUE) message("lrr column not found in snp.data")
     }
   }
 
@@ -563,7 +605,7 @@ removeNAs <- function(snp.data, lrr.na = TRUE, baf.na = TRUE, id.na = TRUE, verb
 
 
     }else{
-      message("baf column not found in snp.data")
+      if(verbose==TRUE) message("baf column not found in snp.data")
     }
   }
 
@@ -576,7 +618,7 @@ removeNAs <- function(snp.data, lrr.na = TRUE, baf.na = TRUE, id.na = TRUE, verb
 
 
     }else{
-      message("id column not found in snp.data")
+      if(verbose==TRUE) message("id column not found in snp.data")
     }
   }
 
