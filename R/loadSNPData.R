@@ -60,12 +60,9 @@ loadSNPData <- function(snp.data,
     
     if(verbose) message("Reading data from ", snp.data)
     
-    #It is problematic with snparray data
-    # #Try to load it using toGRanges
-    # snps <- tryCatch(regioneR::toGRanges(snp.data, genome = genome), error = function(e){return(NULL)}, warning = function(w){})
     snps <- NULL
     
-    #if the toGRanges failed, try with a series of read.tabe statements
+    #try with a series of read.tabe statements
     if(is.null(snps)) snps <- tryCatch(utils::read.table(snp.data, sep = "\t", header = TRUE, stringsAsFactors = FALSE),
                                        error = function(e) return(NULL))
     if(is.null(snps)) snps <- tryCatch(utils::read.table(snp.data, sep = ";", header = TRUE, stringsAsFactors = FALSE),
@@ -82,39 +79,36 @@ loadSNPData <- function(snp.data,
   #If it's  not a GRanges, try to convert it into a GRanges
   
   if(!methods::is(snp.data, "GRanges")) {
-    #snps <- tryCatch(regioneR::toGRanges(snp.data, genome = genome), error = function(e){return(NULL)}, warning = function(w){})
-    snps <- NULL
-    if(is.null(snps)) { #If toGRanges failed try to identify columns by name
+    #Try to identify columns by name
       chr.col <- getChrColumn(col = chr.col, df = snp.data, needed = TRUE,  verbose = verbose)
       start.col <- getStartColumn(col = start.col, df = snp.data, needed = FALSE, verbose = verbose)
       end.col <- getEndColumn(col = end.col, df = snp.data, needed = FALSE, verbose = verbose)
       pos.col <- getPosColumn(col = pos.col, df = snp.data, needed = FALSE, verbose = verbose)
-      
-     
-      # chr.col
-      if(!is.null(chr.col)) names(snp.data)[chr.col] <- "chr"
-      
-      # snp position
-      
-      if (!is.null(pos.col)) {
-        start.col <- pos.col
-        end.col <- pos.col
-      } else {
-        if(is.null(start.col) || is.null(end.col)){
-          stop("It was not possible to identify the required data: either Start and End or Position is requierd")
-        } 
-      }  
-      
 
-      other.cols <- seq_len(length(snp.data))[!(seq_len(length(snp.data)) %in% c(chr.col, start.col, end.col))]
-      columns <- c(chr.col, start.col, end.col, other.cols)
-      snps <- tryCatch(regioneR::toGRanges(snp.data[,columns], genome = genome), 
+    # #And set the names of the columns      
+    #   #chr.col
+    #   if(!is.null(chr.col)) names(snp.data)[chr.col] <- "chr"
+      
+    #snp position
+    if(!is.null(pos.col)) {
+      start.col <- pos.col
+      end.col <- pos.col
+    } else {
+      if(is.null(start.col) || is.null(end.col)){
+        stop("It was not possible to identify the required data: either Start and End or Position is requierd")
+      } 
+    }  
+      
+    other.cols <- seq_len(length(snp.data))[!(seq_len(length(snp.data)) %in% c(chr.col, start.col, end.col))]
+    columns <- c(chr.col, start.col, end.col, other.cols)
+    snps <- tryCatch(regioneR::toGRanges(snp.data[,columns], genome = genome), 
                        error = function(e){
                          stop("It was not possible to transform the data into a GRanges. Is there any format specific data loading function available? ", e)
                        },
                        warning = function(w){})
-    }
+    #If toGRanges failed, fail with a meaningful error
     if(!methods::is(snps, "GRanges")) stop("It was not possible to read and transform the data. Is there any format specific data loading function available?")
+
   } else {
     #If it is a GRanges, simply change its name
     snps <- snp.data
