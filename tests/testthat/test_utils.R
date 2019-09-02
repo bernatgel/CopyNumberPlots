@@ -32,7 +32,7 @@ testthat::test_that("col parameter is correct",{
                  "col parameter must be either NULL, a character of length 1 or a integer of length 1")
                     
     # col must have the same length as the length of df
-    expect_error(getColumn(df = df, pattern = NULL, col = "end.position"), "col must be a number between one and length of names of df")
+    expect_error(getColumn(df = df, pattern = NULL, col = 55), "col must be a number between one and length of names of df")
     
     #true/false
     expect_error(getColumn(df= df, col = TRUE, verbose = FALSE),
