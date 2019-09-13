@@ -104,8 +104,8 @@ loadSNPData <- function(snp.data,
     snps <- tryCatch(regioneR::toGRanges(snp.data[,columns], genome = genome), 
                        error = function(e){
                          stop("It was not possible to transform the data into a GRanges. Is there any format specific data loading function available? ", e)
-                       },
-                       warning = function(w){})
+                       })
+    
     #If toGRanges failed, fail with a meaningful error
     if(!methods::is(snps, "GRanges")) stop("It was not possible to read and transform the data. Is there any format specific data loading function available?")
 
