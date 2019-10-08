@@ -56,10 +56,10 @@ testthat::test_that("col parameter is correct",{
   
 })
 
-testthat::test_that("col.names is not NULL",{
-  expect_error(getColumn(df = gr, col ="lrr"),
-               "col.names cannot be NULL if we look for a pattern or column name.")
-})
+# testthat::test_that("col.names is not NULL",{
+#   expect_error(getColumn(df = gr, col ="lrr"),
+#                "col.names cannot be NULL if we look for a pattern or column name.")
+# })
 
 testthat::test_that(" testing msg.col.name parameter",{
   # msg.col.name must be a character
