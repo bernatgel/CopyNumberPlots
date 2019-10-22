@@ -800,9 +800,9 @@ prepareLabels <- function(labels = NULL, x){
 #' @examples
 #' 
 #' #Not Run
-#' data.file <- "path to a single-cell CNV data file"
-#' open.file <- rhdf5::H5Fopen(data.file)
-#' hc.tree <- readHDF5Ztree(open.file)
+#' #data.file <- "path to a single-cell CNV data file"
+#' #open.file <- rhdf5::H5Fopen(data.file)
+#' #hc.tree <- readHDF5Ztree(open.file)
 #'
 #' @export readHDF5Ztree
 

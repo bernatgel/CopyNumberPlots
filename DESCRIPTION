@@ -19,6 +19,7 @@ Imports:
     GenomeInfoDb,
     GenomicRanges,
     cn.mops,
+    rhdf5,
     utils
 Suggests:
     BiocStyle,

@@ -24,8 +24,8 @@ More info on the Ztree matrix: \url{https://joernhees.de/blog/2015/08/26/scipy-h
 \examples{
 
 #Not Run
-data.file <- "path to a single-cell CNV data file"
-open.file <- rhdf5::H5Fopen(data.file)
-hc.tree <- readHDF5Ztree(open.file)
+#data.file <- "path to a single-cell CNV data file"
+#open.file <- rhdf5::H5Fopen(data.file)
+#hc.tree <- readHDF5Ztree(open.file)
 
 }
