@@ -500,7 +500,7 @@ transformChr <- function(chr, chr.transformation = "23:X,24:Y,25:MT"){
     } else{
       stop("chr.transformation must be a character")
     }
-  }else{
+  } else {
     stop("chr.transformation parameter must be a character \"key:value\" of length one")
   }
   
@@ -774,3 +774,181 @@ prepareLabels <- function(labels = NULL, x){
   }
   return(labels)
 }
+
+
+
+##################### Single Cell and Ztrees ###################################
+
+#' readHDF5Ztree
+#'
+#' @description
+#' Read the Ztree (scipy matrix representarion of a hierarchical clustering)
+#' contained in a 10X single-cell CNV HDF5 file and return a
+#' valid R hclust object representing the same tree.
+#' 
+#' More info on the Ztree matrix: \url{https://joernhees.de/blog/2015/08/26/scipy-hierarchical-clustering-and-dendrogram-tutorial/}
+#'
+#' @usage readHDF5Ztree(hdf5.file)
+#'
+#' @param hdf5.file (H5IdComponent object) The result of opening an HDF5 file 
+#' with rhdf5::H5Fopen(data.file). The file must contain a "tree" element 
+#' with Ztree. For example, HDF5 files for CNV data produced by 10X CellRanger.
+#'
+#' @return
+#' A valid hclust object (standard R hierarchical clustering results) 
+#'
+#' @examples
+#' 
+#' #Not Run
+#' data.file <- "path to a single-cell CNV data file"
+#' open.file <- rhdf5::H5Fopen(data.file)
+#' hc.tree <- readHDF5Ztree(open.file)
+#'
+#' @export readHDF5Ztree
+
+readHDF5Ztree <- function(hdf5.file) {
+  if(!methods::is(hdf5.file, "H5IdComponent")) stop("hdf5.file must be a valid H5IdComponent. Use rhdf5::H5Fopen(data.file) to open the hdf5 file.")
+  #Read the Ztree data
+  Ztree <- rhdf5::h5read(hdf5.file, "tree/Z")
+  num.cells <- ncol(Ztree)+1 #computed from tree structure
+  
+  reported.num.cells <- hdf5.file$constants$num_cells
+  if(num.cells !=reported.num.cells) stop("The num cells computed from tree structure does not match the reported num cells")
+  
+  return(Ztree2Hclust(Ztree))
+}
+
+
+
+#' Ztree2Hclust
+#'
+#' @description
+#' Transform a Z matrix representing the hierarchical clustering of elements
+#' into a valid hclust R object. The Z representation is used by scipy 
+#' hierarchical clustering and in 10X single-cell CNV HDF5 files.
+#' 
+#' More info on the Ztree matrix: \url{https://joernhees.de/blog/2015/08/26/scipy-hierarchical-clustering-and-dendrogram-tutorial/}
+#'
+#' @usage Ztree2Hclust(Ztree) 
+#'
+#' @param Ztree (matrix) A matrix with 4 rows and num.elements - 1 columns.
+#' The first and second row represent the elements or clusters merged at each
+#' step and the third row the distance between the merged elements. This
+#' is the format used by scipy hierarchical clustering.
+#'
+#' @return
+#' A valid hclust object (standard R hierarchical clustering results) 
+#'
+#' @examples
+#' 
+#' ztree <- matrix(c(0,4,0.1,2,
+#'                   1,3,0.2,2,
+#'                   5,2,0.3,2,
+#'                   6,7,0.4,2),
+#'                   nrow=4)
+#'                 
+#'  hc.tree <- Ztree2Hclust(ztree)
+#'  plot(hc.tree)
+#'
+#' @export Ztree2Hclust
+
+
+Ztree2Hclust <- function(Ztree) {
+  #Tranform from the Ztree (used in python scipy and in 10X hdf5 files structure to
+  #hclust used in R). They are similar but have different encodings for leaf objects.
+  
+  num.elements <- ncol(Ztree)+1
+  #First prepare the z1 and z2 vectors, to build the merge matrix
+  z1 <- Ztree[1,]
+  z2 <- Ztree[2,]
+  
+  z1[z1<num.elements] <- -1*z1[z1<num.elements]-1 #in hclust, singletons are negative and indexing is 1-based
+  z2[z2<num.elements] <- -1*z2[z2<num.elements]-1
+  
+  z1[z1>0] <- z1[z1>0] - num.elements + 1
+  z2[z2>0] <- z2[z2>0] - num.elements + 1
+  
+  #And build the hclust object
+  hctree <- list()
+  class(hctree) <- "hclust"
+  hctree$method <- "ZtreeImported"
+  hctree$call <- NULL
+  hctree$dist.method <- NULL
+  
+  #Set the merge matrix
+  hctree$merge <- as.matrix(data.frame(z1, z2))
+  #and the height vector
+  hctree$height <- Ztree[3,]
+  
+  #Finally, recompute the plotting order
+  hctree$order <- computeHclustPlotOrder(hctree$merge)
+  
+  return(hctree)
+}
+
+
+#' computeHclustPlotOrder
+#'
+#' @description
+#' Given the merge matrix of an hclust object, compute a valid ordering of 
+#' the samples so a dendogram can be plotted with no line crossings. 
+#' 
+#' Note: It's been implemented from scratch but in our experience reproduces
+#' exactly the ordering produced by R own ordering algorithm used by hclust.
+#' 
+#' @usage computeHclustPlotOrder(m) 
+#'
+#' @param m (matrix) A merge matrix with 2 columns representing the merges
+#' bewteen elements and clusters. The format is described in the documentation
+#' of hclust.
+#'
+#' @return
+#' A vector with the ordering of the nodes.
+#'
+#' @examples
+#' 
+#' ztree <- matrix(c(0,3,0.1,2,
+#'                   1,4,0.2,2,
+#'                   5,2,0.3,2,
+#'                   6,7,0.4,2),
+#'                   nrow=4)
+#'                 
+#'  hc.tree <- Ztree2Hclust(ztree)
+#'  plot(hc.tree)
+#'  
+#'  #Set the ordering to a non-correct ordering
+#'  hc.tree$order <- c(1:5)
+#'  
+#'  #When we plot, we see line crossings
+#'  plot(hc.tree)
+#'  
+#'  #Compute a correct ordering and replot
+#'  element.order <- computeHclustPlotOrder(hc.tree$merge)
+#'  hc.tree$order <- element.order
+#'  plot(hc.tree)
+#'
+#' @export computeHclustPlotOrder
+
+computeHclustPlotOrder <- function(m) {
+  n <- nrow(m)+1
+  
+  find.order <- function(step, o) {
+    merged <- m[step,]
+    for(i in c(1,2)) {
+      if(merged[i]<0) {
+        o$order[-merged[i]] <- o$last + 1
+        o$last <- o$last + 1
+      } else { #it's a cluster, call recursively find.order
+        o <- find.order(merged[i], o)
+      }
+    }
+    return(o)
+  }
+  
+  o <- find.order(n-1, list(order=integer(n), last=0))
+  return(order(o$order))
+}
+
+
+
+
