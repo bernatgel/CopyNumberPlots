@@ -116,8 +116,6 @@ Chromosomes in the plot: ", paste0(karyoplot$chromosomes, collapse=", "))
     }
   }
   
-  rhdf5::H5Fclose(cnv.data)
-
   #add the latest.plot list with: the computed hclust, the windows, the number of cells...
   karyoplot$latest.plot <- list(funct="plotSingleCellCopyNumberCalls", 
                                 computed.values=list(
@@ -129,7 +127,8 @@ Chromosomes in the plot: ", paste0(karyoplot$chromosomes, collapse=", "))
                                   no.call.regions=no.call.regions
                                   )
                                 )
+  rhdf5::H5Fclose(cnv.data)
   
-  invisible(karyoplot)
+  return(invisible(karyoplot))
 }
 
