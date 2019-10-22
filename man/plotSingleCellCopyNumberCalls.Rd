@@ -4,85 +4,55 @@
 \alias{plotSingleCellCopyNumberCalls}
 \title{plotSingleCellCopyNumberCalls}
 \usage{
-plotCopyNumberCalls(karyoplot, cn.calls, cn.values=NULL, cn.column="cn", cn.colors=NULL, loh.values=NULL, loh.column="loh", loh.color="#1E90FF", loh.height=0.3, labels=NULL, label.cex=1, label2.cex=NULL,track.margin=0.01, r0=0, r1=1, ...)
+plotSingleCellCopyNumberCalls(karyoplot, cnv.file, reorder=TRUE, cn.colors=NULL, track.margin=0, r0=0, r1=1, ...)
 }
 \arguments{
 \item{karyoplot}{A karyoplote object}
 
-\item{cn.colors}{(colors) The colors assigned to gains and losses (defaults to NULL)}
+\item{cnv.file}{(an HDF5 file) The path to an HDF5 file containing the single-cell CNV data.}
 
-\item{track.margin}{(numeric) If cn.calls is a list object, this is the margin between the samples CN. (deafults to 0.01)}
+\item{reorder}{(logical) If TRUE, the cells will be plotted inthe order specified by the hirearchical clustering tree embedded in the HDF5 file. If FALSE the cells will be plotted in the order they are stored in the file. (defaukts to TRUE)}
+
+\item{cn.colors}{(colors) The colors assigned to gains and losses. \code{\link{getCopyNumberColors}} is used to determine them. If NULL, the default color scheme is used. (defaults to NULL)}
+
+\item{track.margin}{(numeric) This is the margin between the cells CN, in portion of the total per cell space. (deafults to 0)}
 
 \item{r0}{(numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to NULL)(defaults to 0)}
 
 \item{r1}{(numeric) (karyoploteR parameter) r0 and r1 define the vertical range of the data panel to be used to draw this plot. They can be used to split the data panel in different vertical ranges (similar to tracks in a genome browser) to plot differents data. If NULL, they are set to the min and max of the data panel, it is, to use all the available space. (defaults to NULL)(defaults to 1)}
 
 \item{...}{The ellipsis operator can be used to specify any additional graphical parameters. Any additional parameter will be passed to the internal calls to karyoploteR functions.}
-
-\item{cn.calls}{(a GRanges, a list of GRanges or a GRangesList) An object with the positions of the CN calls and a column with the CN values. Other columns are ignored. If it's a list of GRanges with different samples, all samples will be plotted, splitting the total plot space between them.}
-
-\item{cn.values}{(integer vector) The CN values. If NULL, they will be extracted from the cn.calls (defaults to NULL)}
-
-\item{cn.column}{(integer or character vector) The name or number of the column with CN information.(defaults to "cn")}
-
-\item{loh.values}{(logical vector) A logical vector that indicates whether there is or not LOH. (defaults to NULL)}
-
-\item{loh.column}{(number or character) The name or number of the column with LRR information. (defaults to "loh")}
-
-\item{loh.color}{(a color) The color assigned to LOH values. (defaults to "#1E90FF")}
-
-\item{loh.height}{(numeric) The proportion of r0 and r1 of the vertical space over each chromosome dedicated to loh. It is dedicated the 30\% of the vertical space by default.(defaults to 0.3)}
-
-\item{labels}{(character) The text of the label to identify the data. If NA, no label will be plotted. If NULL, if snps is a single sample GRanges it will default to "CN", if it's a list of samples it will default to the names in the list or consecutive numbers if names(snps) is NULL. (defaults to NULL)}
-
-\item{label.cex}{(numeric) The size of tthe label (defaults to 1)}
-
-\item{label2.cex}{(numeric) The size of the label 2. If NULL label2.cex will be lable.cex. (defaults to NULL)}
 }
 \value{
 Invisibly returns the karyoplot object representing the plot. With it
 it is possible to add other elements to the plot using standrad karyoploteR
-functions
+functions. The returned pbject will have an additional "latest.plot" 
+element with a list containing: the number of cells, the hierarchical 
+clustering tree, the bin size used to partition the genome, the windows
+representing such partitioning, the number of bins per chromosome and a
+GRAnges with the regions where no cell had any data, the no-call regions.
 }
 \description{
-Plot the segments representing the copy number calls by any algorithm
+Plot the segments representing the copy number calls from a single-cell
+CNV data file. The file must be an HDF5 file with the same format as the
+ones produced by 10X CellRanger software.
 }
 \details{
-Plots the copy number calls as colored rectangles in the karyoplot. Each
-copy number status has its own color (including 2n, normal genome) and
-these colors may be specified by cn.colors. If LOH data is available
-it will be plotted below the copy number data, with a colored rectangle
-for every LOH region. The input is simply a GRanges object with an
-additional column containing the copy number status (as integers) and
-optionally another column containing the LOH status of each region.
-
-If there's only one label, it will be used to label both Copy Number and
-LOH. If there are at least two labels, the first one is used to label the
-Copy Number and the second one to labvel the LOH.
-
-If the function is called with a list of GRanges it plots every GRanges
-independently as different tracks one below the other. Track positioning is
-based on `autotrack` and the margin between track is controlled by
-`track.margin`.
+This function will open the HDF5 file, extract the CNV values for each 
+cell and plot them as a different colored segments using 
+\code{\link{plotCopyNumberCalls}}. 
+By default cells will be reordered and plotted according the hierarchical 
+clustering tree embedded in the file. If reorder is FALSE or the tree is
+not present, cell will be plotted in the order they are stored in the file.
+}
+\note{
+If the file is open by any other application the function will fail.
 }
 \examples{
 
-s1.calls.file <- system.file("extdata", "S1.segments.txt", package = "CopyNumberPlots", mustWork = TRUE)
-s1.calls <- loadCopyNumberCalls(s1.calls.file)
+kp <- plotKaryotype(plot.type=4, genome="hg38")
+#NOT RUN - Using 10X example data from https://www.10xgenomics.com/resources/datasets/
+#plotSingleCellCopyNumberCalls(kp, "breast_tissue_D_2k_cnv_data.h5")
 
-s2.calls.file <- system.file("extdata", "S2.segments.txt", package = "CopyNumberPlots", mustWork = TRUE)
-s2.calls <- loadCopyNumberCalls(s2.calls.file)
-
-kp <- plotKaryotype(chromosomes="chr1")
-plotCopyNumberCalls(kp, s1.calls)
-
-kp <- plotKaryotype(chromosomes="chr1")
-plotCopyNumberCalls(kp, s1.calls, cn.colors="red_blue")
-
-#List of GRanges
-cn.calls <- list(s1=s1.calls, s2 =s2.calls)
-
-kp <-plotKaryotype(chromosomes="chr1")
-plotCopyNumberCalls(kp, cn.calls, cn.colors="red_blue")
 
 }
