@@ -799,6 +799,7 @@ prepareLabels <- function(labels = NULL, x){
 #'
 #' @examples
 #' 
+#' not.run <- TRUE #We have no valid hdf5 file small enough to fit in a package
 #' #Not Run
 #' #data.file <- "path to a single-cell CNV data file"
 #' #open.file <- rhdf5::H5Fopen(data.file)
