@@ -47,9 +47,9 @@ loadSNPDataFromVCF <- function(vcf.file, regions=NULL, genome="hg19", mirror.baf
   if(is.null(mode)) stop("The VCF file does not have the AD field in genotype. BAF/LRR computation from FREQ and DP still not implemented.")
 
   if(is.null(regions)) {
-    vars <- VariantAnnotation::readVcf(file=Rsamtools::TabixFile(vcf.file), genome = "hg19", param = VariantAnnotation::ScanVcfParam(info=NA, geno = "AD"))
+    vars <- VariantAnnotation::readVcf(file=Rsamtools::TabixFile(vcf.file), genome = genome, param = VariantAnnotation::ScanVcfParam(info=NA, geno = "AD"))
   } else {
-    vars <- VariantAnnotation::readVcf(file=Rsamtools::TabixFile(vcf.file), genome = "hg19", param = VariantAnnotation::ScanVcfParam(info=NA, geno = "AD", which = regions))
+    vars <- VariantAnnotation::readVcf(file=Rsamtools::TabixFile(vcf.file), genome = genome, param = VariantAnnotation::ScanVcfParam(info=NA, geno = "AD", which = regions))
   }
 
   #TODO: Remove the indels? Or at least make sure the frequency is correct.
