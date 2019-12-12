@@ -100,8 +100,8 @@ plotLRR <- function(karyoplot, snps, lrr.column="lrr", labels="LRR", ymin=-4, ym
   }
 
   
-  
-  if(lrr.column!="lrr") names(GenomicRanges::mcols(snps))[which(names(GenomicRanges::mcols(snps))==lrr.column)] <- "lrr"
+  #Check the lrr.column exists
+  if(!any(names(GenomicRanges::mcols(snps))==lrr.column)) {stop("The lrr.column (", lrr.column, ") has not been found in the data")}
 
   snps <- removeNAs(snps, lrr.na = TRUE, baf.na = FALSE, id.na = FALSE, verbose = FALSE)
 
