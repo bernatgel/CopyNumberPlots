@@ -101,8 +101,14 @@ plotLRR <- function(karyoplot, snps, lrr.column="lrr", labels="LRR", ymin=-4, ym
 
   
   #Check the lrr.column exists
-  if(!any(names(GenomicRanges::mcols(snps))==lrr.column)) {stop("The lrr.column (", lrr.column, ") has not been found in the data")}
-
+  if(is.character(lrr.column)) {
+    if(!any(names(GenomicRanges::mcols(snps))==lrr.column)) {stop("The lrr.column (", lrr.column, ") has not been found in the data")}
+  } else {
+    if(!(is.numeric(lrr.column) && as.integer(lrr.column)==lrr.column && lrr.column>0 && lrr.column <= ncol(mcols(snps)))) {
+      stop("lrr.column must be either the name of a column or an integer between 1 and the number of metadata columns in snps")
+    }
+  }
+  
   snps <- removeNAs(snps, lrr.na = TRUE, baf.na = FALSE, id.na = FALSE, verbose = FALSE)
 
 
