@@ -46,6 +46,7 @@ loadCopyNumberCalls <- function(cnv.data,
                                 loh.col = NULL,
                                 segment.value.col = NULL,
                                 genome = NULL,
+                                zero.based = FALSE,
                                 verbose = TRUE){
   
   #If its a file, try to load it
@@ -111,7 +112,13 @@ loadCopyNumberCalls <- function(cnv.data,
     #Segment Value
     segment.value.col <- getSegmentValueColumn(df = GenomicRanges::mcols(segs), col = segment.value.col, needed = FALSE, verbose = verbose)
     if(!is.null(segment.value.col)) names(GenomicRanges::mcols(segs))[segment.value.col] <- "segment.value"
-
+    
+  #If segs ranges of data is zero.based
+    if(isTRUE(zero.based)) {
+      for(i in 2:(length(segs))){
+        if(start(segs)[i] == end(segs)[i-1]) start(segs)[i]<- start(segs)[i]+1
+      }
+    }
   
   return(segs)
 }

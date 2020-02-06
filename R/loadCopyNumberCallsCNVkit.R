@@ -45,9 +45,16 @@ loadCopyNumberCallsCNVkit <- function(cnvkit.file,
                                        verbose = TRUE){
  
    #Load .seg file. First, probe if file exist
-  if(!file.exists(cnvkit.file)){
+  if(is.character(cnvkit.file)){
+    if(!file.exists(cnvkit.file)){
     stop(paste0(cnvkit.file, " does not exist or you are not in the correct directory."))
+    }
+    
+    #If is a .cns file this means we will have segments and/or cn data zero based.
+    if(grepl(pattern = ".cnr", x = cnvkit.file)) zero.based  <- FALSE
+    if(grepl(pattern = ".cns", x = cnvkit.file)) zero.based <- TRUE
   }
+  
   
   segs <- loadCopyNumberCalls(cnv.data = cnvkit.file, 
                               chr.col = chr.col, 
@@ -57,6 +64,7 @@ loadCopyNumberCallsCNVkit <- function(cnvkit.file,
                               segment.value.col = segment.value.col,
                               loh.col = NULL, 
                               genome = genome,
+                              zero.based = zero.based
                               verbose = verbose)
   
   
