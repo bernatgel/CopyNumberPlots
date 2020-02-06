@@ -19,6 +19,7 @@
 #' @param end.col (number or character) The name or number of the column with end position information. If NULL, it is automatically identified. (defaults to "end")
 #' @param cn.col (number or character) The name or number of the column with CN information. If NULL, it is automatically identified. (defaults to NULL)
 #' @param segment.value.col (number or character) The name or number of the column with segment value. If NULL, it is automatically identified. (defaults to "log2")
+#' @param zero.based (logical) Whether the ranges starts at 0 (TRUE) or at 1 (FALSE). (defaults to TRUE)
 #' @param genome (character) The name of the genome (defaults to NULL)
 #' @param verbose (logical) Whether to show information messages. (defaults to TRUE)
 #'
@@ -41,6 +42,7 @@ loadCopyNumberCallsCNVkit <- function(cnvkit.file,
                                        end.col = "end", 
                                        segment.value.col = "log2", 
                                        cn.col = NULL,
+                                       zero.based = TRUE,
                                        genome = NULL,
                                        verbose = TRUE){
  
@@ -50,12 +52,7 @@ loadCopyNumberCallsCNVkit <- function(cnvkit.file,
     stop(paste0(cnvkit.file, " does not exist or you are not in the correct directory."))
     }
     
-    #If is a .cns file this means we will have segments and/or cn data zero based.
-    if(grepl(pattern = ".cnr", x = cnvkit.file)) zero.based  <- FALSE
-    if(grepl(pattern = ".cns", x = cnvkit.file)) zero.based <- TRUE
-  }
-  
-  
+
   segs <- loadCopyNumberCalls(cnv.data = cnvkit.file, 
                               chr.col = chr.col, 
                               start.col = start.col,
@@ -64,7 +61,7 @@ loadCopyNumberCallsCNVkit <- function(cnvkit.file,
                               segment.value.col = segment.value.col,
                               loh.col = NULL, 
                               genome = genome,
-                              zero.based = zero.based
+                              zero.based = TRUE,
                               verbose = verbose)
   
   

@@ -20,6 +20,7 @@
 #' @param cn.col (number or character) The name or number of the column with CN information. If NULL, it is automatically identified. (defaults to NULL)
 #' @param loh.col (number or character) The name or number of the column with LOH information. If NULL, it is automatically identified. (defaults to NULL)
 #' @param segment.value.col (number or character) The name or number of the column with segment value. If NULL, it is automatically identified. (defaults to NULL)
+#' @param zero.based (logical) Whether the ranges starts at 0 (TRUE) or at 1 (FALSE). (defaults to FALSE)
 #' @param genome (character) The name of the genome (defaults to NULL)
 #' @param verbose (logical) Whether to show information messages. (defaults to TRUE)
 #'
@@ -113,12 +114,9 @@ loadCopyNumberCalls <- function(cnv.data,
     segment.value.col <- getSegmentValueColumn(df = GenomicRanges::mcols(segs), col = segment.value.col, needed = FALSE, verbose = verbose)
     if(!is.null(segment.value.col)) names(GenomicRanges::mcols(segs))[segment.value.col] <- "segment.value"
     
-  #If segs ranges of data is zero.based
-    if(isTRUE(zero.based)) {
-      for(i in 2:(length(segs))){
-        if(start(segs)[i] == end(segs)[i-1]) start(segs)[i]<- start(segs)[i]+1
-      }
-    }
-  
+    #If segs ranges of data is zero.based
+    if(isTRUE(zero.based)) start(segs)<- start(segs)+1
+    
+
   return(segs)
 }
