@@ -29,7 +29,7 @@
 #' @param cn.values (integer vector) The CN values. If NULL, they will be extracted from the cn.calls (defaults to NULL)
 #' @param cn.column (integer or character vector) The name or number of the column with CN information.(defaults to "cn")
 #' @param cn.colors (colors) The colors assigned to gains and losses (defaults to NULL)
-#' @param loh.values (logical vector) A logical vector that indicates whether there is or not LOH. (defaults to NULL)
+#' @param loh.values (logical vector) A logical vector that indicates whether there is or not LOH or a vector that can be coerced as logical. (defaults to NULL)
 #' @param loh.column (number or character) The name or number of the column with LRR information. (defaults to "loh")
 #' @param loh.color (a color) The color assigned to LOH values. (defaults to "#1E90FF")
 #' @param loh.height (numeric) The proportion of r0 and r1 of the vertical space over each chromosome dedicated to loh. It is dedicated the 30\% of the vertical space by default.(defaults to 0.3)
@@ -135,10 +135,18 @@ plotCopyNumberCalls <- function(karyoplot, cn.calls, cn.values=NULL, cn.column="
   karyoploteR::kpRect(karyoplot, data=cn.calls, y0=loh.height, y1=1, col=seg.cols, r0=r0, r1=r1, border=NA, ...)
   if("loh" %in% names(GenomicRanges::mcols(cn.calls))) {
     #convert loh=NA to no LOH
+    if(!is.logical(cn.calls$loh)) loh.values <- tryCatch(as.logical(cn.calls$loh))
     cn.calls$loh[is.na(cn.calls$loh)] <- FALSE
     karyoploteR::kpRect(karyoplot, data=cn.calls[cn.calls$loh==TRUE], y0=0, y1=loh.height, r0=r0, r1=r1, col=loh.color, border=NA, ...)
   }
   
+  # if we have a vector of loh.values and we do not have loh column in the data
+  if(!"loh" %in% names(GenomicRanges::mcols(cn.calls)) && !is.null(loh.values)){
+    if(!is.logical(loh.values)) loh.values <- tryCatch(as.logical(loh.values))
+    loh.values[is.na(loh.values)] <- FALSE
+    karyoploteR::kpRect(karyoplot, data=cn.calls[loh.values], y0=0, y1=loh.height, r0=r0, r1=r1, col=loh.color, border=NA, ...)
+    
+  }
 
   invisible(karyoplot)
 }
