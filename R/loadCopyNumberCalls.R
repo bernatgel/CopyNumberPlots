@@ -11,7 +11,7 @@
 #' If no column names are specified, it will use simple heuristics to try to
 #' identify the relevant data columns.
 #'
-#' @usage loadCopyNumberCalls(cnv.data, chr.col = NULL, start.col = NULL, end.col = NULL, cn.col = NULL, loh.col = NULL, segment.value.col = NULL, genome = NULL, verbose = TRUE)
+#' @usage loadCopyNumberCalls(cnv.data, chr.col = NULL, start.col = NULL, end.col = NULL, cn.col = NULL, loh.col = NULL, segment.value.col = NULL, zero.based = FALSE, genome = NULL, verbose = TRUE)
 #'
 #' @param cnv.data Either the name of the file with the data or a variable containing the data
 #' @param chr.col (number or character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to NULL)

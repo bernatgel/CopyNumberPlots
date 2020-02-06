@@ -17,7 +17,7 @@ plotCopyNumberCalls(karyoplot, cn.calls, cn.values=NULL, cn.column="cn", cn.colo
 
 \item{cn.colors}{(colors) The colors assigned to gains and losses (defaults to NULL)}
 
-\item{loh.values}{(logical vector) A logical vector that indicates whether there is or not LOH. (defaults to NULL)}
+\item{loh.values}{(logical vector) A logical vector that indicates whether there is or not LOH or a vector that can be coerced as logical. (defaults to NULL)}
 
 \item{loh.column}{(number or character) The name or number of the column with LRR information. (defaults to "loh")}
 

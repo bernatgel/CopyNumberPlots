@@ -129,14 +129,12 @@ plotCopyNumberCalls <- function(karyoplot, cn.calls, cn.values=NULL, cn.column="
   }
   
     
-    if(!"loh" %in% names(GenomicRanges::mcols(cn.calls)) && !is.null(loh.values)){
-      
+  if(!"loh" %in% names(GenomicRanges::mcols(cn.calls)) && !is.null(loh.values)){
       if(!is.logical(loh.values)) loh.values <- tryCatch(as.logical(loh.values))
-      
       #convert loh=NA to no LOH
       loh.values[is.na(loh.values)] <- FALSE
     }
-  }
+
   
   segment.colors <- getCopyNumberColors(cn.colors)
 

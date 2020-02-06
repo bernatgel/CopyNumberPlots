@@ -23,6 +23,7 @@ More info on the Ztree matrix: \url{https://joernhees.de/blog/2015/08/26/scipy-h
 }
 \examples{
 
+not.run <- TRUE #We have no valid hdf5 file small enough to fit in a package
 #Not Run
 #data.file <- "path to a single-cell CNV data file"
 #open.file <- rhdf5::H5Fopen(data.file)

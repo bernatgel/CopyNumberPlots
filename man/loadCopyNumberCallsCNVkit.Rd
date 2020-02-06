@@ -4,7 +4,7 @@
 \alias{loadCopyNumberCallsCNVkit}
 \title{loadCopyNumberCallsCNVkit}
 \usage{
-loadCopyNumberCallsCNVkit(cnvkit.file, chr.col = "chromosome", start.col = "start", end.col = "end", segment.value.col = "log2", cn.col = NULL, genome = NULL, verbose = TRUE)
+loadCopyNumberCallsCNVkit(cnvkit.file, chr.col = "chromosome", start.col = "start", end.col = "end", segment.value.col = "log2", cn.col = NULL, zero.based = TRUE, genome = NULL, verbose = TRUE)
 }
 \arguments{
 \item{cnvkit.file}{The name of the file with the data}
@@ -18,6 +18,8 @@ loadCopyNumberCallsCNVkit(cnvkit.file, chr.col = "chromosome", start.col = "star
 \item{segment.value.col}{(number or character) The name or number of the column with segment value. If NULL, it is automatically identified. (defaults to "log2")}
 
 \item{cn.col}{(number or character) The name or number of the column with CN information. If NULL, it is automatically identified. (defaults to NULL)}
+
+\item{zero.based}{(logical) Whether the ranges starts at 0 (TRUE) or at 1 (FALSE). (defaults to TRUE)}
 
 \item{genome}{(character) The name of the genome (defaults to NULL)}
 

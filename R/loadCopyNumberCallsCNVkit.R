@@ -11,7 +11,7 @@
 #' If no column names are specified, it will use simple heuristics to try to
 #' identify the relevant data columns.
 #'
-#' @usage loadCopyNumberCallsCNVkit(cnvkit.file, chr.col = "chromosome", start.col = "start", end.col = "end", segment.value.col = "log2", cn.col = NULL, genome = NULL, verbose = TRUE)
+#' @usage loadCopyNumberCallsCNVkit(cnvkit.file, chr.col = "chromosome", start.col = "start", end.col = "end", segment.value.col = "log2", cn.col = NULL, zero.based = TRUE, genome = NULL, verbose = TRUE)
 #' 
 #' @param cnvkit.file The name of the file with the data
 #' @param chr.col (number or character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to "chromosome")
@@ -51,6 +51,7 @@ loadCopyNumberCallsCNVkit <- function(cnvkit.file,
     if(!file.exists(cnvkit.file)){
     stop(paste0(cnvkit.file, " does not exist or you are not in the correct directory."))
     }
+  }
     
 
   segs <- loadCopyNumberCalls(cnv.data = cnvkit.file, 
@@ -67,5 +68,3 @@ loadCopyNumberCallsCNVkit <- function(cnvkit.file,
   
   return(segs)
 }
-
-
