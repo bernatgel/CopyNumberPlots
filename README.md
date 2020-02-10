@@ -21,6 +21,8 @@ copy-number calling software such as [DNAcopy](	http://bioconductor.org/packages
 [DECoN](https://wellcomeopenresearch.org/articles/1-20/v1) or
 [CNVkit](https://cnvkit.readthedocs.io/en/stable/).
 
+
+
 Finally, since CopyNumberPlots extends the 
 functionality of karyoploteR, it is possible 
 to combine the plotting functions of both packages to get the perfect

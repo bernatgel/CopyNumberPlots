@@ -93,7 +93,6 @@ plotCopyNumberCalls <- function(karyoplot, cn.calls, cn.values=NULL, cn.column="
   }
   
   
-
   if(is.null(label2.cex)) label2.cex <- label.cex
   
   #use toGRanges to build a GRanges if cn.calls was anything else
@@ -110,30 +109,30 @@ plotCopyNumberCalls <- function(karyoplot, cn.calls, cn.values=NULL, cn.column="
     }
   }
   
+  if(is.null(cn.values)) { 
+    if(length(mcols(cn.calls))==0) stop("No cn.values given and cn.calls has no associated copy number data") 
+    #If no name for the copy number column was specified, use the first one 
+    if(is.null(cn.column)) { 
+      cn.values <- names(mcols(cn.calls))[1] 
+    } else { 
+      if(!(cn.column %in% names(mcols(cn.calls)))) stop("The cn.calls object does not have a column ", cn.column, ". No copy number data is available") 
+      cn.values <- mcols(cn.calls)[, cn.column] 
+    } 
+  } 
+  
   # loh values
   if(is.null(loh.values)) {
-    if("loh" %in% names(GenomicRanges::mcols(cn.calls))){
-      loh.values <- cn.calls$loh
-      #convert loh=NA to no LOH
-      loh.values[is.na(loh.values)] <- FALSE
-      if(!is.logical(loh.values)) loh.values <- tryCatch(as.logical(loh.values))
-    }
+    if(loh.column %in% names(GenomicRanges::mcols(cn.calls))){
+      loh.values <- cn.calls[,loh.column]
+     }
   }
   
-  if(!is.null(loh.values)){
-    if(!"loh" %in% names(GenomicRanges::mcols(cn.calls))){
-      #convert loh=NA to no LOH
-      loh.values[is.na(loh.values)] <- FALSE
-      if(!is.logical(loh.values)) loh.values <- tryCatch(as.logical(loh.values))
-    }
+  if (!is.null(loh.values)){
+    if(!is.logical(loh.values)) loh.values <- tryCatch(as.logical(loh.values))
+    #convert loh=NA to no LOH
+    loh.values[is.na(loh.values)] <- FALSE
   }
   
-    
-  if(!"loh" %in% names(GenomicRanges::mcols(cn.calls)) && !is.null(loh.values)){
-      if(!is.logical(loh.values)) loh.values <- tryCatch(as.logical(loh.values))
-      #convert loh=NA to no LOH
-      loh.values[is.na(loh.values)] <- FALSE
-    }
 
   
   segment.colors <- getCopyNumberColors(cn.colors)
@@ -146,7 +145,8 @@ plotCopyNumberCalls <- function(karyoplot, cn.calls, cn.values=NULL, cn.column="
   seg.cols <- segment.colors[as.character(cn.values)]
 
   karyoploteR::kpRect(karyoplot, data=cn.calls, y0=loh.height, y1=1, col=seg.cols, r0=r0, r1=r1, border=NA, ...)
-  if("loh" %in% names(GenomicRanges::mcols(cn.calls)) || !is.null(loh.values)){
+  
+  if(!is.null(loh.values)){
     karyoploteR::kpRect(karyoplot, data=cn.calls[loh.values], y0=0, y1=loh.height, r0=r0, r1=r1, col=loh.color, border=NA, ...)
   }
  
