@@ -23,7 +23,7 @@ loadCopyNumberCalls(cnv.data, chr.col = NULL, start.col = NULL, end.col = NULL, 
 
 \item{genome}{(character) The name of the genome (defaults to NULL)}
 
-\item{zero.based}{(logical) Whether the ranges starts at 0 (TRUE) or at 1 (FALSE). (defaults to FALSE)}
+\item{zero.based}{(logical) Whether the data is zero-based and half open (i.e. ranges are defined by (start:end] so chr1:10-20 represents nine bases long features spanning from base 11 to 20). (defaults to FALSE)}
 
 \item{verbose}{(logical) Whether to show information messages. (defaults to TRUE)}
 }
