@@ -4,7 +4,7 @@
 \alias{loadCopyNumberCalls}
 \title{loadCopyNumberCalls}
 \usage{
-loadCopyNumberCalls(cnv.data, chr.col = NULL, start.col = NULL, end.col = NULL, cn.col = NULL, loh.col = NULL, segment.value.col = NULL, genome = NULL, verbose = TRUE)
+loadCopyNumberCalls(cnv.data, chr.col = NULL, start.col = NULL, end.col = NULL, cn.col = NULL, loh.col = NULL, segment.value.col = NULL, zero.based = FALSE, genome = NULL, verbose = TRUE)
 }
 \arguments{
 \item{cnv.data}{Either the name of the file with the data or a variable containing the data}
@@ -22,6 +22,8 @@ loadCopyNumberCalls(cnv.data, chr.col = NULL, start.col = NULL, end.col = NULL, 
 \item{segment.value.col}{(number or character) The name or number of the column with segment value. If NULL, it is automatically identified. (defaults to NULL)}
 
 \item{genome}{(character) The name of the genome (defaults to NULL)}
+
+\item{zero.based}{(logical) Whether the data is zero-based and half open (i.e. ranges are defined by (start:end] so chr1:10-20 represents nine bases long features spanning from base 11 to 20). (defaults to FALSE)}
 
 \item{verbose}{(logical) Whether to show information messages. (defaults to TRUE)}
 }

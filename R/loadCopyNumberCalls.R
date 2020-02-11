@@ -11,7 +11,7 @@
 #' If no column names are specified, it will use simple heuristics to try to
 #' identify the relevant data columns.
 #'
-#' @usage loadCopyNumberCalls(cnv.data, chr.col = NULL, start.col = NULL, end.col = NULL, cn.col = NULL, loh.col = NULL, segment.value.col = NULL, genome = NULL, verbose = TRUE)
+#' @usage loadCopyNumberCalls(cnv.data, chr.col = NULL, start.col = NULL, end.col = NULL, cn.col = NULL, loh.col = NULL, segment.value.col = NULL, zero.based = FALSE, genome = NULL, verbose = TRUE)
 #'
 #' @param cnv.data Either the name of the file with the data or a variable containing the data
 #' @param chr.col (number or character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to NULL)
@@ -20,6 +20,7 @@
 #' @param cn.col (number or character) The name or number of the column with CN information. If NULL, it is automatically identified. (defaults to NULL)
 #' @param loh.col (number or character) The name or number of the column with LOH information. If NULL, it is automatically identified. (defaults to NULL)
 #' @param segment.value.col (number or character) The name or number of the column with segment value. If NULL, it is automatically identified. (defaults to NULL)
+#' @param zero.based (logical) Whether the data is zero-based and half open (i.e. ranges are defined by (start:end] so chr1:10-20 represents nine bases long features spanning from base 11 to 20). (defaults to FALSE)
 #' @param genome (character) The name of the genome (defaults to NULL)
 #' @param verbose (logical) Whether to show information messages. (defaults to TRUE)
 #'
@@ -46,6 +47,7 @@ loadCopyNumberCalls <- function(cnv.data,
                                 loh.col = NULL,
                                 segment.value.col = NULL,
                                 genome = NULL,
+                                zero.based = FALSE,
                                 verbose = TRUE){
   
   #If its a file, try to load it
@@ -111,7 +113,10 @@ loadCopyNumberCalls <- function(cnv.data,
     #Segment Value
     segment.value.col <- getSegmentValueColumn(df = GenomicRanges::mcols(segs), col = segment.value.col, needed = FALSE, verbose = verbose)
     if(!is.null(segment.value.col)) names(GenomicRanges::mcols(segs))[segment.value.col] <- "segment.value"
+    
+    #If segs ranges of data is zero.based
+    if(isTRUE(zero.based)) start(segs)<- start(segs)+1
+    
 
-  
   return(segs)
 }

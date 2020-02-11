@@ -11,7 +11,7 @@
 #' If no column names are specified, it will use simple heuristics to try to
 #' identify the relevant data columns.
 #'
-#' @usage loadCopyNumberCallsCNVkit(cnvkit.file, chr.col = "chromosome", start.col = "start", end.col = "end", segment.value.col = "log2", cn.col = NULL, genome = NULL, verbose = TRUE)
+#' @usage loadCopyNumberCallsCNVkit(cnvkit.file, chr.col = "chromosome", start.col = "start", end.col = "end", segment.value.col = "log2", cn.col = NULL, zero.based = TRUE, genome = NULL, verbose = TRUE)
 #' 
 #' @param cnvkit.file The name of the file with the data
 #' @param chr.col (number or character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to "chromosome")
@@ -19,6 +19,7 @@
 #' @param end.col (number or character) The name or number of the column with end position information. If NULL, it is automatically identified. (defaults to "end")
 #' @param cn.col (number or character) The name or number of the column with CN information. If NULL, it is automatically identified. (defaults to NULL)
 #' @param segment.value.col (number or character) The name or number of the column with segment value. If NULL, it is automatically identified. (defaults to "log2")
+#' @param zero.based (logical) Whether the data is zero-based and half open (i.e. ranges are defined by (start:end] so chr1:10-20 represents nine bases long features spanning from base 11 to 20). (defaults to FALSE)
 #' @param genome (character) The name of the genome (defaults to NULL)
 #' @param verbose (logical) Whether to show information messages. (defaults to TRUE)
 #'
@@ -41,14 +42,18 @@ loadCopyNumberCallsCNVkit <- function(cnvkit.file,
                                        end.col = "end", 
                                        segment.value.col = "log2", 
                                        cn.col = NULL,
+                                       zero.based = TRUE,
                                        genome = NULL,
                                        verbose = TRUE){
  
    #Load .seg file. First, probe if file exist
-  if(!file.exists(cnvkit.file)){
+  if(is.character(cnvkit.file)){
+    if(!file.exists(cnvkit.file)){
     stop(paste0(cnvkit.file, " does not exist or you are not in the correct directory."))
+    }
   }
-  
+    
+
   segs <- loadCopyNumberCalls(cnv.data = cnvkit.file, 
                               chr.col = chr.col, 
                               start.col = start.col,
@@ -57,10 +62,9 @@ loadCopyNumberCallsCNVkit <- function(cnvkit.file,
                               segment.value.col = segment.value.col,
                               loh.col = NULL, 
                               genome = genome,
+                              zero.based = zero.based,
                               verbose = verbose)
   
   
   return(segs)
 }
-
-

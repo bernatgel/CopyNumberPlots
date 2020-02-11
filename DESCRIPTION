@@ -35,4 +35,4 @@ Encoding: UTF-8
 VignetteBuilder: knitr
 biocViews: Visualization, CopyNumberVariation, Coverage, OneChannel, DataImport, Sequencing, DNASeq
 LazyData: false
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.0
