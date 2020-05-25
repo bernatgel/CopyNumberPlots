@@ -55,12 +55,17 @@ loadCopyNumberCallsSeg <- function(seg.file,
   
   seg.data <- read.table(file = seg.file, sep = "\t", skip = 1, stringsAsFactors = FALSE)
   colnames(seg.data) <-  header
-  
+
   if(!is.null(chr.transformation)){
     chr.col <- getChrColumn(df = seg.data, col = chr.col, verbose = FALSE)
     seg.data[,chr.col] <- transformChr(chr = seg.data[,chr.col], chr.transformation = chr.transformation)
   }
   
+  ##### TBD: A workaround until solving toGRanges function ######
+  if(!unique(grepl(pattern = "chr", x=seg.data[,chr.col]))){
+    seg.data[,chr.col] <- paste0("chr",seg.data[,chr.col])
+  }
+ 
   
   segs <- loadCopyNumberCalls(cnv.data = seg.data, 
                               chr.col = chr.col, 
@@ -72,7 +77,7 @@ loadCopyNumberCallsSeg <- function(seg.file,
                               genome = genome,
                               verbose = verbose)
   
-
+ 
   #if there is more than one sample in cn.mops.res
   if(length(table(segs$ID)) > 1){
     segs <- split(segs, mcols(segs)$ID)
