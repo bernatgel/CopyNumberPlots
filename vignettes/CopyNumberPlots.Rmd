@@ -60,7 +60,7 @@ We can also install the package from github to get the latest devel version,
 but beware that it might be incompatible with the release version of 
 Bioconductor!
 
-```` {r, eval = FALSE}
+``` {r, eval = FALSE}
   BiocManager::install("bernatgel/CopyNumberPlots")
 ```
 
