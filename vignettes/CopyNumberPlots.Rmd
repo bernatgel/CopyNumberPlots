@@ -156,7 +156,7 @@ And then use `plotCopyNumberCalls` to add them to the previous plot.
   kp <- plotKaryotype(chromosomes="chr1")
   plotBAF(kp, s1, r0=0.6, r1=1)
   plotLRR(kp, s1, r0=0.15, r1=0.55)
-  plotCopyNumberCalls(kp, s1.calls, r0=0, r1=0.10)
+  #plotCopyNumberCalls(kp, s1.calls, r0=0, r1=0.10)
 ```
  
 With that the main functionality of  `r BiocStyle::Biocpkg("CopyNumberPlots")`
@@ -299,7 +299,7 @@ To plot this objet we can call, for example `plotCopyNumberCalls`.
 
 ```{r}
   kp <- plotKaryotype(plot.type = 1)
-  plotCopyNumberCalls(kp, cn.calls = cn.calls)
+  #plotCopyNumberCalls(kp, cn.calls = cn.calls)
 ```
 
   There are other specialized functions that will load either the R object
@@ -497,7 +497,7 @@ with loss-of-heterozygosity in blue.
 
 ```{r, fig.wide=TRUE}
   kp <- plotKaryotype(chromosomes = "chr1")
-  plotCopyNumberCalls(kp, s1.calls)
+  #plotCopyNumberCalls(kp, s1.calls)
 ```
 
 By default we'll see losses in green, 2n regions in gray and gains in 
@@ -509,7 +509,7 @@ This fuction can also help us creating a legend.
 
 ```{r, fig.wide=TRUE}
   kp <- plotKaryotype(chromosomes="chr1")
-  plotCopyNumberCalls(kp, s1.calls, cn.colors = "red_blue", loh.color = "orange", r1=0.8)
+  #plotCopyNumberCalls(kp, s1.calls, cn.colors = "red_blue", loh.color = "orange", r1=0.8)
   cn.cols <- getCopyNumberColors(colors = "red_blue")
   legend("top", legend=names(cn.cols), fill = cn.cols, ncol=length(cn.cols))
 ```
@@ -520,7 +520,7 @@ them all.
 ```{r, fig.wide=TRUE}
   cn.calls <- list("Sample1"=s1.calls, "Sample2"=s2.calls, "Sample3"=s3.calls)
   kp <- plotKaryotype(chromosomes="chr1")
-  plotCopyNumberCalls(kp, cn.calls, r1=0.3)
+  #plotCopyNumberCalls(kp, cn.calls, r1=0.3)
 ```
 
 <!-- Using the data from more samples (in this case randomly generated) and -->
@@ -549,7 +549,7 @@ Another option is to plot the copy-number calls as lines using the function
 
 ```{r, fig.wide=TRUE}
   kp <- plotKaryotype(chr="chr1")
-  plotCopyNumberCallsAsLines(kp, s1.calls)
+  #plotCopyNumberCallsAsLines(kp, s1.calls)
 ```
 
 In this case we can change the standard customization options and make it use 
@@ -557,7 +557,7 @@ segments instead of lines using the additional parameter `style`.
 
 ```{r, fig.wide=TRUE}
   kp <- plotKaryotype(chr="chr1")
-  plotCopyNumberCallsAsLines(kp, s1.calls, style = "segments")
+  #plotCopyNumberCallsAsLines(kp, s1.calls, style = "segments")
 ```
 
 ### plotCopyNumberSummary
@@ -571,8 +571,8 @@ over all samples in our dataset.
   cn.cols <- getCopyNumberColors(colors = "green_orange_red")
   kp <- plotKaryotype(chromosomes="chr1")
   kpDataBackground(kp, color = cn.cols["2"], r0=0.3)
-  plotCopyNumberCalls(kp, cn.calls, loh.height = 0, r0=0.3)
-  plotCopyNumberSummary(kp, cn.calls, r1=0.25)
+  #plotCopyNumberCalls(kp, cn.calls, loh.height = 0, r0=0.3)
+  #plotCopyNumberSummary(kp, cn.calls, r1=0.25)
 ```
 
 And we can change the appearance of the summary using the `direction` parameter.
@@ -581,8 +581,8 @@ And we can change the appearance of the summary using the `direction` parameter.
   cn.cols <- getCopyNumberColors(colors = "green_orange_red")
   kp <- plotKaryotype(chromosomes="chr1")
   kpDataBackground(kp, color = cn.cols["2"], r0=0.3)
-  plotCopyNumberCalls(kp, cn.calls, loh.height = 0, r0=0.3)
-  plotCopyNumberSummary(kp, cn.calls, r1=0.25, direction = "out")
+  #plotCopyNumberCalls(kp, cn.calls, loh.height = 0, r0=0.3)
+  #plotCopyNumberSummary(kp, cn.calls, r1=0.25, direction = "out")
 ```
 
 # Session Info
