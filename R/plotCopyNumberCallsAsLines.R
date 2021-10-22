@@ -36,20 +36,20 @@
 #' cncalls <- loadCopyNumberCalls(cncalls.file)
 #'
 #' kp <- plotKaryotype("hg19")
-#' plotCopyNumberCallsAsLines(kp, cncalls)
+#' #plotCopyNumberCallsAsLines(kp, cncalls)
 #'
 #' kp <- plotKaryotype("hg19", chromosomes="chr3")
 #' plotCopyNumberCalls(kp, cncalls, r0=0, r1=0.2)
-#' plotCopyNumberCallsAsLines(kp, cncalls, r0=0.25, r1=0.55)
-#' plotCopyNumberCallsAsLines(kp, cncalls, r0=0.65, r1=0.95, style="segments", col="red", ymin=0, ymax=4, numticks=3)
+#' #plotCopyNumberCallsAsLines(kp, cncalls, r0=0.25, r1=0.55)
+#' #plotCopyNumberCallsAsLines(kp, cncalls, r0=0.65, r1=0.95, style="segments", col="red", ymin=0, ymax=4, numticks=3)
 #'
 #' kp <- plotKaryotype("hg19")
-#' plotCopyNumberCallsAsLines(kp, cncalls, r0=0.2, r1=0.4, style="segments", add.axis=FALSE, labels="CopyNumber")
+#' #plotCopyNumberCallsAsLines(kp, cncalls, r0=0.2, r1=0.4, style="segments", add.axis=FALSE, labels="CopyNumber")
 #'
 #' #List of GRanges
 #' cncalls.list <- list(s1=cncalls, s2 =cncalls)
 #' kp <- plotKaryotype("hg19")
-#' plotCopyNumberCallsAsLines(kp, cncalls.list,style="segments", add.axis=FALSE)
+#' #plotCopyNumberCallsAsLines(kp, cncalls.list,style="segments", add.axis=FALSE)
 #'
 #' @export plotCopyNumberCallsAsLines
 #'
