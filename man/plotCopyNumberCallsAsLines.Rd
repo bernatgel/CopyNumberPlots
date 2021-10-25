@@ -57,7 +57,7 @@ kp <- plotKaryotype("hg19")
 #plotCopyNumberCallsAsLines(kp, cncalls)
 
 kp <- plotKaryotype("hg19", chromosomes="chr3")
-plotCopyNumberCalls(kp, cncalls, r0=0, r1=0.2)
+#plotCopyNumberCalls(kp, cncalls, r0=0, r1=0.2)
 #plotCopyNumberCallsAsLines(kp, cncalls, r0=0.25, r1=0.55)
 #plotCopyNumberCallsAsLines(kp, cncalls, r0=0.65, r1=0.95, style="segments", col="red", ymin=0, ymax=4, numticks=3)
 
