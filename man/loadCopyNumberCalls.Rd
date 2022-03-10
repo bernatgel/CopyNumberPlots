@@ -4,7 +4,7 @@
 \alias{loadCopyNumberCalls}
 \title{loadCopyNumberCalls}
 \usage{
-loadCopyNumberCalls(cnv.data, chr.col = NULL, start.col = NULL, end.col = NULL, cn.col = NULL, loh.col = NULL, segment.value.col = NULL, zero.based = FALSE, genome = NULL, verbose = TRUE)
+loadCopyNumberCalls(cnv.data, chr.col = NULL, start.col = NULL, end.col = NULL, cn.col = NULL, loh.col = NULL, segment.value.col = NULL, genome = NULL, zero.based = FALSE, verbose = TRUE)
 }
 \arguments{
 \item{cnv.data}{Either the name of the file with the data or a variable containing the data}

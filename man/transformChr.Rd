@@ -31,7 +31,7 @@ https://cnvkit.readthedocs.io/en/stable/importexport.html#import-seg,
 }
 \examples{
 seg.file <- system.file("extdata", "DNACopy_output.seg", package = "CopyNumberPlots", mustWork = TRUE)
-seg.data <- read.table(file = seg.file, sep = "\\t", skip = 1, stringsAsFactors = FALSE)
+seg.data <- read.table(file = seg.file, sep = "\t", skip = 1, stringsAsFactors = FALSE)
 colnames(seg.data) <-  c("ID", "chrom", "loc.start", "loc.end", "num.mark", "seg.mean")
 
 # here we have the name of the chromosomes in a number format and how many segments are in each one.

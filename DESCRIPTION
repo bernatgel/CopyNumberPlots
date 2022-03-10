@@ -1,7 +1,7 @@
 Package: CopyNumberPlots
 Type: Package
 Title: Create Copy-Number Plots using karyoploteR functionality
-Version: 1.3.3
+Version: 1.11.0
 Author: Bernat Gel <bgel@igtp.cat> and Miriam Magallon <mmagallon@igtp.cat>
 Maintainer: Bernat Gel <bgel@igtp.cat>
 Description: CopyNumberPlots have a set of functions extending karyoploteRs functionality to create beautiful, customizable and flexible plots of copy-number related data.
@@ -24,6 +24,7 @@ Imports:
 Suggests:
     BiocStyle,
     knitr,
+    rmarkdown,
     panelcn.mops,
     BSgenome.Hsapiens.UCSC.hg19.masked,
     DNAcopy,
@@ -35,4 +36,4 @@ Encoding: UTF-8
 VignetteBuilder: knitr
 biocViews: Visualization, CopyNumberVariation, Coverage, OneChannel, DataImport, Sequencing, DNASeq
 LazyData: false
-RoxygenNote: 7.0.0
+RoxygenNote: 7.1.1

@@ -11,7 +11,7 @@
 #' If no column names are specified, it will use simple heuristics to try to
 #' identify the relevant data columns.
 #'
-#' @usage loadCopyNumberCalls(cnv.data, chr.col = NULL, start.col = NULL, end.col = NULL, cn.col = NULL, loh.col = NULL, segment.value.col = NULL, zero.based = FALSE, genome = NULL, verbose = TRUE)
+#' @usage loadCopyNumberCalls(cnv.data, chr.col = NULL, start.col = NULL, end.col = NULL, cn.col = NULL, loh.col = NULL, segment.value.col = NULL, genome = NULL, zero.based = FALSE, verbose = TRUE)
 #'
 #' @param cnv.data Either the name of the file with the data or a variable containing the data
 #' @param chr.col (number or character) The name or number of the column with chromosome information. If NULL, it is automatically identified. (defaults to NULL)
@@ -36,7 +36,7 @@
 #'
 #' @export loadCopyNumberCalls
 #'
-#' @importFrom GenomicRanges mcols
+#' @importFrom GenomicRanges mcols start
 #' 
 
 loadCopyNumberCalls <- function(cnv.data,
@@ -115,8 +115,10 @@ loadCopyNumberCalls <- function(cnv.data,
     if(!is.null(segment.value.col)) names(GenomicRanges::mcols(segs))[segment.value.col] <- "segment.value"
     
     #If segs ranges of data is zero.based
-    if(isTRUE(zero.based)) GenomicRanges::start(segs)<- GenomicRanges::start(segs)+1
+    if(isTRUE(zero.based)) start(segs)<- start(segs)+1
     
 
   return(segs)
 }
+
+    if(isTRUE(zero.based)) GenomicRanges::start(segs)<- GenomicRanges::start(segs)+1

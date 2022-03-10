@@ -56,16 +56,16 @@
 #' s2.calls <- loadCopyNumberCalls(s2.calls.file)
 #'
 #' kp <- plotKaryotype(chromosomes="chr1")
-#' plotCopyNumberCalls(kp, s1.calls)
+#' #plotCopyNumberCalls(kp, s1.calls)
 #'
 #' kp <- plotKaryotype(chromosomes="chr1")
-#' plotCopyNumberCalls(kp, s1.calls, cn.colors="red_blue")
+#' #plotCopyNumberCalls(kp, s1.calls, cn.colors="red_blue")
 #' 
 #' #List of GRanges
 #' cn.calls <- list(s1=s1.calls, s2 =s2.calls)
 #' 
 #' kp <-plotKaryotype(chromosomes="chr1")
-#' plotCopyNumberCalls(kp, cn.calls, cn.colors="red_blue")
+#' #plotCopyNumberCalls(kp, cn.calls, cn.colors="red_blue")
 #'
 #' @export plotCopyNumberCalls
 #'
