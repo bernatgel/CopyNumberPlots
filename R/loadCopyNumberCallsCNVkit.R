@@ -102,7 +102,7 @@ loadCopyNumberCallsCNVkit <- function(cnvkit.file,
                               zero.based = zero.based,
                               verbose = verbose)
   
-  names(mcols(segs))[names(mcols(segs)) == "segment.value"]<- chng.segment.col.name
+  names(GenomicRanges::mcols(segs))[names(GenomicRanges::mcols(segs)) == "segment.value"]<- chng.segment.col.name
   
   
   return(segs)
