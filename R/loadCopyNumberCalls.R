@@ -115,8 +115,9 @@ loadCopyNumberCalls <- function(cnv.data,
     if(!is.null(segment.value.col)) names(GenomicRanges::mcols(segs))[segment.value.col] <- "segment.value"
     
     #If segs ranges of data is zero.based
-    if(isTRUE(zero.based)) GenomicRanges::start(segs)<- GenomicRanges::start(segs)+1
+    if(isTRUE(zero.based)) GenomicRanges::start(segs) <- GenomicRanges::start(segs)+1
     
 
   return(segs)
 }
+

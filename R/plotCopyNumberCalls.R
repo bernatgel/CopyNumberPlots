@@ -110,13 +110,13 @@ plotCopyNumberCalls <- function(karyoplot, cn.calls, cn.values=NULL, cn.column="
   }
   
   if(is.null(cn.values)) { 
-    if(length(mcols(cn.calls))==0) stop("No cn.values given and cn.calls has no associated copy number data") 
+    if(length(GenomicRanges::mcols(cn.calls))==0) stop("No cn.values given and cn.calls has no associated copy number data") 
     #If no name for the copy number column was specified, use the first one 
     if(is.null(cn.column)) { 
-      cn.values <- names(mcols(cn.calls))[1] 
+      cn.values <- names(GenomicRanges::mcols(cn.calls))[1] 
     } else { 
-      if(!(cn.column %in% names(mcols(cn.calls)))) stop("The cn.calls object does not have a column ", cn.column, ". No copy number data is available") 
-      cn.values <- mcols(cn.calls)[, cn.column] 
+      if(!(cn.column %in% names(GenomicRanges::mcols(cn.calls)))) stop("The cn.calls object does not have a column ", cn.column, ". No copy number data is available") 
+      cn.values <- GenomicRanges::mcols(cn.calls)[, cn.column] 
     } 
   } 
   

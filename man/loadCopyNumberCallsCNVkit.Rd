@@ -4,7 +4,7 @@
 \alias{loadCopyNumberCallsCNVkit}
 \title{loadCopyNumberCallsCNVkit}
 \usage{
-loadCopyNumberCallsCNVkit(cnvkit.file, chr.col = "chromosome", start.col = "start", end.col = "end", segment.value.col = "log2", cn.col = NULL, zero.based = TRUE, genome = NULL, verbose = TRUE)
+loadCopyNumberCallsCNVkit(cnvkit.file, chr.col = "chromosome", start.col = "start", end.col = "end", segment.value.col = "log2", file.type = "auto", cn.col = NULL, zero.based = TRUE, genome = NULL, verbose = TRUE)
 }
 \arguments{
 \item{cnvkit.file}{The name of the file with the data}
@@ -16,6 +16,8 @@ loadCopyNumberCallsCNVkit(cnvkit.file, chr.col = "chromosome", start.col = "star
 \item{end.col}{(number or character) The name or number of the column with end position information. If NULL, it is automatically identified. (defaults to "end")}
 
 \item{segment.value.col}{(number or character) The name or number of the column with segment value. If NULL, it is automatically identified. (defaults to "log2")}
+
+\item{file.type}{(character) wheter to load ".cns", ".cnr" or "auto" if the file type is automatically recognised. (defaults to "auto)}
 
 \item{cn.col}{(number or character) The name or number of the column with CN information. If NULL, it is automatically identified. (defaults to NULL)}
 
@@ -32,7 +34,7 @@ A GRanges with a range per copy number segment.
 Loads copy number calls from CNVkit.cns file format
 }
 \details{
-This function will load segments data from CNVkit.cns file format. 
+This function will load segments data from CNVkit.cns file format and from CNVkit.cnr. 
 Internally it uses the \code{toGRanges} function from regioneR
 package and can work with any format accepted by it, including R objects
 and local or remote files. 
@@ -43,7 +45,12 @@ identify the relevant data columns.
 ## loadCopyNumberCallsCNVkit from .cns file format:
 ## An example of .cns file format is found at https://github.com/etal/cnvkit/blob/master/test/formats/cl_seq.cns.
 
+# Loading a CNVkit.cns file 
 cnvkit.file <- system.file("extdata", "CNVkit_output.cns", package = "CopyNumberPlots", mustWork = TRUE)
+cnv.call <- loadCopyNumberCallsCNVkit(cnvkit.file)
+
+# Loading a CNVkit.cnr file
+cnvkit.file <- system.file("extdata", "CNVkit_output.cnr", package = "CopyNumberPlots", mustWork = TRUE)
 cnv.call <- loadCopyNumberCallsCNVkit(cnvkit.file)
 
 }
