@@ -121,4 +121,3 @@ loadCopyNumberCalls <- function(cnv.data,
   return(segs)
 }
 
-    if(isTRUE(zero.based)) GenomicRanges::start(segs)<- GenomicRanges::start(segs)+1
