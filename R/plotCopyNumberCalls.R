@@ -123,7 +123,7 @@ plotCopyNumberCalls <- function(karyoplot, cn.calls, cn.values=NULL, cn.column="
   # loh values
   if(is.null(loh.values)) {
     if(loh.column %in% names(GenomicRanges::mcols(cn.calls))){
-      loh.values <- cn.calls[,loh.column]
+      loh.values <- GenomicRanges::mcols(cn.calls)[,loh.column]
      }
   }
   
