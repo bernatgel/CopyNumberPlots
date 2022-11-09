@@ -98,9 +98,9 @@ plotCopyNumberCalls <- function(karyoplot, cn.calls, cn.values=NULL, cn.column="
   #use toGRanges to build a GRanges if cn.calls was anything else
   cn.calls <- regioneR::toGRanges(cn.calls)
   
-  if(is.null(labels)) labels <- "CN"
+  if(any(is.null(labels))) labels <- "CN"
   
-  if(!is.null(labels) && !is.na(labels) && all(is.character(labels) && length(labels)>0)) {
+  if(!any(is.na(labels)) && all(is.character(labels) && length(labels)>0)) {
     if(length(labels)==1) {
       karyoploteR::kpAddLabels(karyoplot, labels = labels[1], r0=r0, r1=r1, cex=label.cex, ...)
     } else { #If there are two labels, use the first one for the CN track an the second one for the LOH track
@@ -109,10 +109,10 @@ plotCopyNumberCalls <- function(karyoplot, cn.calls, cn.values=NULL, cn.column="
     }
   }
   
-  if(is.null(cn.values)) { 
+  if(any(is.null(cn.values))) { 
     if(length(GenomicRanges::mcols(cn.calls))==0) stop("No cn.values given and cn.calls has no associated copy number data") 
     #If no name for the copy number column was specified, use the first one 
-    if(is.null(cn.column)) { 
+    if(any(is.null(cn.column))) { 
       cn.values <- names(GenomicRanges::mcols(cn.calls))[1] 
     } else { 
       if(!(cn.column %in% names(GenomicRanges::mcols(cn.calls)))) stop("The cn.calls object does not have a column ", cn.column, ". No copy number data is available") 
@@ -121,13 +121,15 @@ plotCopyNumberCalls <- function(karyoplot, cn.calls, cn.values=NULL, cn.column="
   } 
   
   # loh values
-  if(is.null(loh.values)) {
+  if(any(is.null(loh.values))) {
     if(loh.column %in% names(GenomicRanges::mcols(cn.calls))){
       loh.values <- GenomicRanges::mcols(cn.calls)[,loh.column]
-     }
+    } else {
+      stop("loh.values was not provided and the loh.column (", loh.column, ") was not in the cn.calls table")
+    }
   }
   
-  if (!is.null(loh.values)){
+  if (!all(is.null(loh.values))) {
     if(!is.logical(loh.values)) loh.values <- tryCatch(as.logical(loh.values))
     #convert loh=NA to no LOH
     loh.values[is.na(loh.values)] <- FALSE
